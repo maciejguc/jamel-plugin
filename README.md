@@ -1,70 +1,34 @@
-# jamel-wycena — plugin „ELA Wycena" dla Claude Code
+# JAMEL — Claude Code marketplace
 
-Niezależny od aplikacji ELA plugin do Claude Code, który automatyzuje tworzenie wycen agencyjnych
-(IT i Marketing) i renderuje finalny plik **`.xlsx` identyczny strukturalnie i stylistycznie** z
-wycenami z ELA — z logo, czcionkami, kolorami, ramkami i formułami włącznie.
+Repozytorium jest **marketplace'em** Claude Code (`name: "jamel"`) hostującym pluginy agencji JAMEL.
 
-W tym pluginie **to Claude jest „LLM-em"**: prowadzi rozmowę, dopytuje o brakujące informacje i sam
-produkuje pozycje wyceny (`line_items`) wg promptów ELA. Skrypt Python (`openpyxl`, bez Django) robi
-tylko deterministyczną część: porządkowanie pozycji, rozwiązanie stawek, render `.xlsx` z bundlowanego
-szablonu.
-
-## Co jest w środku
-
-```
-.claude-plugin/plugin.json     # manifest pluginu
-skills/generate-wycena/        # rdzeń: persona estymatora + workflow
-commands/wycena.md             # slash-command /wycena
-hooks/hooks.json               # SessionStart: bootstrap venv (+ nudge na „wycena")
-scripts/
-  generate_wycena_xlsx.py      # port: ordering + rates + render (openpyxl)
-  requirements.txt             # openpyxl, pillow, pytest
-  tests/                       # TDD: golden render vs ELA + testy warstwy danych
-assets/
-  estimate_template.xlsx       # KOPIA 1:1 szablonu z ELA (źródło całego stylu)
-  prompts/                     # prompt_it.md, prompt_marketing.md
-reference/line-item-schema.json # kontrakt danych wejściowych
+```text
+.claude-plugin/marketplace.json   # manifest marketplace'u (2 pluginy + allowCrossMarketplaceDependenciesOn)
+jamel-wycena/                     # plugin: automatyzacja wyceny → .xlsx identyczny z ELA
+jamel-devx/                       # plugin: plug-and-play dev experience dla zespołu
 ```
 
-## Instalacja
+## Pluginy
 
-Plugin jest samodzielnym katalogiem z własnym repozytorium git. Aby zainstalować w Claude Code:
+| Plugin | Opis | Wejście |
+|---|---|---|
+| **jamel-wycena** | Wycena projektu IT/Marketing w stylu ELA, render pixel-identycznego `.xlsx`. | `/wycena` |
+| **jamel-devx** | Wspólne ustawienia + statusline, RTK, ClickUp MCP, kuratorowane auto-updatujące pluginy. | `/jamel-setup` |
 
-```bash
-claude plugin install /Users/maciejguc/Documents/Coding/CLI/jamel/jamel-plugin
+## Szybki start
+
+```text
+/plugin marketplace add maciejguc/jamel-plugin
+/plugin install jamel-devx@jamel      # DevX bundle (pociąga superpowers, frontend-design, code-review, context7)
+/plugin install jamel-wycena@jamel    # generator wycen
+/jamel-setup                          # konfiguracja zespołowa
 ```
 
-lub dodaj katalog jako lokalne marketplace / wpisz go do konfiguracji pluginów Claude Code.
+Szczegóły: [`jamel-devx/README.md`](jamel-devx/README.md) i [`jamel-wycena/README.md`](jamel-wycena/README.md).
 
-Przy starcie sesji **SessionStart hook** tworzy `scripts/.venv` i instaluje zależności (idempotentnie),
-więc generator zawsze ma `openpyxl`/`pillow`.
+## Strategia aktualizacji
 
-## Użycie
-
-1. Uruchom `/wycena` (albo poproś o „wycenę" — skill `generate-wycena` aktywuje się sam).
-2. Wskaż profil **IT** lub **Marketing**.
-3. Odpowiedz na pytania doprecyzowujące (Claude nie zgaduje przy brakach).
-4. Otrzymujesz plik `.xlsx` + podsumowanie **Część A (dla klienta)** / **Część B (komentarz wewnętrzny)**.
-
-### Uruchomienie generatora ręcznie (CLI)
-
-```bash
-./scripts/.venv/bin/python scripts/generate_wycena_xlsx.py input.json -o wycena.xlsx
-```
-
-Kształt `input.json` opisuje [`reference/line-item-schema.json`](reference/line-item-schema.json).
-
-## Testy
-
-```bash
-./scripts/.venv/bin/pytest scripts/tests/
-```
-
-Testy obejmują m.in. **golden render** — ten sam zestaw pozycji przepuszczony przez oryginalny
-generator ELA i przez port musi dać identyczne komórki (wartości + formuły).
-
-## Roadmapa (v2)
-
-Struktura katalogów przewiduje kolejne skille bez przebudowy — dochodzą tylko foldery w `skills/`:
-`research`, `generate-spec`, `brief`. Opcjonalnie: serwer MCP eksponujący `generate_wycena_xlsx` jako
-narzędzie reużywalne.
+Marketplace JAMEL utrzymuje **wyłącznie** pluginy first-party (`jamel-wycena`, `jamel-devx`). Narzędzia
+zewnętrzne są dołączane jako `dependencies` rozwiązywane z ich **oryginalnych** marketplace'ów
+(`claude-plugins-official`, `openai-codex`) — dzięki czemu aktualizują się ze źródła, bez forków i bez
+ręcznego utrzymania. First-party pluginy używają commit-SHA versioning (każdy push = nowa wersja).

@@ -26,9 +26,11 @@ import pytest
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent
 PLUGIN_DIR = SCRIPTS_DIR.parent
+# Repo root (marketplace dir) is the parent of the jamel-wycena plugin dir; ELA lives beside the repo.
+REPO_ROOT = PLUGIN_DIR.parent
 TEMPLATE_PATH = PLUGIN_DIR / "assets" / "estimate_template.xlsx"
 ELA_GENERATOR = (
-    PLUGIN_DIR.parent
+    REPO_ROOT.parent
     / "ela" / "backend" / "apps" / "estimates" / "xlsx_generator.py"
 )
 

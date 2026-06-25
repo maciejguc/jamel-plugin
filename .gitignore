@@ -1,9 +1,9 @@
 # Python
-scripts/.venv/
+**/scripts/.venv/
 __pycache__/
 *.pyc
 .pytest_cache/
 
 # Generated estimates — ignore all xlsx except the bundled template
 *.xlsx
-!assets/estimate_template.xlsx
+!jamel-wycena/assets/estimate_template.xlsx

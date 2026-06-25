@@ -3,10 +3,23 @@
   "owner": {
     "name": "jamel.pl"
   },
+  "metadata": {
+    "description": "JAMEL agency Claude Code marketplace: estimate automation (wycena) + a plug-and-play dev experience that pulls in curated, auto-updating tooling."
+  },
+  "allowCrossMarketplaceDependenciesOn": [
+    "claude-plugins-official",
+    "openai-codex"
+  ],
   "plugins": [
     {
       "name": "jamel-wycena",
-      "source": "."
+      "source": "./jamel-wycena",
+      "description": "ELA-style estimate (\"Wycena\") automation: gathers requirements, generates line items (IT/Marketing) and renders a pixel-identical .xlsx."
+    },
+    {
+      "name": "jamel-devx",
+      "source": "./jamel-devx",
+      "description": "Plug-and-play JAMEL dev experience: shared settings + statusline, RTK token compression, ClickUp MCP, and curated auto-updating plugins."
     }
   ]
 }
