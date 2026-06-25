@@ -1,0 +1,12 @@
+{
+  "name": "jamel",
+  "owner": {
+    "name": "jamel.pl"
+  },
+  "plugins": [
+    {
+      "name": "jamel-wycena",
+      "source": "."
+    }
+  ]
+}
