@@ -7,7 +7,7 @@ Działa cross-platform (macOS / Linux / Windows).
 
 - **Kompresja tokenów (dwie komplementarne warstwy)**:
   - **RTK** — kompresuje **output komend Bash** (60–90% mniej tokenów). Instalowany i integrowany przez
-    `/jamel-setup` (cross-platform: `brew` / `winget` / `cargo`, integracja `rtk init -g`).
+    `/jamel-setup` (`brew install rtk` + `rtk init -g`; fallback `cargo`).
   - **caveman** — skraca **odpowiedzi modelu** i opisy narzędzi MCP. Instalowany przez `/jamel-setup`
     (`npx -y github:JuliusBrussee/caveman`). Inna warstwa niż RTK → bez konfliktu.
 - **ClickUp MCP** — `.mcp.json` (`https://mcp.clickup.com/mcp`, HTTP + OAuth). Login własnym kontem przez
@@ -36,14 +36,15 @@ Działa cross-platform (macOS / Linux / Windows).
 oraz `~/.claude/CLAUDE.md`. **Nie dotyka sekretów ani konfiguracji MCP/permissions usera** (np. `pencil`
 zostaje prywatne).
 
-## Cross-platform
+## Cross-platform (Homebrew everywhere)
 
-- **Hooki**: SessionStart welcome to skrypt Node (`hooks/welcome.mjs`) uruchamiany w exec-form (bez
-  shella) → działa na mac/Linux/Windows. RTK celowo **nie** jest shipowany jako surowy POSIX-hook (psułby
-  się pod Windows PowerShell) — integrację robi vendorowe `rtk init -g`.
-- **Instalacje**: package-manager per platforma — `brew` (mac/Linux), `winget` (Windows), `cargo`/`npx`
-  jako fallback. Homebrew bootstrapowany tylko na mac/Linux i tylko za zgodą.
-- **Statusline**: bash+`jq`; na Windows wymaga Git Bash + `jq` (`winget install jqlang.jq`).
+- **Package manager**: zespół standaryzuje na **Homebrew** — `brew` na macOS/Linux, a na **Windows przez
+  WSL** (brew nie ma natywnego wsparcia Windows). Jedna, spójna ścieżka instalacji i aktualizacji
+  (`brew upgrade`). Wyjątek: caveman przez `npx` (nie ma go w brew; Node z `brew install node`).
+- **Hooki**: SessionStart welcome to skrypt Node (`hooks/welcome.mjs`) w exec-form (bez shella) → działa
+  wszędzie. RTK celowo **nie** jest shipowany jako surowy hook — integrację robi vendorowe `rtk init -g`.
+- **Statusline**: bash+`jq` (`brew install jq`); na Windows działa w WSL tak samo jak na macOS/Linux.
+- **Windows**: uruchamiaj Claude Code i `/jamel-setup` **w powłoce WSL** (Ubuntu).
 
 ## Aktualizacje
 

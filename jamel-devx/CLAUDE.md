@@ -22,9 +22,9 @@
   `jamel-devx`) → 60–90% oszczędności tokenów. Nie trzeba nic robić ręcznie.
 - Meta-komendy używaj wprost: `rtk gain` (analytics), `rtk gain --history`, `rtk discover`,
   `rtk proxy <cmd>` (surowa komenda bez filtrowania, do debugowania).
-- Weryfikacja: `rtk --version`, `which rtk` (Win: `where rtk`). Instalacja (cross-platform):
-  `brew install rtk` (mac/Linux), `winget install rtk-ai.rtk` (Windows), `cargo install --git
-  https://github.com/rtk-ai/rtk` (fallback). Integracja z Claude Code: `rtk init -g`.
+- Weryfikacja: `rtk --version`, `which rtk`. Instalacja: `brew install rtk` (mac/Linux/WSL; fallback
+  `cargo install --git https://github.com/rtk-ai/rtk`). Integracja z Claude Code: `rtk init -g`.
+- Package manager zespołu: **Homebrew wszędzie**. Windows → przez **WSL** (brew nie ma natywnego Windows).
 - ⚠️ Kolizja nazw: jeśli `rtk gain` nie działa, możesz mieć inny `rtk` (Rust Type Kit) w PATH.
 
 ## caveman — kompresja odpowiedzi modelu

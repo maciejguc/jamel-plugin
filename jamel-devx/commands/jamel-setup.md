@@ -17,8 +17,10 @@ idempotent, cross-platform, and ask for confirmation before writing or installin
 - Read `~/.claude/settings.json` first. Compute a merged result. **Show a concise diff and ask for
   confirmation before writing.** Skip keys the user already set differently unless they agree to override.
 - Idempotent: running twice changes nothing the second time.
-- **Detect the OS** and pick the right package manager (see step 3). Prefer a package manager over raw
-  `curl | bash`.
+- **Package manager: Homebrew everywhere.** JAMEL standardizes on `brew` for all installable deps
+  (macOS, Linux, and Windows **via WSL** — Homebrew has no native Windows support). On Windows, Claude
+  Code and this setup are expected to run inside a WSL shell. The only thing not from brew is caveman
+  (a GitHub npm package), installed via `npx`.
 
 ## Steps
 
@@ -31,52 +33,49 @@ Add/ensure exactly these keys (do not remove unrelated user keys, do not add MCP
   "tui": "fullscreen",
   "editorMode": "normal",
   "spinnerTipsEnabled": false,
-  "agentPushNotifEnabled": true,
+  "agentPushNotifEnabled": false,
   "remoteControlAtStartup": false
 }
 ```
-Note: do **not** force `skipAutoPermissionPrompt` — mention it as an optional opt-in (it reduces
-permission friction but lowers a safety gate).
+Note: do **not** set `skipAutoPermissionPrompt` here. It is undocumented and lowers a permission/
+confirmation gate, so it must stay an individual, conscious opt-in — never a team default. If a user
+asks, explain it and let them add it to their own settings themselves.
 
 ### 2. Statusline
 - Copy `${CLAUDE_PLUGIN_ROOT}/assets/jamel-statusline.sh` to `~/.claude/jamel-statusline.sh` and make it
   executable. Do NOT point settings at `${CLAUDE_PLUGIN_ROOT}` (it changes on every plugin update).
 - Set: `{ "statusLine": { "type": "command", "command": "~/.claude/jamel-statusline.sh" } }`.
-- The script needs `jq`. Install if missing: macOS `brew install jq`, Linux `apt/dnf install jq`,
-  Windows `winget install jqlang.jq`. On Windows the script needs **Git Bash** (the statusline runs via
-  Git Bash; warn the user if it isn't present).
+- The script needs `jq`: `brew install jq` if missing (confirm first). On Windows this runs in WSL, so
+  the same `brew install jq` applies and the bash statusline works as on macOS/Linux.
 
 ### 3. RTK (compress Bash command output, 60–90% fewer tokens)
-RTK is `rtk-ai/rtk` and is cross-platform. Install the binary, then run its own integration installer
-(it writes a platform-correct Claude Code hook itself — we deliberately do **not** ship a raw shell hook
-in the plugin, because a POSIX guard would break under Windows PowerShell).
-1. If `rtk` is missing, install with the platform package manager (confirm first):
-   - **macOS / Linux**: `brew install rtk`
-   - **Windows**: `winget install rtk-ai.rtk`
-   - **Fallback (any OS with Rust)**: `cargo install --git https://github.com/rtk-ai/rtk`
+RTK is `rtk-ai/rtk`. Install the binary via brew, then run its own integration installer (it writes the
+Claude Code hook itself — we deliberately do **not** ship a raw shell hook in the plugin).
+1. If `rtk` is missing: `brew install rtk` (confirm first). Fallback if Rust is present but brew can't
+   provide it: `cargo install --git https://github.com/rtk-ai/rtk`.
 2. Run `rtk init -g` (installs/refreshes RTK's Claude Code hook globally; idempotent).
 3. Verify: `rtk --version` and `rtk gain`. Confirm it's the Token Killer (not "Rust Type Kit").
 4. **De-duplicate:** if `~/.claude/settings.json` already has a manual `PreToolUse` hook running
-   `rtk hook claude` (the user added one by hand) AND `rtk init -g` added its own, offer to remove the
-   manual one so RTK doesn't run twice per Bash call.
+   `rtk hook claude` AND `rtk init -g` added its own, offer to remove the manual one so RTK doesn't run
+   twice per Bash call.
 
 ### 4. Caveman (compress model output + tool descriptions — complementary to RTK, no conflict)
 Caveman shrinks Claude's *responses* and MCP tool descriptions; RTK shrinks *Bash output*. Different
-layers, safe together. It is not a Claude Code plugin, so install via npm (cross-platform, needs Node ≥18):
-- `npx -y github:JuliusBrussee/caveman` (with confirmation).
+layers, safe together. Not a Claude Code plugin, and not in Homebrew, so install via npm (needs Node ≥18):
+- Ensure Node: `brew install node` if `node` is missing (confirm).
+- `npx -y github:JuliusBrussee/caveman` (confirm).
 - After install, mention the commands: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`,
   `/caveman-stats`, `/caveman-compress <file>`.
 
-### 5. Homebrew bootstrap (only if needed, only on macOS/Linux)
-If a step above wants `brew` and it is missing:
-- **macOS/Linux**: offer to install Homebrew via the official installer (this one legitimately uses the
-  official `curl` script — there is no package manager to install the package manager):
+### 5. Homebrew bootstrap (if `brew` is missing)
+Everything above assumes `brew`. If it is missing:
+- **macOS / Linux / WSL**: offer to install Homebrew via the official installer (the one place a `curl`
+  bootstrap is justified — there is no package manager to install the package manager):
   `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`.
-  Confirm first; after install, remind the user to add brew to PATH if the installer asks.
-- **Windows**: do **not** install Homebrew — use `winget` (built into modern Windows) instead, as shown
-  in step 3. If a tool isn't on winget, fall back to `cargo`/`npx`.
-Recommendation: prefer `winget` (Windows) / `brew` (mac) / `cargo`/`npx` fallbacks; bootstrap Homebrew
-only on mac/Linux and only with explicit consent.
+  Confirm first; afterwards remind the user to add brew to PATH if the installer asks.
+- **Native Windows (no WSL)**: Homebrew is not supported. Tell the user to set up WSL (Ubuntu) and run
+  Claude Code + `/jamel-setup` from inside WSL. Do not fall back to other managers — JAMEL standardizes
+  on brew-via-WSL for a single, consistent toolchain.
 
 ### 6. Marketplaces + curated plugins
 - The 4 curated plugins (superpowers, frontend-design, code-review, context7) are hard dependencies of
