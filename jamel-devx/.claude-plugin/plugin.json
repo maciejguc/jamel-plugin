@@ -1,10 +1,10 @@
 {
   "name": "jamel-devx",
-  "description": "Plug-and-play JAMEL agency dev experience for Claude Code: RTK token compression, ClickUp MCP, shared team settings + statusline (via /jamel-setup), and curated auto-updating plugins pulled in as dependencies.",
+  "description": "Plug-and-play JAMEL agency dev experience for Claude Code: token compression (RTK + caveman), ClickUp MCP, shared team settings + statusline (via /jamel-setup), Polish onboarding (/jamel-tour), and curated auto-updating plugins pulled in as dependencies. Cross-platform.",
   "author": {
     "name": "jamel.pl"
   },
-  "keywords": ["jamel", "agency", "devx", "rtk", "clickup", "setup"],
+  "keywords": ["jamel", "agency", "devx", "rtk", "caveman", "clickup", "setup", "onboarding"],
   "dependencies": [
     { "name": "superpowers", "marketplace": "claude-plugins-official" },
     { "name": "frontend-design", "marketplace": "claude-plugins-official" },

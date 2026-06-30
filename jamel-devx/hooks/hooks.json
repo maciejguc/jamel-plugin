@@ -1,12 +1,12 @@
 {
   "hooks": {
-    "PreToolUse": [
+    "SessionStart": [
       {
-        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "command -v rtk >/dev/null 2>&1 && exec rtk hook claude || exit 0"
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/welcome.mjs"]
           }
         ]
       }
