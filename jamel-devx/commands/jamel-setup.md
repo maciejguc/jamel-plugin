@@ -10,11 +10,16 @@ so they must be written into the user's settings, or installed via a package man
 idempotent, cross-platform, and ask for confirmation before writing or installing.**
 
 ## Rules
+- **Resolve the config directory FIRST and use it for every path below.** Claude Code honors
+  `CLAUDE_CONFIG_DIR` (sandbox/multi-profile testing); the config dir is:
+  `CFG="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"`. Run `echo "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"` once and
+  target **that** directory. **Never hard-code `~/.claude`** — otherwise sandbox testing silently writes
+  to the real profile. Below, `$CFG` means the resolved directory.
 - **Never** read, print, or modify any secrets/tokens (`.credentials.json`, OAuth caches).
 - **Only** touch the settings keys listed in step 1. **Do NOT copy or add any MCP server config or
-  `permissions` into `~/.claude/settings.json`** — in particular leave the user's personal `pencil` MCP
-  and `mcp__pencil` permission untouched. The plugin ships its own MCP (ClickUp) separately.
-- Read `~/.claude/settings.json` first. Compute a merged result. **Show a concise diff and ask for
+  `permissions` into `$CFG/settings.json`** — in particular leave the user's personal `pencil` MCP and
+  `mcp__pencil` permission untouched. The plugin ships its own MCP (ClickUp) separately.
+- Read `$CFG/settings.json` first. Compute a merged result. **Show a concise diff and ask for
   confirmation before writing.** Skip keys the user already set differently unless they agree to override.
 - Idempotent: running twice changes nothing the second time.
 - **Package manager: Homebrew everywhere.** JAMEL standardizes on `brew` for all installable deps
@@ -24,7 +29,7 @@ idempotent, cross-platform, and ask for confirmation before writing or installin
 
 ## Steps
 
-### 1. Shared settings (merge into `~/.claude/settings.json`)
+### 1. Shared settings (merge into `$CFG/settings.json`)
 Add/ensure exactly these keys (do not remove unrelated user keys, do not add MCP/permissions):
 ```json
 {
@@ -42,9 +47,11 @@ confirmation gate, so it must stay an individual, conscious opt-in — never a t
 asks, explain it and let them add it to their own settings themselves.
 
 ### 2. Statusline
-- Copy `${CLAUDE_PLUGIN_ROOT}/assets/jamel-statusline.sh` to `~/.claude/jamel-statusline.sh` and make it
+- Copy `${CLAUDE_PLUGIN_ROOT}/assets/jamel-statusline.sh` to `$CFG/jamel-statusline.sh` and make it
   executable. Do NOT point settings at `${CLAUDE_PLUGIN_ROOT}` (it changes on every plugin update).
-- Set: `{ "statusLine": { "type": "command", "command": "~/.claude/jamel-statusline.sh" } }`.
+- Set `statusLine.command` to the **absolute** resolved path of `$CFG/jamel-statusline.sh` (e.g.
+  `/Users/you/.claude/jamel-statusline.sh`, or the sandbox path under `CLAUDE_CONFIG_DIR`):
+  `{ "statusLine": { "type": "command", "command": "<abs path to $CFG/jamel-statusline.sh>" } }`.
 - The script needs `jq`: `brew install jq` if missing (confirm first). On Windows this runs in WSL, so
   the same `brew install jq` applies and the bash statusline works as on macOS/Linux.
 
@@ -55,9 +62,12 @@ Claude Code hook itself — we deliberately do **not** ship a raw shell hook in 
    provide it: `cargo install --git https://github.com/rtk-ai/rtk`.
 2. Run `rtk init -g` (installs/refreshes RTK's Claude Code hook globally; idempotent).
 3. Verify: `rtk --version` and `rtk gain`. Confirm it's the Token Killer (not "Rust Type Kit").
-4. **De-duplicate:** if `~/.claude/settings.json` already has a manual `PreToolUse` hook running
+4. **De-duplicate:** if `$CFG/settings.json` already has a manual `PreToolUse` hook running
    `rtk hook claude` AND `rtk init -g` added its own, offer to remove the manual one so RTK doesn't run
    twice per Bash call.
+   Note: `rtk init -g` writes to the real `~/.claude` by default. When testing under `CLAUDE_CONFIG_DIR`,
+   tell the user RTK's own integration may target `~/.claude` regardless — verify where it wrote and, in
+   a sandbox, prefer inspecting rather than relying on it landing in `$CFG`.
 
 ### 4. Caveman (compress model output + tool descriptions — complementary to RTK, no conflict)
 Caveman shrinks Claude's *responses* and MCP tool descriptions; RTK shrinks *Bash output*. Different
@@ -94,7 +104,7 @@ Everything above assumes `brew`. If it is missing:
 ### 8. Team conventions (CLAUDE.md)
 - Canonical conventions live at `${CLAUDE_PLUGIN_ROOT}/CLAUDE.md`, wrapped in
   `<!-- JAMEL-DEVX:BEGIN -->` / `<!-- JAMEL-DEVX:END -->`.
-- Offer to merge that marked block into `~/.claude/CLAUDE.md` (a plugin's CLAUDE.md is not auto-loaded).
+- Offer to merge that marked block into `$CFG/CLAUDE.md` (a plugin's CLAUDE.md is not auto-loaded).
   Replace the block between markers if present (idempotent); otherwise append. Confirm first; never
   disturb the user's other CLAUDE.md content.
 
@@ -104,4 +114,6 @@ Everything above assumes `brew`. If it is missing:
   restart Claude Code. Suggest `/jamel-tour` for a guided overview.
 - Flag any `dependency-*` errors from `claude plugin list`.
 
-Optional argument (e.g. "skip clickup", "with codex", "no caveman"): $ARGUMENTS
+Optional argument (e.g. "skip clickup", "with codex", "no caveman", "skip rtk"): $ARGUMENTS
+- If the argument requests skipping a component (e.g. "skip rtk" — useful for hermetic sandbox tests
+  since `rtk init -g` may touch the real `~/.claude`), omit that step entirely.

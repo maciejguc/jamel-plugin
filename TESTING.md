@@ -30,6 +30,11 @@ B (backup/restore) — gdy chcesz testować dokładnie na swoim profilu.
 `CLAUDE_CONFIG_DIR` sprawia, że cały `~/.claude` „żyje" w innym katalogu. Twoja realna konfiguracja jest
 nietknięta — testujesz na czystym profilu, a sprzątanie = skasowanie katalogu.
 
+> **Ważne:** `/jamel-setup` honoruje `CLAUDE_CONFIG_DIR` (rozwiązuje `CFG="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"`
+> i pisze do `$CFG`). **Wyjątek: RTK.** `rtk init -g` to zewnętrzne narzędzie i może pisać do prawdziwego
+> `~/.claude` niezależnie od zmiennej. Dla w pełni hermetycznego testu uruchom `/jamel-setup skip rtk`
+> i przetestuj RTK osobno (patrz niżej).
+
 ### 1. Utwórz czysty profil i odpal Claude Code
 ```bash
 export CLAUDE_CONFIG_DIR="$HOME/.claude-jamel-test"
@@ -52,16 +57,24 @@ Aby przetestować **tak jak teammate** (z GitHuba): `/plugin marketplace add mac
 ```text
 /plugin list           # potwierdź, że devx + 4 zależności są enabled; brak błędów dependency-*
 /jamel-tour            # checklista stanu
-/jamel-setup           # zaakceptuj zmiany; zweryfikuj instalację rtk/caveman/jq
+/jamel-setup skip rtk  # hermetycznie: pomija RTK (rtk init -g dotyka realnego ~/.claude)
+                       # albo pełne: /jamel-setup — świadomie, RTK zapisze do ~/.claude
 /reload-plugins        # podłącz hooki i MCP
 /mcp                   # login do ClickUp
 /wycena                # krótki scenariusz IT/Marketing → otwórz wynikowy .xlsx
 ```
-Sprawdź statusline (3 linie), `rtk gain`, komendy `/caveman`, oraz plik `settings.json`:
+**Zweryfikuj, że zmiany trafiły do sandboxa, a NIE do `~/.claude`:**
 ```bash
 cat "$CLAUDE_CONFIG_DIR/settings.json"        # oczekiwane klucze; brak pencil/permissions
-ls "$CLAUDE_CONFIG_DIR/jamel-statusline.sh"   # skopiowany statusline
+ls  "$CLAUDE_CONFIG_DIR/jamel-statusline.sh"  # skopiowany statusline
+# kontrola: realny profil nietknięty (te pliki nie powinny się zmienić)
+ls -la "$HOME/.claude/settings.json"
 ```
+Jeśli robiłeś `/jamel-setup` bez `skip rtk`, sprawdź gdzie RTK dopisał hook:
+```bash
+grep -l "rtk hook claude" "$HOME/.claude/settings.json" "$CLAUDE_CONFIG_DIR/settings.json" 2>/dev/null
+```
+Sprawdź też statusline (3 linie), `rtk gain`, komendy `/caveman`.
 
 ### 4. Testy jednostkowe wyceny (niezależne od Claude)
 ```bash
