@@ -1,67 +1,120 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "ELA Wycena — generator input payload",
-  "description": "Input contract for generate_wycena_xlsx.py. Raw line items (ELA shape) plus meta; the script orders them, resolves rates and renders the .xlsx.",
+  "title": "JAMEL estimate payload (v2)",
+  "description": "Input contract for generate_wycena_xlsx.py. Supports two pricing modes: 'range' (widełki min/max, columns RH min/max + Kwota min/max, formulas =F*H/=G*H) and 'fixed' (single RH/Kwota, =F*G). Core items render on the 'Wycena' sheet; optional upsells (additional_items) render on 'Elementy dodatkowe' with the same layout.",
   "type": "object",
-  "required": ["meta", "line_items"],
   "additionalProperties": false,
+  "required": ["meta", "pricing_mode", "line_items"],
   "properties": {
     "meta": {
       "type": "object",
-      "required": ["title", "author"],
       "additionalProperties": false,
+      "required": ["title", "client_name", "author"],
       "properties": {
-        "title": { "type": "string", "description": "Estimate title — fills {{estimate-title}}." },
-        "client_name": { "type": "string", "description": "Client name — fills {{client}}; falls back to title when empty." },
-        "currency": { "type": "string", "default": "PLN" },
+        "title": {
+          "type": "string",
+          "description": "Middle segment of the two-line sheet title: 'Wycena {title}\\ndla {client_name}'. Default for websites: 'wdrożenia serwisu'."
+        },
+        "client_name": { "type": "string" },
         "author": {
           "type": "object",
-          "required": ["first_name", "last_name"],
           "additionalProperties": false,
+          "required": ["first_name", "last_name"],
           "properties": {
             "first_name": { "type": "string" },
             "last_name": { "type": "string" }
           }
         },
+        "currency": { "type": "string", "default": "PLN" },
+        "date": {
+          "type": "string",
+          "description": "Optional offer date DD.MM.YYYY ('Data przygotowania oferty'). Defaults to today."
+        },
         "default_hourly_rate": {
           "type": "number",
-          "default": 200,
-          "description": "Fallback rate when a role resolves to neither role_rates nor ROLE_RATES."
+          "exclusiveMinimum": 0,
+          "description": "Fallback rate when neither the item, role_rates nor the built-in JAMEL rate card resolves the role."
         }
       }
     },
-    "profile": {
+    "pricing_mode": {
       "type": "string",
-      "enum": ["it", "marketing"],
-      "description": "Which persona/prompt produced the items (informational; does not affect rendering)."
+      "enum": ["range", "fixed"],
+      "description": "'range' = widełki min/max (default for first contact / integration risk); 'fixed' = cena stała (simple brochure sites)."
     },
     "role_rates": {
       "type": "object",
-      "description": "Per-role hourly rate overrides; merged over the built-in ROLE_RATES map.",
-      "additionalProperties": { "type": "number" }
+      "description": "Per-role rate overrides (PLN netto/h) on top of the built-in JAMEL rate card.",
+      "additionalProperties": { "type": "number", "exclusiveMinimum": 0 }
+    },
+    "stages": {
+      "type": "array",
+      "description": "Explicit stage order for the 'Wycena' sheet. Stages listed here render a banner even with zero items (e.g. 'Zakończenie prac' as a closing banner). Stages found only in items are appended in first-appearance order.",
+      "items": { "type": "string" }
     },
     "line_items": {
       "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": ["stage", "title", "role", "hours"],
-        "additionalProperties": false,
-        "properties": {
-          "stage": {
-            "type": "string",
-            "description": "Stage key. IT profile: analysis | development | delivery. Items grouped by first-appearance order -> stage_order."
+      "description": "Core scope — everything the client asked for. Rendered on the 'Wycena' sheet.",
+      "items": { "$ref": "#/definitions/lineItem" }
+    },
+    "additional_items": {
+      "type": "array",
+      "description": "JAMEL upsell proposals outside core scope. Rendered on the 'Elementy dodatkowe' sheet (omitted when empty).",
+      "items": { "$ref": "#/definitions/lineItem" }
+    }
+  },
+  "definitions": {
+    "lineItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "title", "role"],
+      "properties": {
+        "stage": {
+          "type": "string",
+          "description": "Stage banner text, e.g. 'Analiza i projektowanie', 'Programowanie', 'Prace redakcyjne, testy, analityka, wdrożenie', 'Zakończenie prac'."
+        },
+        "title": { "type": "string", "description": "Short task name — column 'Opis'." },
+        "description": { "type": "string", "description": "Rich task description — column 'Zadanie Wykonawcy'." },
+        "role": { "type": "string" },
+        "kind": {
+          "type": "string",
+          "enum": ["hourly", "fixed", "included"],
+          "default": "hourly",
+          "description": "'hourly' = RH × rate; 'fixed' = ryczałt (literal amount, '-' in RH/Stawka; negative amount = rabat); 'included' = 'w cenie' (visible row, zero cost)."
+        },
+        "hours": { "type": "number", "exclusiveMinimum": 0, "description": "kind=hourly, pricing_mode=fixed. Also optional for kind=included in range mode (shown hours at zero rate)." },
+        "hours_min": { "type": "number", "minimum": 0, "description": "kind=hourly, pricing_mode=range." },
+        "hours_max": { "type": "number", "minimum": 0, "description": "kind=hourly, pricing_mode=range." },
+        "amount": { "type": "number", "description": "kind=fixed, pricing_mode=fixed. Literal PLN netto; negative = discount (Rabat)." },
+        "amount_min": { "type": "number", "description": "kind=fixed, pricing_mode=range." },
+        "amount_max": { "type": "number", "description": "kind=fixed, pricing_mode=range." },
+        "hourly_rate": { "type": "number", "exclusiveMinimum": 0, "description": "Optional per-item rate override; kind=hourly only." }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "fixed" } }, "required": ["kind"] },
+          "then": {
+            "anyOf": [
+              { "required": ["amount"] },
+              { "required": ["amount_min", "amount_max"] }
+            ]
+          }
+        },
+        {
+          "if": {
+            "anyOf": [
+              { "not": { "required": ["kind"] } },
+              { "properties": { "kind": { "const": "hourly" } }, "required": ["kind"] }
+            ]
           },
-          "title": { "type": "string", "description": "Task title (Polish, no manual numbering)." },
-          "description": { "type": "string" },
-          "role": { "type": "string", "description": "Single role per item (e.g. Web Designer, Front-end Developer, Tester)." },
-          "hours": { "type": "number", "exclusiveMinimum": 0 },
-          "hourly_rate": {
-            "type": "number",
-            "description": "Optional per-item rate override. When present it wins over role_rates/ROLE_RATES/default."
+          "then": {
+            "anyOf": [
+              { "required": ["hours"] },
+              { "required": ["hours_min", "hours_max"] }
+            ]
           }
         }
-      }
+      ]
     }
   }
 }

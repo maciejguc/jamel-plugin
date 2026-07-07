@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "title": "wdrożenia serwisu",
+    "client_name": "Sprint",
+    "author": {
+      "first_name": "Maciej",
+      "last_name": "Guć"
+    },
+    "currency": "PLN",
+    "date": "07.07.2026"
+  },
+  "pricing_mode": "range",
+  "stages": [
+    "Analiza i projektowanie",
+    "Programowanie",
+    "Prace redakcyjne, testy, analityka, wdrożenie",
+    "Zakończenie prac"
+  ],
+  "line_items": [
+    {
+      "stage": "Analiza i projektowanie",
+      "title": "Warsztaty i specyfikacja",
+      "description": "Warsztaty z zespołem klienta, doprecyzowanie zakresu i specyfikacja funkcjonalna.",
+      "role": "Project Manager",
+      "hours_min": 6,
+      "hours_max": 10
+    },
+    {
+      "stage": "Analiza i projektowanie",
+      "title": "Projekt graficzny HP",
+      "description": "Projekt graficzny strony głównej. W cenie 3 rundy zmian.",
+      "role": "Web Designer",
+      "hours_min": 12,
+      "hours_max": 16
+    },
+    {
+      "stage": "Analiza i projektowanie",
+      "title": "Podstrony i system bloczków",
+      "description": "Projekty podstron oraz systemu bloczków treściowych; responsive i handoff.",
+      "role": "Web Designer",
+      "hours_min": 14,
+      "hours_max": 20
+    },
+    {
+      "stage": "Programowanie",
+      "title": "Core CMS i środowiska",
+      "description": "Konfiguracja CMS, modele treści, środowiska dev/staging/prod.",
+      "role": "Back-end + Front-end Developer",
+      "hours_min": 14,
+      "hours_max": 18
+    },
+    {
+      "stage": "Programowanie",
+      "title": "Frontend globalny",
+      "description": "Layout globalny, nawigacja, footer, strona główna.",
+      "role": "Back-end + Front-end Developer",
+      "hours_min": 16,
+      "hours_max": 18
+    },
+    {
+      "stage": "Programowanie",
+      "title": "System bloczków",
+      "description": "Wdrożenie systemu bloczków do samodzielnego składania podstron.",
+      "role": "Back-end + Front-end Developer",
+      "hours_min": 24,
+      "hours_max": 30
+    },
+    {
+      "stage": "Programowanie",
+      "title": "Listingi i wyszukiwarka",
+      "description": "Listing ofert z filtrowaniem i wyszukiwarką.",
+      "role": "Back-end + Front-end Developer",
+      "hours_min": 15,
+      "hours_max": 18
+    },
+    {
+      "stage": "Prace redakcyjne, testy, analityka, wdrożenie",
+      "title": "Copywriting",
+      "description": "Copywriting dla całej strony (ryczałt).",
+      "role": "Copywriter",
+      "kind": "fixed",
+      "amount_min": 4500,
+      "amount_max": 7000
+    },
+    {
+      "stage": "Prace redakcyjne, testy, analityka, wdrożenie",
+      "title": "Testy i QA",
+      "description": "Testy funkcjonalne i wizualne przed wdrożeniem.",
+      "role": "Tester",
+      "hours_min": 8,
+      "hours_max": 12
+    },
+    {
+      "stage": "Prace redakcyjne, testy, analityka, wdrożenie",
+      "title": "Szkolenie",
+      "description": "Szkolenie z obsługi CMS.",
+      "role": "Project Manager",
+      "kind": "included",
+      "hours": 2
+    },
+    {
+      "stage": "Zakończenie prac",
+      "title": "Prowadzenie realizacji projektu",
+      "description": "Koordynacja projektu, komunikacja, statusy (15–20% czasu prac).",
+      "role": "Project Manager",
+      "hours_min": 17,
+      "hours_max": 22
+    }
+  ],
+  "additional_items": [
+    {
+      "stage": "Elementy dodatkowe / Dalszy rozwój",
+      "title": "Dostępność WCAG 2.2 AA",
+      "description": "Audyt i wdrożenie poprawek dostępności do poziomu WCAG 2.2 AA.",
+      "role": "Back-end + Front-end Developer",
+      "hours_min": 12,
+      "hours_max": 18
+    },
+    {
+      "stage": "Elementy dodatkowe / Dalszy rozwój",
+      "title": "AI-readiness / SEO",
+      "description": "Przygotowanie serwisu pod wyszukiwarki AI (llms.txt, dane strukturalne).",
+      "role": "Back-end + Front-end Developer",
+      "hours_min": 6,
+      "hours_max": 10
+    }
+  ]
+}

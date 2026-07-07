@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "title": "wdrożenia serwisu",
+    "client_name": "INA Management",
+    "author": {
+      "first_name": "Maciej",
+      "last_name": "Guć"
+    },
+    "currency": "PLN",
+    "date": "07.07.2026"
+  },
+  "pricing_mode": "fixed",
+  "stages": [
+    "Analiza i projektowanie",
+    "Programowanie",
+    "Prace redakcyjne, testy, analityka, wdrożenie",
+    "Zakończenie prac"
+  ],
+  "line_items": [
+    {
+      "stage": "Analiza i projektowanie",
+      "title": "Projekt graficzny",
+      "description": "Projekt graficzny strony głównej i podstron. W cenie 3 rundy zmian.",
+      "role": "Web Designer",
+      "hours": 16
+    },
+    {
+      "stage": "Programowanie",
+      "title": "Core CMS",
+      "description": "Konfiguracja WordPress + ACF, custom post types.",
+      "role": "Back-end Developer",
+      "hours": 14
+    },
+    {
+      "stage": "Programowanie",
+      "title": "Frontend",
+      "description": "Wdrożenie frontendu wg projektu graficznego.",
+      "role": "Front-end Developer",
+      "hours": 20
+    },
+    {
+      "stage": "Prace redakcyjne, testy, analityka, wdrożenie",
+      "title": "Copywriting",
+      "description": "Redakcja treści (ryczałt).",
+      "role": "Copywriter",
+      "kind": "fixed",
+      "amount": 1500
+    },
+    {
+      "stage": "Prace redakcyjne, testy, analityka, wdrożenie",
+      "title": "Testy i QA",
+      "description": "Testy funkcjonalne i wizualne.",
+      "role": "Tester",
+      "hours": 8
+    },
+    {
+      "stage": "Prace redakcyjne, testy, analityka, wdrożenie",
+      "title": "Szkolenie",
+      "description": "Szkolenie z obsługi CMS.",
+      "role": "Project Manager",
+      "kind": "included"
+    },
+    {
+      "stage": "Zakończenie prac",
+      "title": "Prowadzenie realizacji projektu",
+      "description": "Koordynacja projektu (15–20% czasu prac).",
+      "role": "Project Manager",
+      "hours": 11
+    },
+    {
+      "stage": "Zakończenie prac",
+      "title": "Rabat",
+      "description": "Rabat za elastyczny harmonogram.",
+      "role": "Project Manager",
+      "kind": "fixed",
+      "amount": -1000
+    }
+  ]
+}
