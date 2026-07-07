@@ -64,6 +64,30 @@ przez `/help` zanim ją podasz** (nie zmyślaj).
 - **jamel-devx** — 🔵 ręczny. `/jamel-setup` (konfiguracja), `/jamel-tour` (to oprowadzenie).
 - **jamel-pm** — 🔵 ręczny. `/wycena` → wycena projektu → `.xlsx`.
 
+### Statusline — legenda symboli (co oznacza każdy element)
+Jeśli statusline JAMEL jest aktywny, wyjaśnij jego elementy. Pasek ma 2–3 linie:
+
+**Linia 1 — gdzie jesteś:**
+- `~/ścieżka` — bieżący katalog roboczy (cwd; `~` = katalog domowy).
+- `⏋ <branch>` — gałąź git bieżącego repo (symbol `⏋`).
+- `<model> - 200k|1M` — nazwa modelu + rozmiar okna kontekstu (`200k` lub `1M`).
+
+**Linia 2 — zużycie sesji:**
+- `⏺ NN%` — procent wykorzystanego okna kontekstu. Kolor ostrzega: **biały** <60%, **żółty** ≥60%,
+  **czerwony** ≥80%.
+- `⬇ <liczba>` — tokeny **wejściowe** (input; strzałka w dół = przychodzące do modelu).
+- `⬆ <liczba>` — tokeny **wyjściowe** (output; strzałka w górę = generowane przez model).
+- `$<kwota>` — koszt sesji w USD.
+- `⏱ <czas>` — łączny czas wywołań API (np. `1h 12m`).
+- `+X`/`-Y` — linie **dodane** (zielone) / **usunięte** (czerwone) w sesji; pokazywane tylko gdy ≠ 0.
+
+**Linia 3 — limity planu (tylko Pro/Max, jeśli dostępne):**
+- `5h: NN% - <reset>` — wykorzystanie limitu 5-godzinnego + czas do resetu (np. `2h 48m`).
+- `7d: NN% - <reset>` — wykorzystanie limitu 7-dniowego + czas do resetu (np. `3d 5h 58m`).
+
+Dodatkowo: `|` to separator elementów; liczby tokenów są skracane (`12.3k`, `1.20m`); czas w formacie
+`Xh Ym` / `Ym`. Linia 3 pojawia się tylko, gdy Claude Code poda dane o limitach (plany Pro/Max).
+
 ## 4. Gdzie doczytać / help (dla samodzielnego zapoznania)
 Podaj punkty startowe do pogłębienia — najpierw ogólne, potem per-narzędzie:
 - **`/help`** — lista wszystkich slash-komend (w tym z pluginów). Główny punkt startowy.
