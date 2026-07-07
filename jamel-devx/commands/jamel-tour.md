@@ -25,8 +25,8 @@ statusline, kompresja tokenów, MCP ClickUp i zestaw kuratorowanych, samo-aktual
   `context7` są enabled (instalują się automatycznie jako zależności `jamel-devx`). (`claude` CLI samo
   respektuje `CLAUDE_CONFIG_DIR`.)
 - RTK: `command -v rtk` (lub `where rtk` na Windows) + `rtk --version`. Jeśli jest — wspomnij `rtk gain`.
-- Caveman: sprawdź obecność komend `/caveman` lub artefaktów w `$CFG` (`$CFG/commands/caveman*`,
-  `$CFG/skills/*caveman*`).
+- Caveman (domyślnie instalowany, auto-on `full`): `claude plugin list` → czy `caveman@caveman` jest
+  enabled. Jeśli tak — przypomnij: na treściach klienckich `/caveman lite` lub `disable caveman@caveman`.
 - Statusline: czy `$CFG/settings.json` ma `statusLine` wskazujący `$CFG/jamel-statusline.sh` (czytaj
   `$CFG/settings.json`, NIE `~/.claude/settings.json`).
 - ClickUp MCP (z organizacji): `claude mcp list` → czy org-owy serwer ClickUp jest Connected. Plugin
@@ -39,7 +39,7 @@ sprawdzany `$CFG`.
 
 ## 3. Wyjaśnij komponenty (1 linia każdy)
 - **RTK** — automatyczna kompresja outputu komend Bash (60–90% mniej tokenów); działa w tle.
-- **caveman** — skraca odpowiedzi modelu i opisy narzędzi (inna warstwa niż RTK, komplementarna).
+- **caveman** — skraca odpowiedzi modelu (auto-on `full` od pierwszej wiadomości); na treści klienckie `/caveman lite`.
 - **ClickUp MCP** — zadania/listy ClickUp w Claude; dostarczany przez **organizację** (nie plugin),
   aktywny po zalogowaniu kontem org.
 - **superpowers** — metodyka (TDD, brainstorming, planowanie, debugging, code review).

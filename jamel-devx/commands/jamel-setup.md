@@ -69,18 +69,21 @@ Claude Code hook itself — we deliberately do **not** ship a raw shell hook in 
    tell the user RTK's own integration may target `~/.claude` regardless — verify where it wrote and, in
    a sandbox, prefer inspecting rather than relying on it landing in `$CFG`.
 
-### 4. Caveman — OPTIONAL, opt-in (changes Claude's OUTPUT STYLE)
+### 4. Caveman — installed BY DEFAULT (auto-active every session)
 Caveman shrinks Claude's *responses* (terse "caveman speak") and MCP tool descriptions; RTK shrinks
-*Bash output*. Different layers, safe together. **On Claude Code it is a plugin** (not npx):
-- Install only if the user opts in: `claude plugin marketplace add JuliusBrussee/caveman` then
-  `claude plugin install caveman@caveman` (confirm first).
-- **On Claude Code it activates automatically from message one** — no command needed. It compresses only
-  *output* tokens; input/reasoning are untouched (the skill adds ~1–1.5k input tokens/turn of overhead).
-- Control/level + workflows: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`,
-  `/caveman-stats`, `/caveman-compress <file>`.
-- **Warn the user:** because it changes how Claude writes, it can hurt readability of **client-facing
-  output** (wyceny/specyfikacje z `jamel-pm`). Recommend leaving it off for client work, or using `lite`.
-  Default: do **not** install unless the user asks (argument "with caveman" or explicit yes).
+*Bash output*. Different layers, safe together. **On Claude Code it is a plugin that SELF-ACTIVATES from
+message one at level `full`** — installing it means every session starts with caveman ON (no slash
+command to invoke; the plugin can't run one at startup, and doesn't need to).
+- Install by default (skip only if the user passes "no caveman"):
+  `claude plugin marketplace add JuliusBrussee/caveman` then `claude plugin install caveman@caveman`,
+  then `/reload-plugins`. Confirm before installing.
+- Compresses only *output* tokens; input/reasoning untouched (the skill adds ~1–1.5k input tokens/turn).
+- Level is **per-session**, default `full`, and **cannot be pinned via a config file**. To soften:
+  `/caveman lite`. Workflows: `/caveman-commit`, `/caveman-review`, `/caveman-stats`, `/caveman-compress`.
+- **CLIENT-FACING WARNING (important):** because it changes how Claude writes, do **not** use `full`/`ultra`
+  when drafting client-facing text (wyceny/specyfikacje z `jamel-pm`). For that work switch to
+  `/caveman lite`, or temporarily disable it: `claude plugin disable caveman@caveman` (re-enable after).
+  Tell the user this explicitly during setup.
 
 ### 5. Homebrew bootstrap (if `brew` is missing)
 Everything above assumes `brew`. If it is missing:
@@ -119,6 +122,6 @@ Everything above assumes `brew`. If it is missing:
   restart Claude Code. Suggest `/jamel-tour` for a guided overview.
 - Flag any `dependency-*` errors from `claude plugin list`.
 
-Optional argument (e.g. "skip clickup", "with codex", "with caveman", "skip rtk"): $ARGUMENTS
+Optional argument (e.g. "with codex", "no caveman", "skip rtk"): $ARGUMENTS
 - If the argument requests skipping a component (e.g. "skip rtk" — useful for hermetic sandbox tests
   since `rtk init -g` may touch the real `~/.claude`), omit that step entirely.
