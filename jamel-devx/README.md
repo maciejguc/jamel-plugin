@@ -50,7 +50,7 @@ zostaje prywatne).
 
 - **Zewnętrzne pluginy**: śledzą najnowszą wersję ze swojego marketplace'u → background auto-update.
   Ręcznie: `claude plugin update <plugin>`.
-- **jamel-devx / jamel-wycena**: bez pola `version` (commit-SHA versioning) → każdy push = nowa wersja.
+- **jamel-devx / jamel-pm**: bez pola `version` (commit-SHA versioning) → każdy push = nowa wersja.
 
 ## Uwagi
 

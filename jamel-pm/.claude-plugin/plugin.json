@@ -1,0 +1,7 @@
+{
+  "name": "jamel-pm",
+  "description": "JAMEL PM/Account toolkit: tworzenie wycen (widełkowych i fixed-price) wg metodyki JAMEL z renderem .xlsx. Planowane: specyfikacje techniczne, specyfikacje graficzne, analiza stron www.",
+  "author": {
+    "name": "jamel.pl"
+  }
+}

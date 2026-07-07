@@ -4,7 +4,7 @@
     "name": "jamel.pl"
   },
   "metadata": {
-    "description": "JAMEL agency Claude Code marketplace: estimate automation (wycena) + a plug-and-play dev experience that pulls in curated, auto-updating tooling."
+    "description": "JAMEL agency Claude Code marketplace: PM/Account toolkit (estimates, specs, website analysis) + a plug-and-play dev experience that pulls in curated, auto-updating tooling."
   },
   "allowCrossMarketplaceDependenciesOn": [
     "claude-plugins-official",
@@ -12,9 +12,9 @@
   ],
   "plugins": [
     {
-      "name": "jamel-wycena",
-      "source": "./jamel-wycena",
-      "description": "ELA-style estimate (\"Wycena\") automation: gathers requirements, generates line items (IT/Marketing) and renders a pixel-identical .xlsx."
+      "name": "jamel-pm",
+      "source": "./jamel-pm",
+      "description": "JAMEL PM/Account toolkit: wyceny (widełkowe i fixed-price) wg metodyki JAMEL z renderem .xlsx; planowane specyfikacje techniczne/graficzne i analiza stron."
     },
     {
       "name": "jamel-devx",

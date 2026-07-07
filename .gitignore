@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
-# Generated estimates — ignore all xlsx except the bundled template
+# Generated estimates — ignore all xlsx except the bundled template and golden test fixtures
 *.xlsx
-!jamel-wycena/assets/estimate_template.xlsx
+!jamel-pm/assets/estimate_template.xlsx
+!jamel-pm/scripts/tests/golden/*.xlsx

@@ -1,8 +1,0 @@
-{
-  "name": "jamel-wycena",
-  "version": "1.0.0",
-  "description": "ELA-style estimate (\"Wycena\") automation for Claude Code: gathers requirements, generates line items (IT/Marketing profiles) and renders a pixel-identical .xlsx from the bundled ELA template.",
-  "author": {
-    "name": "jamel.pl"
-  }
-}

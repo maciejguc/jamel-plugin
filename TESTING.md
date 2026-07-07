@@ -1,4 +1,4 @@
-# Testowanie pluginów JAMEL (jamel-devx + jamel-wycena)
+# Testowanie pluginów JAMEL (jamel-devx + jamel-pm)
 
 Jak bezpiecznie sprawdzić, że pluginy działają i robią to, czego oczekujesz — **bez ryzyka dla Twojej
 realnej konfiguracji Claude Code** — oraz jak wszystko łatwo odtworzyć/wyczyścić.
@@ -18,7 +18,7 @@ B (backup/restore) — gdy chcesz testować dokładnie na swoim profilu.
 - [ ] `/jamel-setup` **nie** dodaje MCP `pencil` ani `permissions`
 - [ ] Statusline renderuje 3 linie; `rtk --version` + `rtk gain` działa; komendy `/caveman*` dostępne
 - [ ] ClickUp MCP: `/mcp` → login → działające narzędzie ClickUp
-- [ ] `jamel-wycena`: `/wycena` → plik `.xlsx` + podsumowanie; testy `pytest` zielone
+- [ ] `jamel-pm`: `/wycena` → plik `.xlsx` (widełki lub fixed) + podsumowanie Część A/B; testy `pytest` zielone
 - [ ] Konwencje scalone do `~/.claude/CLAUDE.md` (blok `JAMEL-DEVX:BEGIN/END`)
 
 > Uwaga: testuj w **terminalowym Claude Code (CLI)**. Rozszerzenie VS Code ignoruje `CLAUDE_CONFIG_DIR`.
@@ -49,7 +49,7 @@ Do testu **bieżącej wersji roboczej** (łącznie z niezacommitowanymi zmianami
 ```text
 /plugin marketplace add /Users/maciejguc/Documents/Coding/CLI/jamel/jamel-plugin
 /plugin install jamel-devx@jamel      # obserwuj: "+ N dependencies: ..."
-/plugin install jamel-wycena@jamel
+/plugin install jamel-pm@jamel
 ```
 Aby przetestować **tak jak teammate** (z GitHuba): `/plugin marketplace add maciejguc/jamel-plugin`.
 
@@ -61,7 +61,7 @@ Aby przetestować **tak jak teammate** (z GitHuba): `/plugin marketplace add mac
                        # albo pełne: /jamel-setup — świadomie, RTK zapisze do ~/.claude
 /reload-plugins        # podłącz hooki i MCP
 /mcp                   # login do ClickUp
-/wycena                # krótki scenariusz IT/Marketing → otwórz wynikowy .xlsx
+/wycena                # krótki scenariusz wyceny (widełki/fixed) → otwórz wynikowy .xlsx
 ```
 **Zweryfikuj, że zmiany trafiły do sandboxa, a NIE do `~/.claude`:**
 ```bash
@@ -79,7 +79,7 @@ Sprawdź też statusline (3 linie), `rtk gain`, komendy `/caveman`.
 ### 4. Testy jednostkowe wyceny (niezależne od Claude)
 ```bash
 cd /Users/maciejguc/Documents/Coding/CLI/jamel/jamel-plugin
-./jamel-wycena/scripts/.venv/bin/python -m pytest jamel-wycena/scripts/tests/ -q
+./jamel-pm/scripts/.venv/bin/python -m pytest jamel-pm/scripts/tests/ -q
 ```
 
 ### 5. Sprzątanie / odtworzenie
@@ -119,7 +119,7 @@ mv "$HOME/.claude.json.backup-$STAMP" "$HOME/.claude.json"
 Alternatywnie, punktowe cofnięcie bez pełnego restore:
 ```text
 /plugin uninstall jamel-devx@jamel --prune     # usuwa też auto-zależności
-/plugin uninstall jamel-wycena@jamel
+/plugin uninstall jamel-pm@jamel               # (starsze instalacje: jamel-wycena@jamel)
 /plugin marketplace remove jamel
 ```
 oraz ręcznie usuń z `~/.claude/settings.json` dodane klucze i `statusLine`, a z `~/.claude/CLAUDE.md`

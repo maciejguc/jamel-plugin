@@ -1,0 +1,24 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "v=\"${CLAUDE_PLUGIN_ROOT}/scripts/.venv\"; \"$v/bin/python\" -c 'import openpyxl' 2>/dev/null || { rm -rf \"$v\"; python3 -m venv \"$v\" && \"$v/bin/pip\" install -q -r \"${CLAUDE_PLUGIN_ROOT}/scripts/requirements.txt\"; } 1>&2; exit 0"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "p=$(cat); printf '%s' \"$p\" | grep -qiE 'wycen|wyce\\xc5\\x84|kosztorys' && echo 'Przypomnienie: do stworzenia wyceny uzyj skilla wycena (lub komendy /wycena).'; exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}
