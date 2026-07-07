@@ -12,8 +12,8 @@ Działa cross-platform (macOS / Linux / Windows).
     to plugin (`claude plugin marketplace add JuliusBrussee/caveman` + `install caveman@caveman`),
     aktywny automatycznie od pierwszej wiadomości. Zmienia **styl odpowiedzi** → domyślnie wyłączony
     (nie zalecany na treściach klienckich). Inna warstwa niż RTK → bez konfliktu.
-- **ClickUp MCP** — `.mcp.json` (`https://mcp.clickup.com/mcp`, HTTP + OAuth). Login własnym kontem przez
-  `/mcp`. Bez sekretów w repo.
+- **ClickUp** — dostarczany przez **organizację** (connector claude.ai), aktywny po zalogowaniu kontem
+  org. Plugin celowo **nie** dostarcza własnego ClickUp MCP, żeby nie dublować org-owego.
 - **Kuratorowane pluginy (auto-update)** — jako `dependencies`, instalowane i włączane automatycznie ze
   **źródłowych** marketplace'ów (nie forki → same się aktualizują): `superpowers`, `frontend-design`,
   `code-review`, `context7` (`@claude-plugins-official`).
@@ -29,10 +29,10 @@ Działa cross-platform (macOS / Linux / Windows).
 /plugin marketplace add maciejguc/jamel-plugin
 /plugin install jamel-devx@jamel     # auto-instaluje: superpowers, frontend-design, code-review, context7
 /jamel-tour                          # oprowadzenie: co zawiera, w jakim jest stanie
-/jamel-setup                         # ustawienia + statusline + RTK + caveman + (opcj.) codex/clickup + konwencje
-/mcp                                 # login do ClickUp (własny OAuth)
-/reload-plugins                      # podłącz hooki i MCP
+/jamel-setup                         # ustawienia + statusline + RTK + (opcj.) caveman/codex + konwencje
+/reload-plugins                      # podłącz hooki
 ```
+ClickUp jest org-owy (claude.ai) — aktywny po zalogowaniu kontem organizacji, bez `/mcp` w pluginie.
 
 `/jamel-setup` jest idempotentny, pokazuje diff i pyta o zgodę przed zapisem do `~/.claude/settings.json`
 oraz `~/.claude/CLAUDE.md`. **Nie dotyka sekretów ani konfiguracji MCP/permissions usera** (np. `pencil`
@@ -58,5 +58,5 @@ zostaje prywatne).
 
 - **Duplikacja RTK**: jeśli masz już globalny hook `rtk hook claude` w `~/.claude/settings.json`,
   `/jamel-setup` zaproponuje jego usunięcie (po `rtk init -g` zostaje jeden, vendorowy).
-- **ClickUp OAuth**: ClickUp utrzymuje allowlistę zaufanych klientów MCP. Jeśli `/mcp` zostanie
-  odrzucone, użyj integracji ClickUp przez claude.ai.
+- **ClickUp**: dostarczany org-wide przez connector claude.ai (nie przez plugin). Jeśli dev go nie ma,
+  to kwestia provisioningu po stronie organizacji, nie tego pluginu.

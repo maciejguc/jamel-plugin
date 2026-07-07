@@ -29,8 +29,9 @@ statusline, kompresja tokenów, MCP ClickUp i zestaw kuratorowanych, samo-aktual
   `$CFG/skills/*caveman*`).
 - Statusline: czy `$CFG/settings.json` ma `statusLine` wskazujący `$CFG/jamel-statusline.sh` (czytaj
   `$CFG/settings.json`, NIE `~/.claude/settings.json`).
-- ClickUp MCP: czy serwer `clickup` jest podłączony (narzędzia `mcp__plugin_jamel-devx_clickup__*`); jeśli
-  nie — trzeba `/mcp` (login własnym OAuth).
+- ClickUp MCP (z organizacji): `claude mcp list` → czy org-owy serwer ClickUp jest Connected. Plugin
+  **nie** dostarcza własnego ClickUp — pochodzi z org (claude.ai), aktywny po zalogowaniu kontem org.
+  Jeśli brak → sprawa provisioningu org, nie tego pluginu.
 - Codex (opcjonalny): czy `codex@openai-codex` jest zainstalowany.
 
 Pokaż wynik jako czytelną checklistę ✅/⬜ z jednozdaniowym opisem każdego elementu. W nagłówku podaj
@@ -39,7 +40,8 @@ sprawdzany `$CFG`.
 ## 3. Wyjaśnij komponenty (1 linia każdy)
 - **RTK** — automatyczna kompresja outputu komend Bash (60–90% mniej tokenów); działa w tle.
 - **caveman** — skraca odpowiedzi modelu i opisy narzędzi (inna warstwa niż RTK, komplementarna).
-- **ClickUp MCP** — zadania/listy ClickUp w Claude (login własnym kontem przez `/mcp`).
+- **ClickUp MCP** — zadania/listy ClickUp w Claude; dostarczany przez **organizację** (nie plugin),
+  aktywny po zalogowaniu kontem org.
 - **superpowers** — metodyka (TDD, brainstorming, planowanie, debugging, code review).
 - **frontend-design** — dystynktywny, produkcyjny frontend.
 - **code-review** — równoległy audyt diffa/PR.
@@ -48,7 +50,8 @@ sprawdzany `$CFG`.
 
 ## 4. Następne kroki (zaproponuj, nie wykonuj)
 - Jeśli czegoś brakuje (statusline/RTK/ustawienia) → `/jamel-setup`.
-- ClickUp niezalogowany → `/mcp`.
+- ClickUp z org niepodłączony → zaloguj się kontem organizacji (connector claude.ai); jeśli dalej brak,
+  zgłoś do admina org (to nie jest element tego pluginu).
 - Chcesz Codex → poproś `/jamel-setup` o instalację (wymaga OpenAI API key).
 - Po zmianach hooków/MCP → `/reload-plugins`.
 

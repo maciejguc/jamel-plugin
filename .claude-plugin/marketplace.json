@@ -19,7 +19,7 @@
     {
       "name": "jamel-devx",
       "source": "./jamel-devx",
-      "description": "Plug-and-play JAMEL dev experience: shared settings + statusline, RTK token compression, ClickUp MCP, and curated auto-updating plugins."
+      "description": "Plug-and-play JAMEL dev experience: shared settings + statusline, RTK token compression, and curated auto-updating plugins."
     }
   ]
 }

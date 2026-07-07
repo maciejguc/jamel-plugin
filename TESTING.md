@@ -17,7 +17,7 @@ B (backup/restore) — gdy chcesz testować dokładnie na swoim profilu.
 - [ ] Ustawienia w `settings.json` = te z setupu (`effortLevel: high`, `remoteControlAtStartup: false`, `agentPushNotifEnabled: false`, env-flagi, `tui`, `editorMode`, `spinnerTipsEnabled`)
 - [ ] `/jamel-setup` **nie** dodaje MCP `pencil` ani `permissions`
 - [ ] Statusline renderuje 3 linie; `rtk --version` + `rtk gain` działa; komendy `/caveman*` dostępne
-- [ ] ClickUp MCP: `/mcp` → login → działające narzędzie ClickUp
+- [ ] ClickUp: org-owy connector (claude.ai) jest Connected (`claude mcp list`); plugin NIE dostarcza własnego ClickUp
 - [ ] `jamel-pm`: `/wycena` → plik `.xlsx` (widełki lub fixed) + podsumowanie Część A/B; testy `pytest` zielone
 - [ ] Konwencje scalone do `~/.claude/CLAUDE.md` (blok `JAMEL-DEVX:BEGIN/END`)
 
@@ -60,7 +60,7 @@ Aby przetestować **tak jak teammate** (z GitHuba): `/plugin marketplace add mac
 /jamel-setup skip rtk  # hermetycznie: pomija RTK (rtk init -g dotyka realnego ~/.claude)
                        # albo pełne: /jamel-setup — świadomie, RTK zapisze do ~/.claude
 /reload-plugins        # podłącz hooki i MCP
-/mcp                   # login do ClickUp
+claude mcp list        # ClickUp jest org-owy (nie z pluginu) — sprawdź, że Connected
 /wycena                # krótki scenariusz wyceny (widełki/fixed) → otwórz wynikowy .xlsx
 ```
 **Zweryfikuj, że zmiany trafiły do sandboxa, a NIE do `~/.claude`:**

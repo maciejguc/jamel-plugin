@@ -100,11 +100,11 @@ Everything above assumes `brew`. If it is missing:
   `claude plugin marketplace add openai/codex-plugin-cc` then `claude plugin install codex@openai-codex`,
   then `/codex:setup`.
 
-### 7. ClickUp MCP
-- `jamel-devx` ships the ClickUp MCP server config (`https://mcp.clickup.com/mcp`, HTTP + OAuth).
-- Tell the user to run `/mcp` and authenticate with their own ClickUp account (their own OAuth — no
-  secrets stored in the repo). Note: ClickUp allowlists vetted MCP client redirect URIs; if rejected,
-  they can fall back to ClickUp's claude.ai integration.
+### 7. ClickUp MCP (provided by the organization — nothing to install here)
+- The plugin does **not** ship a ClickUp MCP. JAMEL provides ClickUp org-wide (claude.ai connector),
+  auto-active once the dev is logged in with their org account.
+- Just verify it's connected (`claude mcp list` / `/mcp` shows a ClickUp server as Connected). If a dev
+  doesn't have it, that's an org-provisioning matter, not this setup.
 
 ### 8. Team conventions (CLAUDE.md)
 - Canonical conventions live at `${CLAUDE_PLUGIN_ROOT}/CLAUDE.md`, wrapped in
