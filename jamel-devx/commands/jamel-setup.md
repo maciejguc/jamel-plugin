@@ -33,7 +33,11 @@ idempotent, cross-platform, and ask for confirmation before writing or installin
 Add/ensure exactly these keys (do not remove unrelated user keys, do not add MCP/permissions):
 ```json
 {
-  "env": { "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1", "DISABLE_COST_WARNINGS": "1" },
+  "env": {
+    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
+    "DISABLE_COST_WARNINGS": "1",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
+  },
   "effortLevel": "high",
   "tui": "fullscreen",
   "editorMode": "normal",
@@ -42,6 +46,10 @@ Add/ensure exactly these keys (do not remove unrelated user keys, do not add MCP
   "remoteControlAtStartup": false
 }
 ```
+`CLAUDE_AUTOCOMPACT_PCT_OVERRIDE: "80"` triggers Claude Code's auto-compaction at 80% context usage
+(default is ~95%) — compacts before the window is cramped, leaving buffer for the summarization and
+matching the statusline turning red at ≥80%. Tunable per dev: 85 for context-heavy work, 70 for long
+autonomous sessions. Mention this to the user.
 Note: do **not** set `skipAutoPermissionPrompt` here. It is undocumented and lowers a permission/
 confirmation gate, so it must stay an individual, conscious opt-in — never a team default. If a user
 asks, explain it and let them add it to their own settings themselves.

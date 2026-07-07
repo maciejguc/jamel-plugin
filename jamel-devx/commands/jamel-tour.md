@@ -74,7 +74,8 @@ Jeśli statusline JAMEL jest aktywny, wyjaśnij jego elementy. Pasek ma 2–3 li
 
 **Linia 2 — zużycie sesji:**
 - `⏺ NN%` — procent wykorzystanego okna kontekstu. Kolor ostrzega: **biały** <60%, **żółty** ≥60%,
-  **czerwony** ≥80%.
+  **czerwony** ≥80%. Jeśli `/jamel-setup` ustawił auto-compact na 80% (`CLAUDE_AUTOCOMPACT_PCT_OVERRIDE`),
+  czerwony ≈ „zaraz nastąpi automatyczne kompaktowanie kontekstu".
 - `⬇ <liczba>` — tokeny **wejściowe** (input; strzałka w dół = przychodzące do modelu).
 - `⬆ <liczba>` — tokeny **wyjściowe** (output; strzałka w górę = generowane przez model).
 - `$<kwota>` — koszt sesji w USD.
