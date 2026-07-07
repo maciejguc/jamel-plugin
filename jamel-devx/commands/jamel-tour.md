@@ -37,18 +37,47 @@ statusline, kompresja tokenów, MCP ClickUp i zestaw kuratorowanych, samo-aktual
 Pokaż wynik jako czytelną checklistę ✅/⬜ z jednozdaniowym opisem każdego elementu. W nagłówku podaj
 sprawdzany `$CFG`.
 
-## 3. Wyjaśnij komponenty (1 linia każdy)
-- **RTK** — automatyczna kompresja outputu komend Bash (60–90% mniej tokenów); działa w tle.
-- **caveman** — skraca odpowiedzi modelu (auto-on `full` od pierwszej wiadomości); na treści klienckie `/caveman lite`.
-- **ClickUp MCP** — zadania/listy ClickUp w Claude; dostarczany przez **organizację** (nie plugin),
-  aktywny po zalogowaniu kontem org.
-- **superpowers** — metodyka (TDD, brainstorming, planowanie, debugging, code review).
-- **frontend-design** — dystynktywny, produkcyjny frontend.
-- **code-review** — równoległy audyt diffa/PR.
-- **context7** — żywa dokumentacja bibliotek/frameworków.
-- **statusline** — cwd/git/model, kontekst%, tokeny, koszt, rate limity.
+## 3. Komponenty — jak działają i jak używać (auto w tle vs ręczne)
+Przedstaw jako **tabelę** z kolumnami: Komponent | Tryb | Jak działa / jak używać. Legenda trybu:
+🟢 **auto w tle** (nic nie robisz), 🟡 **półauto** (Claude sam odpala wg kontekstu, można też przywołać
+wprost), 🔵 **ręczny** (odpalasz komendą). **Jeśli nie jesteś pewien dokładnej nazwy komendy — zweryfikuj
+przez `/help` zanim ją podasz** (nie zmyślaj).
 
-## 4. Następne kroki (zaproponuj, nie wykonuj)
+- **RTK** — 🟢 auto w tle. Hook przepuszcza output komend Bash (60–90% mniej tokenów). Nic nie robisz.
+  Ręcznie tylko meta: `rtk gain`, `rtk gain --history`, `rtk discover`, `rtk proxy <cmd>`.
+- **caveman** — 🟢 auto w tle. Sam startuje na `full` od pierwszej wiadomości i skraca odpowiedzi Claude.
+  Sterowanie ręczne: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`, `/caveman-stats`,
+  `/caveman-compress <plik>`. **Treści klienckie → `/caveman lite`** lub `claude plugin disable caveman@caveman`.
+- **context7** — 🟢/🟡 auto, gdy Claude potrzebuje aktualnej dokumentacji biblioteki/frameworka (sięga po
+  MCP sam). Możesz też poprosić wprost: „sprawdź w context7 dokumentację X".
+- **superpowers** — 🟡 półauto. Skille odpalają się automatycznie wg kontekstu: brainstorming (projektowanie),
+  TDD (implementacja), systematic-debugging (bugi), planowanie, code review. Claude je wywołuje sam; możesz
+  też przywołać wprost („użyj brainstorming").
+- **frontend-design** — 🟡 półauto. Aktywuje się przy pracy nad UI/frontendem (wymusza dystynktywny,
+  produkcyjny design zamiast generycznego). Możesz poprosić wprost przy budowie interfejsu.
+- **code-review** — 🔵 ręczny. `/code-review` → równoległy audyt diffa gałęzi / PR przed merge.
+- **codex** (opcjonalny) — 🔵 ręczny. Deleguje do OpenAI Codex: `/codex:review`, `/codex:adversarial-review`,
+  `/codex:rescue`, `/codex:transfer`, `/codex:status`, `/codex:result`, `/codex:cancel`, `/codex:setup`.
+- **ClickUp (org MCP)** — 🟢 auto, gdy Claude operuje na zadaniach/listach ClickUp. Dostarczany przez
+  organizację (nie plugin); wymaga zalogowania kontem org.
+- **statusline** — 🟢 auto. Pasek: cwd/git/model, kontekst %, tokeny, koszt, rate limity.
+- **jamel-devx** — 🔵 ręczny. `/jamel-setup` (konfiguracja), `/jamel-tour` (to oprowadzenie).
+- **jamel-pm** — 🔵 ręczny. `/wycena` → wycena projektu → `.xlsx`.
+
+## 4. Gdzie doczytać / help (dla samodzielnego zapoznania)
+Podaj punkty startowe do pogłębienia — najpierw ogólne, potem per-narzędzie:
+- **`/help`** — lista wszystkich slash-komend (w tym z pluginów). Główny punkt startowy.
+- **`/plugin`** — zarządzanie pluginami; `claude plugin list` — co jest zainstalowane/enabled.
+- **`/mcp`** — serwery MCP + status/logowanie (context7, ClickUp).
+- **`/doctor`** — diagnostyka (hooki, MCP, pluginy, błędy zależności).
+- **RTK**: `rtk --help`, `rtk <cmd> --help`, `rtk gain`. Repo: `github.com/rtk-ai/rtk`.
+- **caveman**: `/caveman-stats` (oszczędności) + repo `github.com/JuliusBrussee/caveman`.
+- **codex**: `/codex:setup`, `/codex:status` + repo `github.com/openai/codex-plugin-cc`.
+- **superpowers**: `/help` + repo `github.com/obra/Superpowers`.
+- **frontend-design / code-review / context7**: `/help` + oficjalny marketplace `anthropics/claude-plugins-official`.
+- **jamel-devx / jamel-pm**: README w repo `maciejguc/jamel-plugin` (`jamel-devx/README.md`, `jamel-pm/README.md`).
+
+## 5. Następne kroki (zaproponuj, nie wykonuj)
 - Jeśli czegoś brakuje (statusline/RTK/ustawienia) → `/jamel-setup`.
 - ClickUp z org niepodłączony → zaloguj się kontem organizacji (connector claude.ai); jeśli dalej brak,
   zgłoś do admina org (to nie jest element tego pluginu).
