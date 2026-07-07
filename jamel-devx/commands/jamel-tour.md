@@ -9,21 +9,32 @@ Bądź zwięzły, konkretny i przyjazny. **Sprawdzaj realny stan** (nie zgaduj) 
 następne kroki. **Niczego nie instaluj ani nie zmieniaj w tym oprowadzeniu** — od konfiguracji jest
 `/jamel-setup`.
 
+## 0. Ustal sprawdzany profil (KRYTYCZNE)
+Claude Code honoruje `CLAUDE_CONFIG_DIR` (sandbox / test od zera). Rozwiąż katalog konfiguracji **w
+powłoce** i używaj go do WSZYSTKICH odczytów plików: `echo "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"`.
+Oznacz wynik jako `$CFG`. **Nigdy nie czytaj dosłownego `~/.claude`** — inaczej sprawdzasz realny profil
+zamiast testowego. **Na początku oprowadzenia napisz użytkownikowi, jaki profil sprawdzasz**
+(np. „Sprawdzam profil: `/Users/…/.claude-jamel-test`").
+
 ## 1. Krótkie intro
 Powiedz w 2–3 zdaniach, że JAMEL DevX to „plug-and-play" experience dla zespołu: wspólne ustawienia,
 statusline, kompresja tokenów, MCP ClickUp i zestaw kuratorowanych, samo-aktualizujących się pluginów.
 
 ## 2. Sprawdź stan (uruchom i zinterpretuj)
 - Kuratorowane pluginy: `claude plugin list` → czy `superpowers`, `frontend-design`, `code-review`,
-  `context7` są enabled (instalują się automatycznie jako zależności `jamel-devx`).
+  `context7` są enabled (instalują się automatycznie jako zależności `jamel-devx`). (`claude` CLI samo
+  respektuje `CLAUDE_CONFIG_DIR`.)
 - RTK: `command -v rtk` (lub `where rtk` na Windows) + `rtk --version`. Jeśli jest — wspomnij `rtk gain`.
-- Caveman: sprawdź czy dostępne komendy `/caveman` (jeśli zainstalowany).
-- Statusline: czy `~/.claude/settings.json` ma `statusLine` wskazujący `~/.claude/jamel-statusline.sh`.
+- Caveman: sprawdź obecność komend `/caveman` lub artefaktów w `$CFG` (`$CFG/commands/caveman*`,
+  `$CFG/skills/*caveman*`).
+- Statusline: czy `$CFG/settings.json` ma `statusLine` wskazujący `$CFG/jamel-statusline.sh` (czytaj
+  `$CFG/settings.json`, NIE `~/.claude/settings.json`).
 - ClickUp MCP: czy serwer `clickup` jest podłączony (narzędzia `mcp__plugin_jamel-devx_clickup__*`); jeśli
   nie — trzeba `/mcp` (login własnym OAuth).
 - Codex (opcjonalny): czy `codex@openai-codex` jest zainstalowany.
 
-Pokaż wynik jako czytelną checklistę ✅/⬜ z jednozdaniowym opisem każdego elementu.
+Pokaż wynik jako czytelną checklistę ✅/⬜ z jednozdaniowym opisem każdego elementu. W nagłówku podaj
+sprawdzany `$CFG`.
 
 ## 3. Wyjaśnij komponenty (1 linia każdy)
 - **RTK** — automatyczna kompresja outputu komend Bash (60–90% mniej tokenów); działa w tle.
