@@ -8,8 +8,10 @@ Działa cross-platform (macOS / Linux / Windows).
 - **Kompresja tokenów (dwie komplementarne warstwy)**:
   - **RTK** — kompresuje **output komend Bash** (60–90% mniej tokenów). Instalowany i integrowany przez
     `/jamel-setup` (`brew install rtk` + `rtk init -g`; fallback `cargo`).
-  - **caveman** — skraca **odpowiedzi modelu** i opisy narzędzi MCP. Instalowany przez `/jamel-setup`
-    (`npx -y github:JuliusBrussee/caveman`). Inna warstwa niż RTK → bez konfliktu.
+  - **caveman** (opcjonalny, opt-in) — skraca **odpowiedzi modelu** i opisy narzędzi MCP. Na Claude Code
+    to plugin (`claude plugin marketplace add JuliusBrussee/caveman` + `install caveman@caveman`),
+    aktywny automatycznie od pierwszej wiadomości. Zmienia **styl odpowiedzi** → domyślnie wyłączony
+    (nie zalecany na treściach klienckich). Inna warstwa niż RTK → bez konfliktu.
 - **ClickUp MCP** — `.mcp.json` (`https://mcp.clickup.com/mcp`, HTTP + OAuth). Login własnym kontem przez
   `/mcp`. Bez sekretów w repo.
 - **Kuratorowane pluginy (auto-update)** — jako `dependencies`, instalowane i włączane automatycznie ze

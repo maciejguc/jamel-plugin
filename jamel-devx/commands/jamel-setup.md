@@ -69,13 +69,18 @@ Claude Code hook itself — we deliberately do **not** ship a raw shell hook in 
    tell the user RTK's own integration may target `~/.claude` regardless — verify where it wrote and, in
    a sandbox, prefer inspecting rather than relying on it landing in `$CFG`.
 
-### 4. Caveman (compress model output + tool descriptions — complementary to RTK, no conflict)
-Caveman shrinks Claude's *responses* and MCP tool descriptions; RTK shrinks *Bash output*. Different
-layers, safe together. Not a Claude Code plugin, and not in Homebrew, so install via npm (needs Node ≥18):
-- Ensure Node: `brew install node` if `node` is missing (confirm).
-- `npx -y github:JuliusBrussee/caveman` (confirm).
-- After install, mention the commands: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`,
+### 4. Caveman — OPTIONAL, opt-in (changes Claude's OUTPUT STYLE)
+Caveman shrinks Claude's *responses* (terse "caveman speak") and MCP tool descriptions; RTK shrinks
+*Bash output*. Different layers, safe together. **On Claude Code it is a plugin** (not npx):
+- Install only if the user opts in: `claude plugin marketplace add JuliusBrussee/caveman` then
+  `claude plugin install caveman@caveman` (confirm first).
+- **On Claude Code it activates automatically from message one** — no command needed. It compresses only
+  *output* tokens; input/reasoning are untouched (the skill adds ~1–1.5k input tokens/turn of overhead).
+- Control/level + workflows: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`,
   `/caveman-stats`, `/caveman-compress <file>`.
+- **Warn the user:** because it changes how Claude writes, it can hurt readability of **client-facing
+  output** (wyceny/specyfikacje z `jamel-pm`). Recommend leaving it off for client work, or using `lite`.
+  Default: do **not** install unless the user asks (argument "with caveman" or explicit yes).
 
 ### 5. Homebrew bootstrap (if `brew` is missing)
 Everything above assumes `brew`. If it is missing:
@@ -114,6 +119,6 @@ Everything above assumes `brew`. If it is missing:
   restart Claude Code. Suggest `/jamel-tour` for a guided overview.
 - Flag any `dependency-*` errors from `claude plugin list`.
 
-Optional argument (e.g. "skip clickup", "with codex", "no caveman", "skip rtk"): $ARGUMENTS
+Optional argument (e.g. "skip clickup", "with codex", "with caveman", "skip rtk"): $ARGUMENTS
 - If the argument requests skipping a component (e.g. "skip rtk" — useful for hermetic sandbox tests
   since `rtk init -g` may touch the real `~/.claude`), omit that step entirely.

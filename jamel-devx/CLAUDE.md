@@ -32,8 +32,10 @@
 - Skraca **odpowiedzi modelu** i opisy narzędzi (inna warstwa niż RTK — RTK kompresuje *output Bash*;
   caveman *output modelu*). Są komplementarne, nie kolidują.
 - Komendy: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`, `/caveman-stats`,
-  `/caveman-compress <plik>`. Instalacja (przez `/jamel-setup`): `npx -y github:JuliusBrussee/caveman`
-  (wymaga Node ≥18, cross-platform).
+  `/caveman-compress <plik>`. Instalacja (opcjonalna, przez `/jamel-setup`, na Claude Code jako plugin):
+  `claude plugin marketplace add JuliusBrussee/caveman` + `claude plugin install caveman@caveman`.
+- Aktywny automatycznie od pierwszej wiadomości; kompresuje tylko *output* (nie rozumowanie), dokłada
+  ~1–1.5k input tokenów/turę. **Nie używaj na treściach klienckich** (wyceny/specyfikacje).
 
 ## Konwencje ogólne
 
