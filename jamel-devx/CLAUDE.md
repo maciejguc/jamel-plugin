@@ -1,48 +1,49 @@
-# JAMEL — wytyczne zespołu (Claude Code)
+# JAMEL — team conventions (Claude Code)
 
-> Kanoniczne konwencje agencji JAMEL. `/jamel-setup` proponuje scalenie tej sekcji do
-> `~/.claude/CLAUDE.md` (plugin-owy CLAUDE.md nie ładuje się automatycznie do kontekstu).
-> Sekcja jest oznaczona markerami `JAMEL-DEVX:BEGIN/END`, żeby aktualizacje były idempotentne.
+> Canonical JAMEL agency conventions. `/jamel-setup` offers to merge the block below into
+> `~/.claude/CLAUDE.md` (a plugin's CLAUDE.md is not auto-loaded into context). The block is delimited by
+> the `JAMEL-DEVX:BEGIN/END` markers so updates are idempotent.
 
 <!-- JAMEL-DEVX:BEGIN -->
 
-## Python — wykonanie i zależności
+## Python — execution & dependencies
 
-- **Zawsze używaj `venv` w bieżącym katalogu roboczym (cwd)** do uruchamiania Pythona i instalacji zależności.
-- **Jeśli `venv` nie istnieje** w cwd — utwórz go: `python3 -m venv venv`.
-- Używaj binariów z venv bezpośrednio:
-  - Uruchamianie: `./venv/bin/python <skrypt>.py`
-  - Instalacja: `./venv/bin/pip install <paczka>`
-- **Nigdy nie instaluj globalnie** (bez `sudo pip`, bez `pip install` poza venv).
-- Jeśli istnieje `requirements.txt` / `pyproject.toml` — zainstaluj zależności do venv przed uruchomieniem.
+- **Always use a `venv` in the current working directory (cwd)** to run Python and install dependencies.
+- **If `venv` does not exist** in the cwd — create it: `python3 -m venv venv`.
+- Use the venv binaries directly:
+  - Run: `./venv/bin/python <script>.py`
+  - Install: `./venv/bin/pip install <package>`
+- **Never install globally** (no `sudo pip`, no `pip install` outside the venv).
+- If `requirements.txt` / `pyproject.toml` exists — install dependencies into the venv before running.
 
-## RTK (Rust Token Killer) — kompresja outputu
+## RTK (Rust Token Killer) — output compression
 
-- Komendy Bash są automatycznie przepuszczane przez `rtk` (hook `PreToolUse`, dostarczany przez
-  `jamel-devx`) → 60–90% oszczędności tokenów. Nie trzeba nic robić ręcznie.
-- Meta-komendy używaj wprost: `rtk gain` (analytics), `rtk gain --history`, `rtk discover`,
-  `rtk proxy <cmd>` (surowa komenda bez filtrowania, do debugowania).
-- Weryfikacja: `rtk --version`, `which rtk`. Instalacja: `brew install rtk` (mac/Linux/WSL; fallback
-  `cargo install --git https://github.com/rtk-ai/rtk`). Integracja z Claude Code: `rtk init -g`.
-- Package manager zespołu: **Homebrew wszędzie**. Windows → przez **WSL** (brew nie ma natywnego Windows).
-- ⚠️ Kolizja nazw: jeśli `rtk gain` nie działa, możesz mieć inny `rtk` (Rust Type Kit) w PATH.
+- Bash commands are automatically piped through `rtk` (a `PreToolUse` hook installed via `rtk init -g`)
+  → 60–90% token savings. Nothing to do manually.
+- Use meta-commands directly: `rtk gain` (analytics), `rtk gain --history`, `rtk discover`,
+  `rtk proxy <cmd>` (raw, unfiltered command — for debugging).
+- Verify: `rtk --version`, `which rtk`. Install: `brew install rtk` (macOS/Linux/WSL; fallback
+  `cargo install --git https://github.com/rtk-ai/rtk`). Claude Code integration: `rtk init -g`.
+- Team package manager: **Homebrew everywhere**. Windows → via **WSL** (Homebrew has no native Windows).
+- ⚠️ Name collision: if `rtk gain` fails, you may have a different `rtk` (Rust Type Kit) on PATH.
 
-## caveman — kompresja odpowiedzi modelu
+## caveman — model-output compression
 
-- Skraca **odpowiedzi modelu** i opisy narzędzi (inna warstwa niż RTK — RTK kompresuje *output Bash*;
-  caveman *output modelu*). Są komplementarne, nie kolidują.
-- Komendy: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`, `/caveman-stats`,
-  `/caveman-compress <plik>`. Instalacja (domyślnie przez `/jamel-setup`, na Claude Code jako plugin):
+- Shortens **the model's replies** and tool descriptions (a different layer than RTK — RTK compresses
+  *Bash output*, caveman *model output*). Complementary, no conflict.
+- Commands: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`, `/caveman-stats`,
+  `/caveman-compress <file>`. Install (by default via `/jamel-setup`; on Claude Code it is a plugin):
   `claude plugin marketplace add JuliusBrussee/caveman` + `claude plugin install caveman@caveman`.
-- **Sam aktywuje się od pierwszej wiadomości na `full`** (każda sesja startuje z caveman ON); kompresuje
-  tylko *output* (nie rozumowanie), dokłada ~1–1.5k input tokenów/turę. Poziom jest per-sesja, nie da się
-  przypiąć configiem.
-- **Na treściach klienckich** (wyceny/specyfikacje): `/caveman lite` albo `claude plugin disable caveman@caveman`.
+- **Self-activates from message one at `full`** (every session starts with caveman ON); compresses only
+  *output* (not reasoning), adds ~1–1.5k input tokens/turn. The level is per-session — it cannot be
+  pinned via a config file.
+- **For client-facing content** (estimates/specs): `/caveman lite`, or `claude plugin disable caveman@caveman`.
 
-## Konwencje ogólne
+## General conventions
 
-- Kod, komentarze, identyfikatory i commit messages — po angielsku (treści dla klienta / wyceny — po polsku).
-- Code review przed merge: korzystaj z `code-review` (kuratorowany plugin) na diffie gałęzi.
-- Workflow metodyczny (planowanie, TDD, debugging) — skille z `superpowers`.
+- Code, comments, identifiers and commit messages — in **English**. **Client-facing content**
+  (estimates/specs/briefs and any text delivered to a client) — in **Polish**.
+- Run `code-review` (curated plugin) on the branch diff before merging.
+- Use `superpowers` skills for methodical workflow (planning, TDD, debugging).
 
 <!-- JAMEL-DEVX:END -->
