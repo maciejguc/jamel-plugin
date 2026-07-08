@@ -6,6 +6,9 @@ realnej konfiguracji Claude Code** — oraz jak wszystko łatwo odtworzyć/wyczy
 Masz dwa podejścia. **Zalecane: A (sandbox przez `CLAUDE_CONFIG_DIR`)** — nie dotyka Twojego `~/.claude`.
 B (backup/restore) — gdy chcesz testować dokładnie na swoim profilu.
 
+> Szczegółowy plan testów pluginu **jamel-pm** (generator range/fixed, skill `wycena`, scenariusze
+> end-to-end): [`jamel-pm/TESTING.md`](jamel-pm/TESTING.md).
+
 ---
 
 ## Co weryfikujemy (checklista)
