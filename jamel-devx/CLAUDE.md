@@ -46,4 +46,44 @@
 - Run `code-review` (curated plugin) on the branch diff before merging.
 - Use `superpowers` skills for methodical workflow (planning, TDD, debugging).
 
+## Workflow — analyze before you build
+
+- Non-trivial task → analyze first, propose an approach/plan, wait for explicit approval before
+  implementing (plan mode or a written plan).
+- Never start the next phase of an approved plan (merge, deploy, cleanup) without being asked.
+- Follow the 4-stage flow: analyze → plan → implement → verify; don't skip stages.
+
+## Scope & environment discipline
+
+- Touch only what the task requires; no drive-by refactors or fixes of adjacent code — ask first.
+- Never install packages, run setup scripts, or modify the developer's environment/config without
+  explicit approval.
+- Respect manual edits: if code looks hand-tuned or contradicts the design/spec, ask instead of
+  "fixing" it.
+
+## Git & verification
+
+- Work on feature branches or git worktrees (developer's choice) — never directly on main.
+- Never merge or deploy without an explicit instruction.
+- Keep temporary/audit artifacts out of the repo (gitignore or outside the tree).
+- "Done" requires evidence: run tests/build and show output; for UI — screenshots; for performance —
+  before/after metrics. Never claim "fixed" without proof.
+
+## Frontend standards (web projects)
+
+- Verify responsive behavior at 375 / 768 / 1440 px before calling UI work done.
+- Content and translations come from the CMS/database — never invent or machine-translate copy that
+  already exists; flag mismatches instead.
+- Accessibility target: WCAG 2.2; measure performance with Lighthouse (document before/after when
+  optimizing).
+
+## Report findings along the way
+
+- Bugs spotted incidentally (during analysis or while working on another task): don't fix silently
+  and don't ignore — report them to the developer with a description and a proposed fix, or suggest
+  further diagnosis if the root cause is unclear.
+- Optimization opportunities (performance, architecture, best practices): when you see clear room
+  for improvement, recommend it — briefly, with the expected benefit — but don't implement without
+  approval.
+
 <!-- JAMEL-DEVX:END -->
