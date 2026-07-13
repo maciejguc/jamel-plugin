@@ -27,17 +27,23 @@
 - Team package manager: **Homebrew everywhere**. Windows → via **WSL** (Homebrew has no native Windows).
 - ⚠️ Name collision: if `rtk gain` fails, you may have a different `rtk` (Rust Type Kit) on PATH.
 
-## caveman — model-output compression
+## ponytail — minimal-code discipline
 
-- Shortens **the model's replies** and tool descriptions (a different layer than RTK — RTK compresses
-  *Bash output*, caveman *model output*). Complementary, no conflict.
-- Commands: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`, `/caveman-stats`,
-  `/caveman-compress <file>`. Install (by default via `/jamel-setup`; on Claude Code it is a plugin):
-  `claude plugin marketplace add JuliusBrussee/caveman` + `claude plugin install caveman@caveman`.
-- **Self-activates from message one at `full`** (every session starts with caveman ON); compresses only
-  *output* (not reasoning), adds ~1–1.5k input tokens/turn. The level is per-session — it cannot be
-  pinned via a config file.
-- **For client-facing content** (estimates/specs): `/caveman lite`, or `claude plugin disable caveman@caveman`.
+- Makes the model write **less code**: before any code, climb the ladder — needs to exist at all
+  (YAGNI) → already in the codebase → stdlib → native platform feature → installed dependency → one
+  line → only then the minimum that works. Never cuts input validation, error handling, security or
+  accessibility. A different layer than RTK (RTK compresses *Bash output*, ponytail shrinks *the
+  solution*). Complementary, no conflict.
+- Commands: `/ponytail [lite|full|ultra|off]`, `/ponytail-review` (diff over-engineering review),
+  `/ponytail-audit`, `/ponytail-debt`, `/ponytail-gain`, `/ponytail-help`. Install (by default via
+  `/jamel-setup`; on Claude Code it is a plugin): `claude plugin marketplace add DietrichGebert/ponytail`
+  + `claude plugin install ponytail@ponytail`. Its hooks need `node` on PATH (`brew install node`).
+- **Active from message one at `full`** (SessionStart hook, ~1.6k tokens once per session, also injected
+  into subagents). Default level pinnable via `PONYTAIL_DEFAULT_MODE` env or `defaultMode` in
+  `~/.config/ponytail/config.json`; scope subagent injection with `PONYTAIL_SUBAGENT_MATCHER`.
+- It governs *what gets built*, not how Claude talks — client-facing text (jamel-pm) is unaffected.
+- Repo/client conventions override ponytail where they conflict (e.g. project test standards beat its
+  "one runnable check" rule; the analyze→plan→approval workflow beats "ship the lazy version now").
 
 ## General conventions
 

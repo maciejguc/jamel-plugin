@@ -5,14 +5,16 @@ Działa cross-platform (macOS / Linux / Windows).
 
 ## Co zawiera
 
-- **Kompresja tokenów (dwie komplementarne warstwy)**:
+- **Optymalizacja tokenów i kodu (dwie komplementarne warstwy)**:
   - **RTK** — kompresuje **output komend Bash** (60–90% mniej tokenów). Instalowany i integrowany przez
     `/jamel-setup` (`brew install rtk` + `rtk init -g`; fallback `cargo`).
-  - **caveman** (domyślnie instalowany) — skraca **odpowiedzi modelu** i opisy narzędzi MCP. Na Claude
-    Code to plugin, który **sam aktywuje się od pierwszej wiadomości na poziomie `full`** — każda sesja
-    startuje z caveman ON. Zmienia **styl odpowiedzi**: na treściach klienckich (`jamel-pm`) użyj
-    `/caveman lite` albo `claude plugin disable caveman@caveman`. Inna warstwa niż RTK → bez konfliktu.
-    Pominięcie: `/jamel-setup no caveman`.
+  - **ponytail** (domyślnie instalowany) — wymusza **minimum kodu** (YAGNI: reuse → stdlib → natywna
+    funkcja platformy → jedna linia → dopiero potem więcej), nie tnąc walidacji, security ani
+    accessibility. Plugin Claude Code, **sam aktywuje się od pierwszej wiadomości na poziomie `full`**.
+    Nie zmienia stylu odpowiedzi (treści klienckie z `jamel-pm` bez wpływu). Sterowanie:
+    `/ponytail [lite|full|ultra|off]`, przegląd diffa: `/ponytail-review`. Inna warstwa niż RTK → bez
+    konfliktu. Pominięcie: `/jamel-setup no ponytail`. (Zastąpił wcześniejszego cavemana — narzut
+    jego rulesetu per tura przewyższał oszczędności na prozie w sesjach agentowych.)
 - **ClickUp** — dostarczany przez **organizację** (connector claude.ai), aktywny po zalogowaniu kontem
   org. Plugin celowo **nie** dostarcza własnego ClickUp MCP, żeby nie dublować org-owego.
 - **Kuratorowane pluginy (auto-update)** — jako `dependencies`, instalowane i włączane automatycznie ze
@@ -30,7 +32,7 @@ Działa cross-platform (macOS / Linux / Windows).
 /plugin marketplace add maciejguc/jamel-plugin
 /plugin install jamel-devx@jamel     # auto-instaluje: superpowers, frontend-design, code-review, context7
 /jamel-tour                          # oprowadzenie: co zawiera, w jakim jest stanie
-/jamel-setup                         # ustawienia + statusline + RTK + (opcj.) caveman/codex + konwencje
+/jamel-setup                         # ustawienia + statusline + RTK + ponytail + (opcj.) codex + konwencje
 /reload-plugins                      # podłącz hooki
 ```
 ClickUp jest org-owy (claude.ai) — aktywny po zalogowaniu kontem organizacji, bez `/mcp` w pluginie.
@@ -43,7 +45,8 @@ zostaje prywatne).
 
 - **Package manager**: zespół standaryzuje na **Homebrew** — `brew` na macOS/Linux, a na **Windows przez
   WSL** (brew nie ma natywnego wsparcia Windows). Jedna, spójna ścieżka instalacji i aktualizacji
-  (`brew upgrade`). Wyjątek: caveman przez `npx` (nie ma go w brew; Node z `brew install node`).
+  (`brew upgrade`). Wyjątek: ponytail to plugin Claude Code (spoza brew; jego hooki wymagają Node —
+  `brew install node`).
 - **Hooki**: SessionStart welcome to skrypt Node (`hooks/welcome.mjs`) w exec-form (bez shella) → działa
   wszędzie. RTK celowo **nie** jest shipowany jako surowy hook — integrację robi vendorowe `rtk init -g`.
 - **Statusline**: bash+`jq` (`brew install jq`); na Windows działa w WSL tak samo jak na macOS/Linux.

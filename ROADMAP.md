@@ -8,3 +8,4 @@ Skills
 7. Generowanie brief’ów 
 8. Generowanie analizy strony internetowej i rekomendacji oraz stron konkurencji/innych stron z branży
 9. Szukanie inspiracji wizualnych dla stron internetowych z branży i okolicznych 
+10. Weryfikacja i edycja welcome.mjs żeby zawierało komendy na start - tour i setup oraz opowiadało rzetelnie o pluginie

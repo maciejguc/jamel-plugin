@@ -1,5 +1,5 @@
 ---
-description: Apply the JAMEL team Claude Code setup (shared settings, statusline, RTK + caveman, marketplaces, optional ClickUp/codex)
+description: Apply the JAMEL team Claude Code setup (shared settings, statusline, RTK + ponytail, marketplaces, optional ClickUp/codex)
 ---
 
 # /jamel-setup — JAMEL DevX bootstrap
@@ -24,8 +24,8 @@ idempotent, cross-platform, and ask for confirmation before writing or installin
 - Idempotent: running twice changes nothing the second time.
 - **Package manager: Homebrew everywhere.** JAMEL standardizes on `brew` for all installable deps
   (macOS, Linux, and Windows **via WSL** — Homebrew has no native Windows support). On Windows, Claude
-  Code and this setup are expected to run inside a WSL shell. The only thing not from brew is caveman
-  (a GitHub npm package), installed via `npx`.
+  Code and this setup are expected to run inside a WSL shell. The only thing not from brew is ponytail
+  (a Claude Code plugin, installed via `claude plugin`; its hooks need Node — `brew install node`).
 
 ## Steps
 
@@ -77,21 +77,24 @@ Claude Code hook itself — we deliberately do **not** ship a raw shell hook in 
    tell the user RTK's own integration may target `~/.claude` regardless — verify where it wrote and, in
    a sandbox, prefer inspecting rather than relying on it landing in `$CFG`.
 
-### 4. Caveman — installed BY DEFAULT (auto-active every session)
-Caveman shrinks Claude's *responses* (terse "caveman speak") and MCP tool descriptions; RTK shrinks
-*Bash output*. Different layers, safe together. **On Claude Code it is a plugin that SELF-ACTIVATES from
-message one at level `full`** — installing it means every session starts with caveman ON (no slash
-command to invoke; the plugin can't run one at startup, and doesn't need to).
-- Install by default (skip only if the user passes "no caveman"):
-  `claude plugin marketplace add JuliusBrussee/caveman` then `claude plugin install caveman@caveman`,
+### 4. Ponytail — installed BY DEFAULT (auto-active every session)
+Ponytail makes Claude write *less code* (YAGNI ladder: skip → reuse what's in the codebase → stdlib →
+native platform feature → installed dependency → one line → only then the minimum that works); RTK
+shrinks *Bash output*. Different layers, safe together. **On Claude Code it is a plugin that
+SELF-ACTIVATES from message one at level `full`** (SessionStart hook; needs `node` on PATH — from
+`brew install node`. Without node the skills still work, only the always-on activation stays quiet).
+- Install by default (skip only if the user passes "no ponytail"):
+  `claude plugin marketplace add DietrichGebert/ponytail` then `claude plugin install ponytail@ponytail`,
   then `/reload-plugins`. Confirm before installing.
-- Compresses only *output* tokens; input/reasoning untouched (the skill adds ~1–1.5k input tokens/turn).
-- Level is **per-session**, default `full`, and **cannot be pinned via a config file**. To soften:
-  `/caveman lite`. Workflows: `/caveman-commit`, `/caveman-review`, `/caveman-stats`, `/caveman-compress`.
-- **CLIENT-FACING WARNING (important):** because it changes how Claude writes, do **not** use `full`/`ultra`
-  when drafting client-facing text (wyceny/specyfikacje z `jamel-pm`). For that work switch to
-  `/caveman lite`, or temporarily disable it: `claude plugin disable caveman@caveman` (re-enable after).
-  Tell the user this explicitly during setup.
+- It governs *what code gets built*, not how Claude talks — client-facing text (`jamel-pm`) is
+  unaffected. It never cuts input validation, error handling, security or accessibility.
+- Levels: `/ponytail lite|full|ultra|off` (per-session). Pin the default via `PONYTAIL_DEFAULT_MODE`
+  env or `defaultMode` in `~/.config/ponytail/config.json`. Extra commands: `/ponytail-review`,
+  `/ponytail-audit`, `/ponytail-debt`, `/ponytail-gain`, `/ponytail-help`.
+- **Migration from caveman:** if `caveman@caveman` is installed (older JAMEL setups shipped it), offer
+  to remove it: `claude plugin uninstall caveman@caveman` and `claude plugin marketplace remove caveman`.
+  JAMEL replaced caveman with ponytail — caveman's per-turn ruleset overhead outweighed its prose
+  savings in agentic coding sessions.
 
 ### 5. Homebrew bootstrap (if `brew` is missing)
 Everything above assumes `brew`. If it is missing:
@@ -130,6 +133,6 @@ Everything above assumes `brew`. If it is missing:
   restart Claude Code. Suggest `/jamel-tour` for a guided overview.
 - Flag any `dependency-*` errors from `claude plugin list`.
 
-Optional argument (e.g. "with codex", "no caveman", "skip rtk"): $ARGUMENTS
+Optional argument (e.g. "with codex", "no ponytail", "skip rtk"): $ARGUMENTS
 - If the argument requests skipping a component (e.g. "skip rtk" — useful for hermetic sandbox tests
   since `rtk init -g` may touch the real `~/.claude`), omit that step entirely.

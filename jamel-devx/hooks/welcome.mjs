@@ -27,7 +27,8 @@ try {
 const ctx = [
   "[jamel-devx — pierwsze uruchomienie]",
   "Przywitaj użytkownika PO POLSKU (2–3 zdania). Powiedz krótko, że plugin JAMEL DevX daje:",
-  "wspólne ustawienia + statusline, kompresję tokenów (RTK + caveman), MCP ClickUp oraz kuratorowane",
+  "wspólne ustawienia + statusline, kompresję tokenów (RTK), dyscyplinę minimum kodu (ponytail),",
+  "MCP ClickUp oraz kuratorowane",
   "pluginy (superpowers, frontend-design, code-review, context7). Zaproponuj uruchomienie komendy",
   "/jamel-tour (interaktywne oprowadzenie) oraz /jamel-setup (konfiguracja). Nie wykonuj ich automatycznie.",
 ].join(" ");

@@ -105,8 +105,10 @@ Użyj sandboxa `CLAUDE_CONFIG_DIR` z [`../TESTING.md`](../TESTING.md) (Podejści
 /reload-plugins
 ```
 
-> **Uwaga (caveman):** jeśli testujesz z zainstalowanym `jamel-devx`, caveman startuje na `full`
-> i zniekształci treści klienckie — na czas testu wyceny przełącz `/caveman lite` albo wyłącz.
+> **Uwaga (ponytail):** `jamel-devx` instaluje ponytail (auto-on `full`), ale dotyczy on wyłącznie
+> pisanego kodu — nie zmienia stylu odpowiedzi, więc treści klienckie (wyceny) pozostają nienaruszone.
+> Jeśli masz jeszcze starego cavemana (`caveman@caveman` w `claude plugin list`), wyłącz go na czas
+> testu wyceny — zniekształca treści klienckie.
 
 ### Scenariusz A — wycena widełkowa z kalibracją do pasma (główna ścieżka)
 

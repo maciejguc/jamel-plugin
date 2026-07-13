@@ -16,10 +16,10 @@ B (backup/restore) — gdy chcesz testować dokładnie na swoim profilu.
 - [ ] `jamel-devx` instaluje się i **auto-pociąga** zależności: `superpowers`, `frontend-design`, `code-review`, `context7`
 - [ ] Jednorazowy **welcome** (po polsku) pokazuje się przy pierwszym starcie, a potem znika
 - [ ] `/jamel-tour` pokazuje czytelną checklistę stanu
-- [ ] `/jamel-setup` **pyta o zgodę**, merge'uje ustawienia, ustawia statusline, instaluje RTK + caveman
+- [ ] `/jamel-setup` **pyta o zgodę**, merge'uje ustawienia, ustawia statusline, instaluje RTK + ponytail
 - [ ] Ustawienia w `settings.json` = te z setupu (`effortLevel: high`, `remoteControlAtStartup: false`, `agentPushNotifEnabled: false`, env-flagi, `tui`, `editorMode`, `spinnerTipsEnabled`)
 - [ ] `/jamel-setup` **nie** dodaje MCP `pencil` ani `permissions`
-- [ ] Statusline renderuje 3 linie; `rtk --version` + `rtk gain` działa; komendy `/caveman*` dostępne
+- [ ] Statusline renderuje 3 linie; `rtk --version` + `rtk gain` działa; komendy `/ponytail*` dostępne
 - [ ] ClickUp: org-owy connector (claude.ai) jest Connected (`claude mcp list`); plugin NIE dostarcza własnego ClickUp
 - [ ] `jamel-pm`: `/wycena` → plik `.xlsx` (widełki lub fixed) + podsumowanie Część A/B; testy `pytest` zielone
 - [ ] Konwencje scalone do `~/.claude/CLAUDE.md` (blok `JAMEL-DEVX:BEGIN/END`)
@@ -77,7 +77,7 @@ Jeśli robiłeś `/jamel-setup` bez `skip rtk`, sprawdź gdzie RTK dopisał hook
 ```bash
 grep -l "rtk hook claude" "$HOME/.claude/settings.json" "$CLAUDE_CONFIG_DIR/settings.json" 2>/dev/null
 ```
-Sprawdź też statusline (3 linie), `rtk gain`, komendy `/caveman`.
+Sprawdź też statusline (3 linie), `rtk gain`, komendy `/ponytail`.
 
 ### 4. Testy jednostkowe wyceny (niezależne od Claude)
 ```bash
@@ -90,8 +90,9 @@ cd /Users/maciejguc/Documents/Coding/CLI/jamel/jamel-plugin
 rm -rf "$HOME/.claude-jamel-test"     # kasuje CAŁY profil testowy
 unset CLAUDE_CONFIG_DIR                # wróć do normalnego profilu
 ```
-Aby powtórzyć test od zera — po prostu utwórz katalog ponownie (krok 1). RTK/caveman zainstalowane przez
-`brew` w tym teście pozostają w systemie (to globalne binaria) — to OK; ewentualnie `brew uninstall rtk`.
+Aby powtórzyć test od zera — po prostu utwórz katalog ponownie (krok 1). RTK zainstalowany przez `brew`
+pozostaje w systemie (globalne binarium) — to OK; ewentualnie `brew uninstall rtk`. Ponytail to plugin
+w profilu testowym, więc znika razem z katalogiem.
 
 ---
 

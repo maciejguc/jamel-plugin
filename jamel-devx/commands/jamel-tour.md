@@ -25,8 +25,9 @@ statusline, kompresja tokenów, MCP ClickUp i zestaw kuratorowanych, samo-aktual
   `context7` są enabled (instalują się automatycznie jako zależności `jamel-devx`). (`claude` CLI samo
   respektuje `CLAUDE_CONFIG_DIR`.)
 - RTK: `command -v rtk` (lub `where rtk` na Windows) + `rtk --version`. Jeśli jest — wspomnij `rtk gain`.
-- Caveman (domyślnie instalowany, auto-on `full`): `claude plugin list` → czy `caveman@caveman` jest
-  enabled. Jeśli tak — przypomnij: na treściach klienckich `/caveman lite` lub `disable caveman@caveman`.
+- Ponytail (domyślnie instalowany, auto-on `full`): `claude plugin list` → czy `ponytail@ponytail` jest
+  enabled. Jeśli zamiast niego jest `caveman@caveman` (starszy setup) — wspomnij, że `/jamel-setup`
+  zamieni go na ponytail.
 - Statusline: czy `$CFG/settings.json` ma `statusLine` wskazujący `$CFG/jamel-statusline.sh` (czytaj
   `$CFG/settings.json`, NIE `~/.claude/settings.json`).
 - ClickUp MCP (z organizacji): `claude mcp list` → czy org-owy serwer ClickUp jest Connected. Plugin
@@ -45,9 +46,11 @@ przez `/help` zanim ją podasz** (nie zmyślaj).
 
 - **RTK** — 🟢 auto w tle. Hook przepuszcza output komend Bash (60–90% mniej tokenów). Nic nie robisz.
   Ręcznie tylko meta: `rtk gain`, `rtk gain --history`, `rtk discover`, `rtk proxy <cmd>`.
-- **caveman** — 🟢 auto w tle. Sam startuje na `full` od pierwszej wiadomości i skraca odpowiedzi Claude.
-  Sterowanie ręczne: `/caveman [lite|full|ultra]`, `/caveman-commit`, `/caveman-review`, `/caveman-stats`,
-  `/caveman-compress <plik>`. **Treści klienckie → `/caveman lite`** lub `claude plugin disable caveman@caveman`.
+- **ponytail** — 🟢 auto w tle. Sam startuje na `full` od pierwszej wiadomości i pilnuje, żeby Claude
+  pisał **minimum kodu** (YAGNI: reuse → stdlib → natywna funkcja platformy → jedna linia), nie tnąc
+  walidacji, security ani accessibility. Sterowanie ręczne: `/ponytail [lite|full|ultra|off]`,
+  `/ponytail-review` (przegląd diffa pod over-engineering), `/ponytail-audit`, `/ponytail-debt`,
+  `/ponytail-gain`, `/ponytail-help`. Nie zmienia stylu odpowiedzi — treści klienckie bez wpływu.
 - **context7** — 🟢/🟡 auto, gdy Claude potrzebuje aktualnej dokumentacji biblioteki/frameworka (sięga po
   MCP sam). Możesz też poprosić wprost: „sprawdź w context7 dokumentację X".
 - **superpowers** — 🟡 półauto. Skille odpalają się automatycznie wg kontekstu: brainstorming (projektowanie),
@@ -96,7 +99,7 @@ Podaj punkty startowe do pogłębienia — najpierw ogólne, potem per-narzędzi
 - **`/mcp`** — serwery MCP + status/logowanie (context7, ClickUp).
 - **`/doctor`** — diagnostyka (hooki, MCP, pluginy, błędy zależności).
 - **RTK**: `rtk --help`, `rtk <cmd> --help`, `rtk gain`. Repo: `github.com/rtk-ai/rtk`.
-- **caveman**: `/caveman-stats` (oszczędności) + repo `github.com/JuliusBrussee/caveman`.
+- **ponytail**: `/ponytail-help` (komendy), `/ponytail-gain` (mierzony efekt) + repo `github.com/DietrichGebert/ponytail`.
 - **codex**: `/codex:setup`, `/codex:status` + repo `github.com/openai/codex-plugin-cc`.
 - **superpowers**: `/help` + repo `github.com/obra/Superpowers`.
 - **frontend-design / code-review / context7**: `/help` + oficjalny marketplace `anthropics/claude-plugins-official`.
