@@ -59,6 +59,16 @@
 - Never start the next phase of an approved plan (merge, deploy, cleanup) without being asked.
 - Follow the 4-stage flow: analyze → plan → implement → verify; don't skip stages.
 
+## Forms (AskUserQuestion) — answer questions in chat
+
+- If the user's form response ("Other" / notes) contains a question or new information, answer it
+  in chat as the **final message of the turn** — never answer and re-open a form in the same turn
+  (text followed by a tool call is not reliably shown, so the user never sees the answer). This
+  applies in plan mode too.
+- Re-present a form only in a later turn, only if a structured choice is still pending, and with
+  options updated to reflect what the user wrote. If the exchange has turned conversational,
+  continue in plain text instead of another form.
+
 ## Scope & environment discipline
 
 - Touch only what the task requires; no drive-by refactors or fixes of adjacent code — ask first.

@@ -8,3 +8,7 @@ __pycache__/
 *.xlsx
 !jamel-pm/assets/estimate_template.xlsx
 !jamel-pm/scripts/tests/golden/*.xlsx
+
+# Internal docs — kept out of the public repo
+TESTING.md
+ROADMAP.md
