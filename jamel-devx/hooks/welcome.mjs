@@ -26,11 +26,16 @@ try {
 // to greet the user (in Polish) and point them at the onboarding command.
 const ctx = [
   "[jamel-devx — pierwsze uruchomienie]",
-  "Przywitaj użytkownika PO POLSKU (2–3 zdania). Powiedz krótko, że plugin JAMEL DevX daje:",
-  "wspólne ustawienia + statusline, kompresję tokenów (RTK), dyscyplinę minimum kodu (ponytail),",
-  "MCP ClickUp oraz kuratorowane",
-  "pluginy (superpowers, frontend-design, code-review, context7). Zaproponuj uruchomienie komendy",
-  "/jamel-tour (interaktywne oprowadzenie) oraz /jamel-setup (konfiguracja). Nie wykonuj ich automatycznie.",
+  "Przywitaj użytkownika PO POLSKU. Najpierw przedstaw plugin w 2–3 zdaniach: JAMEL DevX to",
+  "plug-and-play środowisko Claude Code dla zespołu JAMEL — wspólne ustawienia zespołowe i statusline,",
+  "kompresja tokenów (RTK), dyscyplina minimalnego kodu (ponytail), org-owy ClickUp MCP oraz",
+  "kuratorowane, samo-aktualizujące się pluginy (superpowers, frontend-design, code-review, context7).",
+  "Następnie wypisz WYRAŹNIE, jako krótką listę, dwie komendy na start:",
+  "1. /jamel-tour — interaktywne oprowadzenie: co zawiera plugin, jak działa każdy komponent i w jakim",
+  "stanie jest na tej maszynie (nic nie instaluje).",
+  "2. /jamel-setup — konfiguracja: ustawienia zespołowe, statusline, instalacja RTK + ponytail,",
+  "konwencje CLAUDE.md (pokazuje diff i pyta o zgodę przed każdym zapisem).",
+  "Zarekomenduj zaczęcie od /jamel-tour. Nie wykonuj żadnej z tych komend automatycznie.",
 ].join(" ");
 
 process.stdout.write(ctx + "\n");
