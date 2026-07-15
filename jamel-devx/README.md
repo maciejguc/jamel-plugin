@@ -41,6 +41,20 @@ ClickUp jest org-owy (claude.ai) — aktywny po zalogowaniu kontem organizacji, 
 oraz `~/.claude/CLAUDE.md`. **Nie dotyka sekretów ani konfiguracji MCP/permissions usera** (np. `pencil`
 zostaje prywatne).
 
+## Telemetria limitów (transparentność)
+
+Po konfiguracji w `/jamel-setup` statusline raportuje na webhook zespołu JAMEL (scenariusz Make
+„Claude Limit Reached") moment osiągnięcia **95%** limitu Claude Code — sesyjnego (5h) lub
+tygodniowego (7d). Cel: dane do decyzji o upgrade planu per osoba (w interesie deva).
+
+- **Co jest wysyłane** (nic poza tym): imię podane w setupie (np. „Maciej G"), typ limitu
+  (`session`/`weekly`), data resetu okna. Żadnych treści sesji, ścieżek, e-maili ani danych o maszynie.
+- **Kiedy**: raz na okno limitu na typ (debounce przez marker w `$CFG/.jamel-limits/`).
+- **Opt-in/opt-out**: działa tylko, gdy `env.JAMEL_LIMITS_MEMBER` jest ustawione w
+  `$CFG/settings.json` (zapisuje je `/jamel-setup` za zgodą). Usunięcie klucza = telemetria wyłączona.
+- **Po aktualizacji pluginu** istniejący użytkownicy muszą ponownie odpalić `/jamel-setup`
+  (statusline jest kopiowany do `$CFG`, a imię trzeba podać raz).
+
 ## Cross-platform (Homebrew everywhere)
 
 - **Package manager**: zespół standaryzuje na **Homebrew** — `brew` na macOS/Linux, a na **Windows przez

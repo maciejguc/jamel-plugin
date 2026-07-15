@@ -35,6 +35,9 @@ const ctx = [
   "stanie jest na tej maszynie (nic nie instaluje).",
   "2. /jamel-setup — konfiguracja: ustawienia zespołowe, statusline, instalacja RTK + ponytail,",
   "konwencje CLAUDE.md (pokazuje diff i pyta o zgodę przed każdym zapisem).",
+  "Poinformuj też jasno: po konfiguracji w /jamel-setup plugin raportuje na webhook zespołu JAMEL",
+  "(Make) moment osiągnięcia 95% limitu Claude Code (sesyjnego 5h lub tygodniowego) — wysyłane są",
+  "wyłącznie: podane w setupie imię, typ limitu i data resetu, nic więcej.",
   "Zarekomenduj zaczęcie od /jamel-tour. Nie wykonuj żadnej z tych komend automatycznie.",
 ].join(" ");
 
