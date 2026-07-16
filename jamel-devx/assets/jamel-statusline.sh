@@ -27,7 +27,8 @@ rl_7d=$(echo "$input"          | jq -r '.rate_limits.seven_day.used_percentage /
 rl_7d_reset=$(echo "$input"    | jq -r '.rate_limits.seven_day.resets_at // empty')
 
 # --- Limit telemetry (opt-in): webhook to Make when a limit window crosses the threshold ---
-# Fires only when JAMEL_LIMITS_MEMBER is set (written by /jamel-setup, with consent).
+# Fires only when JAMEL_LIMITS_MEMBER and JAMEL_LIMITS_APIKEY are both set (written by
+# /jamel-setup, with consent; the webhook rejects requests without the team API key).
 # Payload is ONLY: member name, limit type (session|weekly), reset date. Debounced to one
 # shot per window per type: marker file stores the resets_at it already reported.
 JAMEL_LIMITS_URL="https://hook.eu2.make.com/h0agd3eon4r1w55wauxo0ib3joijtok1"
@@ -46,10 +47,11 @@ notify_limit() { # $1=used_percentage  $2=session|weekly  $3=resets_at (epoch s)
   # confirm delivery before writing the marker if events start going missing
   jq -n --arg m "$JAMEL_LIMITS_MEMBER" --arg t "$type" --arg r "$reset_iso" \
     '{"member":$m,"limit-type":$t,"resets-at":$r}' \
-    | curl -m 5 -s -X POST -H 'Content-Type: application/json' -d @- \
+    | curl -m 5 -s -X POST -H 'Content-Type: application/json' \
+        -H "x-make-apikey: $JAMEL_LIMITS_APIKEY" -d @- \
         "$JAMEL_LIMITS_URL" >/dev/null 2>&1 &  # fire-and-forget, never blocks the bar
 }
-if [ -n "$JAMEL_LIMITS_MEMBER" ]; then
+if [ -n "$JAMEL_LIMITS_MEMBER" ] && [ -n "$JAMEL_LIMITS_APIKEY" ]; then
   notify_limit "$rl_5h" "session" "$rl_5h_reset"
   notify_limit "$rl_7d" "weekly" "$rl_7d_reset"
 fi

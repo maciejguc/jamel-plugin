@@ -79,10 +79,14 @@ plan upgrades per person (in the dev's interest).
 - Ask the user for their **first name + first letter of surname** (e.g. "Maciej G"). This step is
   part of the standard setup; without a value the telemetry stays fully off (the statusline sends
   nothing when the variable is missing) — removing the key later is the opt-out.
-- Merge into `$CFG/settings.json` → `env.JAMEL_LIMITS_MEMBER` (same mechanism as step 1: show the
-  diff, confirm before writing).
-- Idempotent: if `env.JAMEL_LIMITS_MEMBER` is already set, show the current value and ask whether
-  to keep or change it.
+- Ask for the **team webhook API key** — a shared secret the dev receives out-of-band from the PM
+  (Maciek); it is NOT in this repo. The webhook rejects requests without it, and the statusline
+  sends nothing unless both values are set.
+- Merge into `$CFG/settings.json` → `env.JAMEL_LIMITS_MEMBER` and `env.JAMEL_LIMITS_APIKEY` (same
+  mechanism as step 1: show the diff, confirm before writing). Treat the key as a secret: fine to
+  write into settings, but don't echo it back in summaries (mask it, e.g. `abc…xyz`).
+- Idempotent: if `env.JAMEL_LIMITS_MEMBER` / `env.JAMEL_LIMITS_APIKEY` are already set, show the
+  member value and a masked key, and ask whether to keep or change them.
 
 ### 4. RTK (compress Bash command output, 60–90% fewer tokens)
 RTK is `rtk-ai/rtk`. Install the binary via brew, then run its own integration installer (it writes the
