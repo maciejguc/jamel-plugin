@@ -41,6 +41,35 @@ ClickUp jest org-owy (claude.ai) — aktywny po zalogowaniu kontem organizacji, 
 oraz `~/.claude/CLAUDE.md`. **Nie dotyka sekretów ani konfiguracji MCP/permissions usera** (np. `pencil`
 zostaje prywatne).
 
+### Instalacja jednym promptem (onboarding prowadzony przez Claude)
+
+Zamiast wpisywać komendy ręcznie, wklej do świeżej sesji Claude Code poniższy prompt — Claude sam
+zainstaluje plugin, przeprowadzi oprowadzenie i **zapyta o zgodę przed konfiguracją**:
+
+```text
+Zainstaluj plugin JAMEL DevX i przeprowadź mnie przez onboarding. Wykonuj kroki dokładnie
+w tej kolejności i nie pomijaj żadnego:
+
+1. Zainstaluj marketplace i plugin (przez Bash):
+   claude plugin marketplace add maciejguc/jamel-plugin
+   claude plugin install jamel-devx@jamel
+2. Poproś mnie, żebym wpisał /reload-plugins (nie możesz zrobić tego za mnie — to komenda
+   interfejsu) i ZATRZYMAJ SIĘ, aż potwierdzę, że gotowe.
+3. Po moim potwierdzeniu wykonaj komendę /jamel-tour i zwróć mi w chacie pełny wynik
+   oprowadzenia: checklistę stanu komponentów i tabelę jak z nich korzystać.
+4. Następnie zapytaj mnie wprost, czy wykonać /jamel-setup, i CZEKAJ na moją odpowiedź.
+   Nie uruchamiaj setupu bez mojego potwierdzenia.
+5. Dopiero po potwierdzeniu wykonaj /jamel-setup i przeprowadź mnie po polsku przez jego
+   kroki (setup pokazuje diffy i pyta o zgodę przed każdym zapisem).
+
+Jeśli po /reload-plugins komendy /jamel-tour lub /jamel-setup nadal nie są dostępne, poproś
+mnie o restart Claude Code i podaj mi prompt do wklejenia w nowej sesji: "Wykonaj /jamel-tour
+i zwróć pełny wynik, potem zapytaj czy wykonać /jamel-setup i czekaj na moje potwierdzenie."
+```
+
+Jedyne ręczne akcje developera: wpisanie `/reload-plugins` w kroku 2 oraz odpowiadanie na pytania
+setupu (zgody na zapisy, imię do telemetrii limitów).
+
 ## Telemetria limitów (transparentność)
 
 Po konfiguracji w `/jamel-setup` statusline raportuje na webhook zespołu JAMEL (scenariusz Make
