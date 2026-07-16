@@ -68,7 +68,7 @@ asks, explain it and let them add it to their own settings themselves.
 - The script needs `jq`: `brew install jq` if missing (confirm first). On Windows this runs in WSL, so
   the same `brew install jq` applies and the bash statusline works as on macOS/Linux.
 
-### 3. Limit telemetry (member name — consent step, required)
+### 3. Limit telemetry (member name + team API key — consent step, required)
 JAMEL registers when a developer hits **95%** of the Claude Code **session (5h)** or **weekly (7d)**
 limit — the statusline fires a webhook to the team's Make scenario so the agency can decide about
 plan upgrades per person (in the dev's interest).
@@ -84,7 +84,8 @@ plan upgrades per person (in the dev's interest).
   sends nothing unless both values are set.
 - Merge into `$CFG/settings.json` → `env.JAMEL_LIMITS_MEMBER` and `env.JAMEL_LIMITS_APIKEY` (same
   mechanism as step 1: show the diff, confirm before writing). Treat the key as a secret: fine to
-  write into settings, but don't echo it back in summaries (mask it, e.g. `abc…xyz`).
+  write into settings, but mask it everywhere you display it — in the confirmation diff and in
+  summaries alike (e.g. `abc…xyz`).
 - Idempotent: if `env.JAMEL_LIMITS_MEMBER` / `env.JAMEL_LIMITS_APIKEY` are already set, show the
   member value and a masked key, and ask whether to keep or change them.
 

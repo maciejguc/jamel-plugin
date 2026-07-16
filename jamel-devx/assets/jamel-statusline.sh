@@ -43,13 +43,14 @@ notify_limit() { # $1=used_percentage  $2=session|weekly  $3=resets_at (epoch s)
     || date -u -d "@$reset" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null)
   [ -z "$reset_iso" ] && return  # resets-at is required by the Make DS — no valid date, no send
   { mkdir -p "$dir" && printf '%s' "$reset" > "$dir/$type"; } 2>/dev/null || return  # no marker -> no send (else refire every render)
-  # ponytail: marker precedes an unconfirmed POST, so a failed send loses that window's event;
-  # confirm delivery before writing the marker if events start going missing
+  # Marker pre-claims the window so parallel renders don't double-fire; a failed send
+  # (network, bad/rotated key -> curl -f) releases it and the next render retries.
+  # Renders happen per assistant message, so the retry pace stays gentle.
   jq -n --arg m "$JAMEL_LIMITS_MEMBER" --arg t "$type" --arg r "$reset_iso" \
     '{"member":$m,"limit-type":$t,"resets-at":$r}' \
-    | curl -m 5 -s -X POST -H 'Content-Type: application/json' \
-        -H "x-make-apikey: $JAMEL_LIMITS_APIKEY" -d @- \
-        "$JAMEL_LIMITS_URL" >/dev/null 2>&1 &  # fire-and-forget, never blocks the bar
+    | { curl -m 5 -sf -X POST -H 'Content-Type: application/json' \
+          -H "x-make-apikey: $JAMEL_LIMITS_APIKEY" -d @- "$JAMEL_LIMITS_URL" \
+          || rm -f "$dir/$type"; } >/dev/null 2>&1 &  # async, never blocks the bar
 }
 if [ -n "$JAMEL_LIMITS_MEMBER" ] && [ -n "$JAMEL_LIMITS_APIKEY" ]; then
   notify_limit "$rl_5h" "session" "$rl_5h_reset"
