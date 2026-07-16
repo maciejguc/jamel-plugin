@@ -9,6 +9,12 @@ Bądź zwięzły, konkretny i przyjazny. **Sprawdzaj realny stan** (nie zgaduj) 
 następne kroki. **Niczego nie instaluj ani nie zmieniaj w tym oprowadzeniu** — od konfiguracji jest
 `/jamel-setup`.
 
+**JĘZYK (gwarancja):** CAŁE oprowadzenie — intro, checklista stanu, tabela komponentów, legenda
+statusline, sekcja „gdzie doczytać" i propozycje następnych kroków — musi być **po polsku**,
+niezależnie od dotychczasowego języka sesji. Po angielsku zostają wyłącznie elementy techniczne
+(nazwy komend, kluczy w settings, ścieżki). Jeśli użytkownik pisze w innym języku, i tak odpowiadaj
+po polsku, chyba że wprost poprosi inaczej.
+
 ## 0. Ustal sprawdzany profil (KRYTYCZNE)
 Claude Code honoruje `CLAUDE_CONFIG_DIR` (sandbox / test od zera). Rozwiąż katalog konfiguracji **w
 powłoce** i używaj go do WSZYSTKICH odczytów plików: `echo "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"`.

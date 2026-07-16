@@ -10,6 +10,11 @@ so they must be written into the user's settings, or installed via a package man
 idempotent, cross-platform, and ask for confirmation before writing or installing.**
 
 ## Rules
+- **LANGUAGE: conduct the ENTIRE interaction with the user in POLISH** — every explanation, question,
+  confirmation prompt, diff summary, warning and the final summary. This holds regardless of the
+  session's language so far. Only the technical artifacts stay as-is (settings keys/values, shell
+  commands, file contents you write). If the user writes in another language, still answer in Polish
+  unless they explicitly ask otherwise.
 - **Resolve the config directory FIRST and use it for every path below.** Claude Code honors
   `CLAUDE_CONFIG_DIR` (sandbox/multi-profile testing); the config dir is:
   `CFG="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"`. Run `echo "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"` once and
