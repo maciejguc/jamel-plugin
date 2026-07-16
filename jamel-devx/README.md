@@ -105,7 +105,12 @@ tygodniowego (7d). Cel: dane do decyzji o upgrade planu per osoba (w interesie d
 
 - **Zewnętrzne pluginy**: śledzą najnowszą wersję ze swojego marketplace'u → background auto-update.
   Ręcznie: `claude plugin update <plugin>`.
-- **jamel-devx / jamel-pm**: bez pola `version` (commit-SHA versioning) → każdy push = nowa wersja.
+- **jamel-devx / jamel-pm**: bez pola `version` (commit-SHA versioning) → każdy merge do `main` =
+  nowa wersja. **Uwaga — aktualizacja to DWA kroki**: `/plugin marketplace update jamel` tylko
+  odświeża cache marketplace'u; zainstalowany plugin pozostaje **przypięty do commita z momentu
+  instalacji**, dopóki nie wykonasz `claude plugin update jamel-devx@jamel` (i analogicznie
+  `jamel-pm@jamel`). Po aktualizacji zrestartuj Claude Code. `/jamel-setup` sprawdza to sam na
+  starcie (krok 0).
 
 ## Uwagi
 

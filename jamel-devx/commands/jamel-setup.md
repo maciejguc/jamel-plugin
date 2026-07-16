@@ -34,7 +34,15 @@ idempotent, cross-platform, and ask for confirmation before writing or installin
 
 ## Steps
 
-### 1. Shared settings (merge into `$CFG/settings.json`)
+### 0. Self-update check (run FIRST)
+This command's own instructions come from the **installed** plugin version — running an outdated
+copy applies outdated config. A marketplace refresh alone is NOT enough: the installed plugin stays
+pinned to its install-time commit until `claude plugin update` repoints it.
+1. `claude plugin marketplace update jamel`
+2. `claude plugin update jamel-devx@jamel` and `claude plugin update jamel-pm@jamel`
+3. If either reported an update: tell the user (in Polish) to restart Claude Code and re-run
+   `/jamel-setup`, then STOP — continuing would still execute the old instructions. If both were
+   already up to date, continue with step 1.
 Add/ensure exactly these keys (do not remove unrelated user keys, do not add MCP/permissions):
 ```json
 {
