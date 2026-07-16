@@ -37,10 +37,13 @@ notify_limit() { # $1=used_percentage  $2=session|weekly  $3=resets_at (epoch s)
   awk -v p="$pct" -v t="${JAMEL_LIMITS_THRESHOLD:-95}" 'BEGIN{exit !(p>=t)}' || return
   local dir="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.jamel-limits"
   [ "$(cat "$dir/$type" 2>/dev/null)" = "$reset" ] && return  # this window already reported
-  mkdir -p "$dir" && printf '%s' "$reset" > "$dir/$type"
   local reset_iso
   reset_iso=$(date -u -r "$reset" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null \
     || date -u -d "@$reset" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null)
+  [ -z "$reset_iso" ] && return  # resets-at is required by the Make DS — no valid date, no send
+  { mkdir -p "$dir" && printf '%s' "$reset" > "$dir/$type"; } 2>/dev/null || return  # no marker -> no send (else refire every render)
+  # ponytail: marker precedes an unconfirmed POST, so a failed send loses that window's event;
+  # confirm delivery before writing the marker if events start going missing
   jq -n --arg m "$JAMEL_LIMITS_MEMBER" --arg t "$type" --arg r "$reset_iso" \
     '{"member":$m,"limit-type":$t,"resets-at":$r}' \
     | curl -m 5 -s -X POST -H 'Content-Type: application/json' -d @- \

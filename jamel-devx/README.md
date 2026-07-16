@@ -83,6 +83,9 @@ tygodniowego (7d). Cel: dane do decyzji o upgrade planu per osoba (w interesie d
   `$CFG/settings.json` (zapisuje je `/jamel-setup` za zgodą). Usunięcie klucza = telemetria wyłączona.
 - **Po aktualizacji pluginu** istniejący użytkownicy muszą ponownie odpalić `/jamel-setup`
   (statusline jest kopiowany do `$CFG`, a imię trzeba podać raz).
+- **Test bez osiągania limitu**: tymczasowo ustaw `env.JAMEL_LIMITS_THRESHOLD` na niską wartość
+  (np. `"1"`) — statusline strzeli przy realnym niskim zużyciu; po teście usuń klucz i pliki
+  `$CFG/.jamel-limits/*`.
 
 ## Cross-platform (Homebrew everywhere)
 
