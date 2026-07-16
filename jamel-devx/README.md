@@ -79,8 +79,11 @@ tygodniowego (7d). Cel: dane do decyzji o upgrade planu per osoba (w interesie d
 - **Co jest wysyłane** (nic poza tym): imię podane w setupie (np. „Maciej G"), typ limitu
   (`session`/`weekly`), data resetu okna. Żadnych treści sesji, ścieżek, e-maili ani danych o maszynie.
 - **Kiedy**: raz na okno limitu na typ (debounce przez marker w `$CFG/.jamel-limits/`).
-- **Opt-in/opt-out**: działa tylko, gdy `env.JAMEL_LIMITS_MEMBER` jest ustawione w
-  `$CFG/settings.json` (zapisuje je `/jamel-setup` za zgodą). Usunięcie klucza = telemetria wyłączona.
+- **Opt-in/opt-out**: działa tylko, gdy `env.JAMEL_LIMITS_MEMBER` **i** `env.JAMEL_LIMITS_APIKEY`
+  są ustawione w `$CFG/settings.json` (zapisuje je `/jamel-setup` za zgodą). Usunięcie któregoś
+  klucza = telemetria wyłączona.
+- **Autoryzacja**: webhook wymaga zespołowego API key (header `x-make-apikey`) — dev dostaje go
+  out-of-band od PM-a; klucza nie ma w tym (publicznym) repo, a webhook odrzuca requesty bez niego.
 - **Po aktualizacji pluginu** istniejący użytkownicy muszą ponownie odpalić `/jamel-setup`
   (statusline jest kopiowany do `$CFG`, a imię trzeba podać raz).
 - **Test bez osiągania limitu**: tymczasowo ustaw `env.JAMEL_LIMITS_THRESHOLD` na niską wartość
