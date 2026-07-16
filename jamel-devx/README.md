@@ -41,6 +41,52 @@ ClickUp jest org-owy (claude.ai) — aktywny po zalogowaniu kontem organizacji, 
 oraz `~/.claude/CLAUDE.md`. **Nie dotyka sekretów ani konfiguracji MCP/permissions usera** (np. `pencil`
 zostaje prywatne).
 
+### Instalacja jednym promptem (onboarding prowadzony przez Claude)
+
+Zamiast wpisywać komendy ręcznie, wklej do świeżej sesji Claude Code poniższy prompt — Claude sam
+zainstaluje plugin, przeprowadzi oprowadzenie i **zapyta o zgodę przed konfiguracją**:
+
+```text
+Zainstaluj plugin JAMEL DevX i przeprowadź mnie przez onboarding. Wykonuj kroki dokładnie
+w tej kolejności i nie pomijaj żadnego:
+
+1. Zainstaluj marketplace i plugin (przez Bash):
+   claude plugin marketplace add maciejguc/jamel-plugin
+   claude plugin install jamel-devx@jamel
+2. Poproś mnie, żebym wpisał /reload-plugins (nie możesz zrobić tego za mnie — to komenda
+   interfejsu) i ZATRZYMAJ SIĘ, aż potwierdzę, że gotowe.
+3. Po moim potwierdzeniu wykonaj komendę /jamel-tour i zwróć mi w chacie pełny wynik
+   oprowadzenia: checklistę stanu komponentów i tabelę jak z nich korzystać.
+4. Następnie zapytaj mnie wprost, czy wykonać /jamel-setup, i CZEKAJ na moją odpowiedź.
+   Nie uruchamiaj setupu bez mojego potwierdzenia.
+5. Dopiero po potwierdzeniu wykonaj /jamel-setup i przeprowadź mnie po polsku przez jego
+   kroki (setup pokazuje diffy i pyta o zgodę przed każdym zapisem).
+
+Jeśli po /reload-plugins komendy /jamel-tour lub /jamel-setup nadal nie są dostępne, poproś
+mnie o restart Claude Code i podaj mi prompt do wklejenia w nowej sesji: "Wykonaj /jamel-tour
+i zwróć pełny wynik, potem zapytaj czy wykonać /jamel-setup i czekaj na moje potwierdzenie."
+```
+
+Jedyne ręczne akcje developera: wpisanie `/reload-plugins` w kroku 2 oraz odpowiadanie na pytania
+setupu (zgody na zapisy, imię do telemetrii limitów).
+
+## Telemetria limitów (transparentność)
+
+Po konfiguracji w `/jamel-setup` statusline raportuje na webhook zespołu JAMEL (scenariusz Make
+„Claude Limit Reached") moment osiągnięcia **95%** limitu Claude Code — sesyjnego (5h) lub
+tygodniowego (7d). Cel: dane do decyzji o upgrade planu per osoba (w interesie deva).
+
+- **Co jest wysyłane** (nic poza tym): imię podane w setupie (np. „Maciej G"), typ limitu
+  (`session`/`weekly`), data resetu okna. Żadnych treści sesji, ścieżek, e-maili ani danych o maszynie.
+- **Kiedy**: raz na okno limitu na typ (debounce przez marker w `$CFG/.jamel-limits/`).
+- **Opt-in/opt-out**: działa tylko, gdy `env.JAMEL_LIMITS_MEMBER` jest ustawione w
+  `$CFG/settings.json` (zapisuje je `/jamel-setup` za zgodą). Usunięcie klucza = telemetria wyłączona.
+- **Po aktualizacji pluginu** istniejący użytkownicy muszą ponownie odpalić `/jamel-setup`
+  (statusline jest kopiowany do `$CFG`, a imię trzeba podać raz).
+- **Test bez osiągania limitu**: tymczasowo ustaw `env.JAMEL_LIMITS_THRESHOLD` na niską wartość
+  (np. `"1"`) — statusline strzeli przy realnym niskim zużyciu; po teście usuń klucz i pliki
+  `$CFG/.jamel-limits/*`.
+
 ## Cross-platform (Homebrew everywhere)
 
 - **Package manager**: zespół standaryzuje na **Homebrew** — `brew` na macOS/Linux, a na **Windows przez

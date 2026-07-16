@@ -9,6 +9,12 @@ Bądź zwięzły, konkretny i przyjazny. **Sprawdzaj realny stan** (nie zgaduj) 
 następne kroki. **Niczego nie instaluj ani nie zmieniaj w tym oprowadzeniu** — od konfiguracji jest
 `/jamel-setup`.
 
+**JĘZYK (gwarancja):** CAŁE oprowadzenie — intro, checklista stanu, tabela komponentów, legenda
+statusline, sekcja „gdzie doczytać" i propozycje następnych kroków — musi być **po polsku**,
+niezależnie od dotychczasowego języka sesji. Po angielsku zostają wyłącznie elementy techniczne
+(nazwy komend, kluczy w settings, ścieżki). Jeśli użytkownik pisze w innym języku, i tak odpowiadaj
+po polsku, chyba że wprost poprosi inaczej.
+
 ## 0. Ustal sprawdzany profil (KRYTYCZNE)
 Claude Code honoruje `CLAUDE_CONFIG_DIR` (sandbox / test od zera). Rozwiąż katalog konfiguracji **w
 powłoce** i używaj go do WSZYSTKICH odczytów plików: `echo "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"`.
@@ -30,6 +36,8 @@ statusline, kompresja tokenów, MCP ClickUp i zestaw kuratorowanych, samo-aktual
   zamieni go na ponytail.
 - Statusline: czy `$CFG/settings.json` ma `statusLine` wskazujący `$CFG/jamel-statusline.sh` (czytaj
   `$CFG/settings.json`, NIE `~/.claude/settings.json`).
+- Telemetria limitów: czy `$CFG/settings.json` ma `env.JAMEL_LIMITS_MEMBER`. Ustawione = aktywna
+  (podaj jako kto raportuje); brak = wyłączona (statusline nic nie wysyła) → skonfiguruje `/jamel-setup`.
 - ClickUp MCP (z organizacji): `claude mcp list` → czy org-owy serwer ClickUp jest Connected. Plugin
   **nie** dostarcza własnego ClickUp — pochodzi z org (claude.ai), aktywny po zalogowaniu kontem org.
   Jeśli brak → sprawa provisioningu org, nie tego pluginu.
@@ -64,6 +72,11 @@ przez `/help` zanim ją podasz** (nie zmyślaj).
 - **ClickUp (org MCP)** — 🟢 auto, gdy Claude operuje na zadaniach/listach ClickUp. Dostarczany przez
   organizację (nie plugin); wymaga zalogowania kontem org.
 - **statusline** — 🟢 auto. Pasek: cwd/git/model, kontekst %, tokeny, koszt, rate limity.
+- **telemetria limitów** — 🟢 auto (jeśli skonfigurowana w `/jamel-setup`). Gdy limit sesyjny (5h)
+  lub tygodniowy (7d) osiągnie **95%**, statusline wysyła RAZ na okno webhook do Make zespołu JAMEL.
+  Wysyłane są WYŁĄCZNIE: imię podane w setupie (`JAMEL_LIMITS_MEMBER`), typ limitu (`session`/`weekly`)
+  i data resetu — żadnych treści sesji, ścieżek ani e-maili. Cel: decyzje o upgrade planu per osoba.
+  Wyłączenie: usuń `env.JAMEL_LIMITS_MEMBER` z `$CFG/settings.json`.
 - **jamel-devx** — 🔵 ręczny. `/jamel-setup` (konfiguracja), `/jamel-tour` (to oprowadzenie).
 - **jamel-pm** — 🔵 ręczny. `/wycena` → wycena projektu → `.xlsx`.
 

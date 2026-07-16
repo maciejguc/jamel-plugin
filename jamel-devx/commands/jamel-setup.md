@@ -10,6 +10,11 @@ so they must be written into the user's settings, or installed via a package man
 idempotent, cross-platform, and ask for confirmation before writing or installing.**
 
 ## Rules
+- **LANGUAGE: conduct the ENTIRE interaction with the user in POLISH** — every explanation, question,
+  confirmation prompt, diff summary, warning and the final summary. This holds regardless of the
+  session's language so far. Only the technical artifacts stay as-is (settings keys/values, shell
+  commands, file contents you write). If the user writes in another language, still answer in Polish
+  unless they explicitly ask otherwise.
 - **Resolve the config directory FIRST and use it for every path below.** Claude Code honors
   `CLAUDE_CONFIG_DIR` (sandbox/multi-profile testing); the config dir is:
   `CFG="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"`. Run `echo "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"` once and
@@ -63,7 +68,23 @@ asks, explain it and let them add it to their own settings themselves.
 - The script needs `jq`: `brew install jq` if missing (confirm first). On Windows this runs in WSL, so
   the same `brew install jq` applies and the bash statusline works as on macOS/Linux.
 
-### 3. RTK (compress Bash command output, 60–90% fewer tokens)
+### 3. Limit telemetry (member name — consent step, required)
+JAMEL registers when a developer hits **95%** of the Claude Code **session (5h)** or **weekly (7d)**
+limit — the statusline fires a webhook to the team's Make scenario so the agency can decide about
+plan upgrades per person (in the dev's interest).
+- **Transparency first — tell the user explicitly (in Polish)** what leaves the machine and when:
+  at ≥95% of a limit window, ONE request goes to the JAMEL Make webhook containing ONLY the name
+  given below, the limit type (`session`/`weekly`) and the limit reset date. No session content,
+  no paths, no e-mails, no machine info. Once per limit window (debounced by the statusline).
+- Ask the user for their **first name + first letter of surname** (e.g. "Maciej G"). This step is
+  part of the standard setup; without a value the telemetry stays fully off (the statusline sends
+  nothing when the variable is missing) — removing the key later is the opt-out.
+- Merge into `$CFG/settings.json` → `env.JAMEL_LIMITS_MEMBER` (same mechanism as step 1: show the
+  diff, confirm before writing).
+- Idempotent: if `env.JAMEL_LIMITS_MEMBER` is already set, show the current value and ask whether
+  to keep or change it.
+
+### 4. RTK (compress Bash command output, 60–90% fewer tokens)
 RTK is `rtk-ai/rtk`. Install the binary via brew, then run its own integration installer (it writes the
 Claude Code hook itself — we deliberately do **not** ship a raw shell hook in the plugin).
 1. If `rtk` is missing: `brew install rtk` (confirm first). Fallback if Rust is present but brew can't
@@ -77,7 +98,7 @@ Claude Code hook itself — we deliberately do **not** ship a raw shell hook in 
    tell the user RTK's own integration may target `~/.claude` regardless — verify where it wrote and, in
    a sandbox, prefer inspecting rather than relying on it landing in `$CFG`.
 
-### 4. Ponytail — installed BY DEFAULT (auto-active every session)
+### 5. Ponytail — installed BY DEFAULT (auto-active every session)
 Ponytail makes Claude write *less code* (YAGNI ladder: skip → reuse what's in the codebase → stdlib →
 native platform feature → installed dependency → one line → only then the minimum that works); RTK
 shrinks *Bash output*. Different layers, safe together. **On Claude Code it is a plugin that
@@ -96,7 +117,7 @@ SELF-ACTIVATES from message one at level `full`** (SessionStart hook; needs `nod
   JAMEL replaced caveman with ponytail — caveman's per-turn ruleset overhead outweighed its prose
   savings in agentic coding sessions.
 
-### 5. Homebrew bootstrap (if `brew` is missing)
+### 6. Homebrew bootstrap (if `brew` is missing)
 Everything above assumes `brew`. If it is missing:
 - **macOS / Linux / WSL**: offer to install Homebrew via the official installer (the one place a `curl`
   bootstrap is justified — there is no package manager to install the package manager):
@@ -106,7 +127,7 @@ Everything above assumes `brew`. If it is missing:
   Claude Code + `/jamel-setup` from inside WSL. Do not fall back to other managers — JAMEL standardizes
   on brew-via-WSL for a single, consistent toolchain.
 
-### 6. Marketplaces + curated plugins
+### 7. Marketplaces + curated plugins
 - The 4 curated plugins (superpowers, frontend-design, code-review, context7) are hard dependencies of
   `jamel-devx`, auto-installed/enabled from `claude-plugins-official`. Confirm with `claude plugin list`;
   if `claude-plugins-official` is missing, add it: `claude plugin marketplace add anthropics/claude-plugins-official`.
@@ -114,20 +135,20 @@ Everything above assumes `brew`. If it is missing:
   `claude plugin marketplace add openai/codex-plugin-cc` then `claude plugin install codex@openai-codex`,
   then `/codex:setup`.
 
-### 7. ClickUp MCP (provided by the organization — nothing to install here)
+### 8. ClickUp MCP (provided by the organization — nothing to install here)
 - The plugin does **not** ship a ClickUp MCP. JAMEL provides ClickUp org-wide (claude.ai connector),
   auto-active once the dev is logged in with their org account.
 - Just verify it's connected (`claude mcp list` / `/mcp` shows a ClickUp server as Connected). If a dev
   doesn't have it, that's an org-provisioning matter, not this setup.
 
-### 8. Team conventions (CLAUDE.md)
+### 9. Team conventions (CLAUDE.md)
 - Canonical conventions live at `${CLAUDE_PLUGIN_ROOT}/CLAUDE.md`, wrapped in
   `<!-- JAMEL-DEVX:BEGIN -->` / `<!-- JAMEL-DEVX:END -->`.
 - Offer to merge that marked block into `$CFG/CLAUDE.md` (a plugin's CLAUDE.md is not auto-loaded).
   Replace the block between markers if present (idempotent); otherwise append. Confirm first; never
   disturb the user's other CLAUDE.md content.
 
-### 9. Finish
+### 10. Finish
 - Summarize exactly what changed.
 - Tell the user to run `/reload-plugins` (to pick up hooks/MCP) and, if the statusline didn't appear,
   restart Claude Code. Suggest `/jamel-tour` for a guided overview.
