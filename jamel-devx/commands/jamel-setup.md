@@ -54,6 +54,7 @@ Add/ensure exactly these keys (do not remove unrelated user keys, do not add MCP
     "DISABLE_COST_WARNINGS": "1",
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
   },
+  "model": "opusplan",
   "effortLevel": "high",
   "tui": "fullscreen",
   "editorMode": "normal",
@@ -62,6 +63,10 @@ Add/ensure exactly these keys (do not remove unrelated user keys, do not add MCP
   "remoteControlAtStartup": false
 }
 ```
+`model: "opusplan"` makes **Opus** the model for **plan mode** and Sonnet for execution — strongest
+model where it matters most (analysis/planning, per the JAMEL analyze→plan→approve workflow), cheaper
+and faster where the plan is already approved. Tell the user; per-session override stays available
+via `/model`.
 `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE: "80"` triggers Claude Code's auto-compaction at 80% context usage
 (default is ~95%) — compacts before the window is cramped, leaving buffer for the summarization and
 matching the statusline turning red at ≥80%. Tunable per dev: 85 for context-heavy work, 70 for long
