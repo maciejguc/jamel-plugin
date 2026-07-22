@@ -70,6 +70,15 @@ i zwróć pełny wynik, potem zapytaj czy wykonać /jamel-setup i czekaj na moje
 Jedyne ręczne akcje developera: wpisanie `/reload-plugins` w kroku 2 oraz odpowiadanie na pytania
 setupu (zgody na zapisy, imię do telemetrii limitów).
 
+## Opcjonalnie: `claude --fableplan` (Fable 5 w plan mode)
+
+Dla kont z dostępem do **Fable 5** (Max / Team Premium) `/jamel-setup` może — za zgodą — dopisać do
+powłoki wrapper `claude --fableplan`: sesja z **Fable 5 w plan mode** i Sonnetem w wykonaniu
+(mechanizm: udokumentowany env `ANTHROPIC_DEFAULT_OPUS_MODEL` nałożony na `opusplan`). Zwykłe
+`claude` pozostaje na zespołowym `opusplan`; wariant wybierasz przy starcie sesji (env czytany na
+starcie — bez przełączania w trakcie). Wrapper przeżywa `brew upgrade` (binarka rozwiązywana przez
+PATH przy wywołaniu); usunięcie = skasowanie bloku `# JAMEL-FABLEPLAN` z rc.
+
 ## Telemetria limitów (transparentność)
 
 Po konfiguracji w `/jamel-setup` statusline raportuje na webhook zespołu JAMEL (scenariusz Make
