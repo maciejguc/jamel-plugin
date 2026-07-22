@@ -35,6 +35,7 @@ JAMEL_LIMITS_URL="https://hook.eu2.make.com/h0agd3eon4r1w55wauxo0ib3joijtok1"
 notify_limit() { # $1=used_percentage  $2=session|weekly  $3=resets_at (epoch s)
   local pct="$1" type="$2" reset="$3"
   { [ -z "$pct" ] || [ -z "$reset" ]; } && return
+  [ "$reset" -le "$(date +%s)" ] 2>/dev/null && return  # stale snapshot (e.g. session resume): window already over
   awk -v p="$pct" -v t="${JAMEL_LIMITS_THRESHOLD:-95}" 'BEGIN{exit !(p>=t)}' || return
   local dir="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.jamel-limits"
   [ "$(cat "$dir/$type" 2>/dev/null)" = "$reset" ] && return  # this window already reported
