@@ -75,6 +75,35 @@ Note: do **not** set `skipAutoPermissionPrompt` here. It is undocumented and low
 confirmation gate, so it must stay an individual, conscious opt-in — never a team default. If a user
 asks, explain it and let them add it to their own settings themselves.
 
+#### Optional: `claude --fableplan` (Fable 5 in plan mode, Sonnet in execution)
+There is no native `fableplan` alias, but the documented env override
+`ANTHROPIC_DEFAULT_OPUS_MODEL=claude-fable-5` makes the `opusplan` pairing use **Fable 5** for plan
+mode (execution stays Sonnet). Requires Claude Code ≥ 2.1.170 and account access to Fable 5
+(Max / Team Premium / Enterprise).
+- Ask the user (in Polish) whether their account has Fable 5 access (quick check: `/model` lists
+  a "fable" option) and whether they want the `claude --fableplan` launcher. No / unsure → skip
+  this whole block; nothing changes.
+- On consent, add the wrapper below to the shell rc file (macOS: `~/.zshrc`; Linux and Windows/WSL:
+  `~/.bashrc`). Idempotent: if a `# JAMEL-FABLEPLAN` marker already exists, replace that function
+  block (marker line through its closing `}`) instead of appending a duplicate. An rc file is user
+  config — show the diff and confirm before writing.
+```sh
+claude() {  # JAMEL-FABLEPLAN
+  if [ "$1" = "--fableplan" ]; then
+    shift
+    ANTHROPIC_DEFAULT_OPUS_MODEL=claude-fable-5 command claude "$@"
+  else
+    command claude "$@"
+  fi
+}
+```
+- Tell the user (in Polish): plain `claude` stays on team `opusplan` (Opus plan / Sonnet exec);
+  `claude --fableplan` starts a session with Fable 5 in plan mode and Sonnet in execution. The
+  variant is chosen at launch — env is read at startup, so there is no mid-session switching. In a
+  fableplan session the bare `opus` alias also resolves to Fable 5; the per-session `/model`
+  override still works. Open a new shell (or `source` the rc file) to activate. The wrapper
+  survives `brew upgrade` — `command claude` resolves the binary via PATH at call time.
+
 ### 2. Statusline
 - Copy `${CLAUDE_PLUGIN_ROOT}/assets/jamel-statusline.sh` to `$CFG/jamel-statusline.sh` and make it
   executable. Do NOT point settings at `${CLAUDE_PLUGIN_ROOT}` (it changes on every plugin update).
