@@ -83,20 +83,17 @@ mode (execution stays Sonnet). Requires Claude Code ≥ 2.1.170 and account acce
 - Ask the user (in Polish) whether their account has Fable 5 access (quick check: `/model` lists
   a "fable" option) and whether they want the `claude --fableplan` launcher. No / unsure → skip
   this whole block; nothing changes.
-- On consent, add the wrapper below to the shell rc file (macOS: `~/.zshrc`; Linux and Windows/WSL:
-  `~/.bashrc`). Idempotent: if a `# JAMEL-FABLEPLAN` marker already exists, replace that function
-  block (marker line through its closing `}`) instead of appending a duplicate. An rc file is user
-  config — show the diff and confirm before writing.
-```sh
-claude() {  # JAMEL-FABLEPLAN
-  if [ "$1" = "--fableplan" ]; then
-    shift
-    ANTHROPIC_DEFAULT_OPUS_MODEL=claude-fable-5 command claude "$@"
-  else
-    command claude "$@"
-  fi
-}
-```
+- The wrapper ships as an asset: `${CLAUDE_PLUGIN_ROOT}/assets/fableplan.sh`. It is deliberately
+  NOT inlined here — slash-command files substitute positional dollar-placeholders (dollar-one
+  through dollar-nine, `$ARGUMENTS`) in their entire content, code blocks included, which would
+  corrupt the snippet.
+  `cat` the asset to show the user its exact contents; never retype it from memory.
+- On consent, append the asset's contents to the shell rc file (macOS: `~/.zshrc`; Linux and
+  Windows/WSL: `~/.bashrc`) with a shell copy, e.g.
+  `cat "${CLAUDE_PLUGIN_ROOT}/assets/fableplan.sh" >> ~/.zshrc`. Idempotent: if a
+  `# JAMEL-FABLEPLAN` marker already exists in the rc file, first remove the old function block
+  (marker line through its closing `}`), then append. An rc file is user config — show the diff
+  and confirm before writing.
 - Tell the user (in Polish): plain `claude` stays on team `opusplan` (Opus plan / Sonnet exec);
   `claude --fableplan` starts a session with Fable 5 in plan mode and Sonnet in execution. The
   variant is chosen at launch — env is read at startup, so there is no mid-session switching. In a
