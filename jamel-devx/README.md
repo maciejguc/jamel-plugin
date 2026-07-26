@@ -99,6 +99,16 @@ tygodniowego (7d). Cel: dane do decyzji o upgrade planu per osoba (w interesie d
   (np. `"1"`) — statusline strzeli przy realnym niskim zużyciu; po teście usuń klucz i pliki
   `$CFG/.jamel-limits/*`.
 
+## Keep-awake (maszyna nie zasypia, gdy Claude pracuje)
+
+Plugin dostarcza hook (`hooks/keepawake.sh`), który przy każdej aktywności Claude'a (prompt, wywołanie
+narzędzia) odnawia 10-minutową blokadę uśpienia systemu. Efekt: komputer nie zaśnie w trakcie długiego
+zadania, a ~10 min po tym, jak Claude skończy i czeka na input, wraca do normalnego usypiania. Zero
+konfiguracji — aktywne od instalacji pluginu. Detekcja OS w runtime: **macOS** → `caffeinate -i`
+(tylko blokada uśpienia systemu; ekran może gasnąć), **Linux** → `systemd-inhibit` (jeśli dostępny),
+**WSL/inne** → no-op (zarządzaniem energią rządzi Windows). Zamknięcie klapy laptopa nadal usypia —
+to limit systemu, nie hooka.
+
 ## Cross-platform (Homebrew everywhere)
 
 - **Package manager**: zespół standaryzuje na **Homebrew** — `brew` na macOS/Linux, a na **Windows przez
