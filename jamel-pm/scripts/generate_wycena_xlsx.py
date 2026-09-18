@@ -65,6 +65,7 @@ ROLE_RATES: dict[str, Decimal] = {
     "Front-end Developer": Decimal("250"),
     "Back-end Developer": Decimal("250"),
     "Back-end + Front-end Developer": Decimal("250"),
+    "Front-end / Back-end Developer": Decimal("250"),
     "Tester": Decimal("180"),
     "Redaktor": Decimal("180"),
     "Programista": Decimal("250"),
@@ -197,7 +198,11 @@ def assemble_line_items(payload: dict, key: str = "line_items") -> list[LineItem
                 if item.get("hourly_rate") is not None:
                     rate = _as_decimal(item["hourly_rate"])
                 else:
-                    rate = rate_map.get(role_name, fallback_rate)
+                    rate = rate_map.get(role_name)
+                    if rate is None:
+                        rate = fallback_rate
+                        print(f"WARNING: unknown role {role_name!r} in {item.get('title')!r} "
+                              f"-> fallback rate {rate}", file=sys.stderr)
                 if hours_min is None or hours_max is None:
                     raise ValueError(f"Hourly item without hours: {item.get('title')!r}")
                 total_min, total_max = hours_min * rate, hours_max * rate
