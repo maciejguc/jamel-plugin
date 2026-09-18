@@ -93,11 +93,20 @@ def test_rate_resolution_chain():
             {"stage": "s", "title": "payload", "role": "Web Designer", "hours": 1},
             {"stage": "s", "title": "builtin", "role": "Tester", "hours": 1},
             {"stage": "s", "title": "fallback", "role": "Nieznana Rola", "hours": 1},
+            {"stage": "s", "title": "combined", "role": "Front-end / Back-end Developer", "hours": 1},
         ],
     }
     rates = {li.title: li.hourly_rate for li in assemble_line_items(payload)}
     assert rates == {"override": Decimal("400"), "payload": Decimal("300"),
-                     "builtin": ROLE_RATES["Tester"], "fallback": Decimal("100")}
+                     "builtin": ROLE_RATES["Tester"], "fallback": Decimal("100"),
+                     "combined": Decimal("250")}
+
+
+def test_unknown_role_warns_on_stderr(capsys):
+    payload = {"meta": _meta(), "pricing_mode": "fixed",
+               "line_items": [{"stage": "s", "title": "x", "role": "Nieznana Rola", "hours": 1}]}
+    assemble_line_items(payload)
+    assert "unknown role 'Nieznana Rola'" in capsys.readouterr().err
 
 
 def test_kinds_and_totals():
