@@ -1,0 +1,6 @@
+{
+  "name": "jamel-gfx",
+  "version": "0.0.1",
+  "description": "Narzędzia dla grafików JAMEL: standardy pracy na żądanie, research projektowy, eksport do Figmy/HTML i zgłoszenia do opiekuna; działa w Claude Cowork i w czacie Claude.",
+  "author": { "name": "jamel.pl" }
+}

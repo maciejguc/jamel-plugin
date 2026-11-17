@@ -4,7 +4,7 @@
     "name": "jamel.pl"
   },
   "metadata": {
-    "description": "JAMEL agency Claude Code marketplace: PM/Account toolkit (estimates, specs, website analysis) + a plug-and-play dev experience that pulls in curated, auto-updating tooling."
+    "description": "JAMEL agency Claude Code marketplace: PM/Account toolkit (estimates, specs, website analysis) + a plug-and-play dev experience that pulls in curated, auto-updating tooling + graphic designers' toolkit."
   },
   "allowCrossMarketplaceDependenciesOn": [
     "claude-plugins-official",
@@ -20,6 +20,11 @@
       "name": "jamel-devx",
       "source": "./jamel-devx",
       "description": "Plug-and-play JAMEL dev experience: shared settings + statusline, RTK token compression, and curated auto-updating plugins."
+    },
+    {
+      "name": "jamel-gfx",
+      "source": "./jamel-gfx",
+      "description": "Narzędzia dla grafików JAMEL: standardy pracy na żądanie, research projektowy, eksport do Figmy/HTML i zgłoszenia do opiekuna; działa w Claude Cowork i w czacie Claude."
     }
   ]
 }
