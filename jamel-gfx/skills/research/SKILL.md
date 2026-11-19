@@ -1,6 +1,6 @@
 ---
 name: research
-description: Research wizualny do projektu graficznego JAMEL (etap 1): inspiracje, wygląd i UX konkurencji, moodboard, wzorce konwersji, kierunki artystyczne, także w wersji szybkiej. Używaj, gdy grafik mówi np. "zrób research do strony", "szukam inspiracji do landingu", "jak wyglądają strony konkurencji", "moodboard", "szybki research"; chodzi o wygląd, układ, typografię i UX - nie o ofertę ani ceny. Nie używaj i nie proponuj przy researchu informacyjnym (dane o firmie, godziny otwarcia, ceny, fakty, porównanie ofert), pytaniach ogólnych, tekstach i organizacji pracy; to zwykła rozmowa bez skilla.
+description: Research wizualny do projektu graficznego JAMEL (etap 1) - inspiracje, wygląd i UX konkurencji, moodboard, wzorce konwersji, kierunki artystyczne, także w wersji szybkiej. Używaj, gdy grafik mówi np. "zrób research do strony", "szukam inspiracji do landingu", "jak wyglądają strony konkurencji", "moodboard", "szybki research"; chodzi o wygląd, układ, typografię i UX - nie o ofertę ani ceny. Nie używaj i nie proponuj przy researchu informacyjnym (dane o firmie, godziny otwarcia, ceny, fakty, porównanie ofert), pytaniach ogólnych, tekstach i organizacji pracy; to zwykła rozmowa bez skilla.
 ---
 
 # Research do projektu graficznego
