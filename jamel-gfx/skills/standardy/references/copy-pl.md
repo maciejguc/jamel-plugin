@@ -58,8 +58,8 @@ Każda z poniższych fraz to sygnał tekstu pisanego na autopilocie. Nie stosuj 
 20. Zamykanie akapitu aforyzmem lub puentą w rodzaju „Bo zdrowy uśmiech to podstawa.”
 21. Nagłówki w dwóch rwanych członach („Mniej stresu. Więcej uśmiechu.”).
 22. „Zapewniamy” i „gwarantujemy” bez dowodu.
-24. „Oferujemy szeroki wachlarz usług.”
 23. „Najwyższa jakość”, „najlepsza obsługa” i inne stopnie najwyższe bez dowodu.
+24. „Oferujemy szeroki wachlarz usług.”
 
 Gdy w tekście nie ma faktu, który wypełni zdanie, zdanie wypada. Krótka strona z prawdziwymi informacjami bije długą z frazesami.
 
