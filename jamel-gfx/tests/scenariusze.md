@@ -148,3 +148,40 @@ Uruchom ST-3, ST-5, ST-6 jako RED. Oczekiwane: brak zachowań obserwatora; ST-6 
   - pierwsze słowo CTA to czasownik (np. „Umów”, „Zadzwoń”, „Zarezerwuj”), nie rzeczownik ani „Kliknij”;
   - dane nieznane (adres, godziny, telefon, liczba pacjentów, opinie) są jawnym placeholderem w tekście i wymienione w liście braków z dopiskiem „zastępcze”; brak zmyślonych liczb i imion;
   - najwyżej jedno użycie każdego chwytu (jedno pytanie retoryczne, jedna trójka, jeden wykrzyknik).
+
+## Scenariusze research
+
+Runner jak wyżej; `<ścieżki SKILL.md>` obejmują `jamel-gfx/skills/research/SKILL.md` i `jamel-gfx/skills/standardy/SKILL.md`.
+
+### RS-1 Research bez przeglądarki
+
+- Rozmowa: brak
+- Uwaga dla kontrolera: dopisz do promptu runnera, że symulowana sesja nie ma przeglądarki ani narzędzi sieciowych (zwykły czat); runner niczego nie otwiera.
+- Wiadomość: „Zrób research inspiracji do strony kliniki stomatologicznej premium.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:research`;
+  - mówi wprost, że bez przeglądarki może ocenić tylko tekst stron, nie wygląd;
+  - proponuje Claude in Chrome (włączenie w rozmowie) albo wklejenie zrzutów;
+  - przedstawia cztery kąty (konkurencja bezpośrednia, realizacje premium, branże sąsiednie, wzorce konwersji);
+  - brak zmyślonych ustaleń: żadnych konkretnych stron „obejrzanych”, wyników ani opisów wyglądu rzeczywistych serwisów.
+
+### RS-2 Informacje o firmie (research informacyjny)
+
+- Rozmowa: brak
+- Wiadomość: „Znajdź informacje o firmie Stomatologia Nowak w Krakowie.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE: brak`;
+  - odpowiedź nie zawiera (grep, bez względu na wielkość liter): „jamel-gfx”, „kierunki”, „test zgadywalności”, „zgłoszeni”.
+
+### RS-3 Szybki research konkurencji
+
+- Rozmowa: brak
+- Uwaga dla kontrolera: runner może używać WebSearch i WebFetch; dopisz do promptu, że na końcu odpowiedzi (przed linią `ZAŁADOWANE`) ma być osobna lista `POBRANE URL:` ze wszystkimi faktycznie pobranymi adresami. Bez przeglądarki wnioski o wyglądzie nie są dozwolone, tylko treść i struktura.
+- Wiadomość: „Szybki research: 3 strony konkurencji kliniki stomatologicznej w Warszawie.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:research`;
+  - brief ma sekcje „Podsumowanie”, „Źródła”, „Wzorce”, „Ryzyka”, „Kierunki (2–3)”, „Strony, których nie udało się otworzyć”;
+  - w „Źródłach” najwyżej 5 URL;
+  - każdy URL z briefu występuje na liście `POBRANE URL:` (sprawdź grep-em);
+  - strony, których nie udało się pobrać, są wymienione w ostatniej sekcji, a nie pominięte;
+  - brak wniosków o wyglądzie (kolor, układ) przy stronach nieobejrzanych w przeglądarce; kolory marki tylko z pobranego CSS.
