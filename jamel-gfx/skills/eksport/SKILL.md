@@ -29,7 +29,7 @@ Jeśli któregoś brakuje, powiedz to wprost: co dokładnie nie działa i co gra
 
 ## Ścieżka B - pliki
 
-Claude Design eksportuje natywnie PNG, SVG i PDF z menu eksportu artefaktu; powiedz grafikowi, gdzie kliknąć, i które widoki zaznaczyć. Nazwy plików:
+Claude Design eksportuje natywnie PNG, SVG i PDF z menu eksportu artefaktu; powiedz grafikowi, gdzie kliknąć, i które widoki zaznaczyć. Jeśli menu eksportu nie oferuje któregoś formatu, powiedz to wprost i zaproponuj zamiennik: PNG przez zrzut ekranu w przeglądarce albo samodzielny HTML (ścieżka E); SVG i PDF zostaw jako „Do ręcznego wdrożenia”. Nazwy plików:
 
 - PNG: `<projekt>_<widok>_<breakpoint>@2x.png`, np. `lipowa_home_375@2x.png`;
 - HTML: `<projekt>_<widok>_v<NN>.html`, np. `lipowa_home_v01.html`;

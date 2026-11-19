@@ -10,12 +10,12 @@ Connector Figmy połączony, grafik ma miejsce Full, jest środowisko wykonawcze
 
 ## 2. Przygotuj HTML dla każdego breakpointu
 
-Źródło i procedura jak w `samodzielny-html.md` (style inline, obrazy base64, fonty, bez skryptów), z jedną różnicą: **osobny plik na każdy breakpoint**, bo import ma stałą szerokość 1280 px i nie ma parametru viewportu. Dla każdego z 375 / 768 / 1440 (tylko tych, które istnieją w projekcie):
+Źródło i procedura jak w `samodzielny-html.md` (style inline, obrazy base64, fonty, bez skryptów), z jedną różnicą: **osobny plik na każdy breakpoint**, bo import ma stałą szerokość 1280 px i nie ma parametru viewportu. Domyślnie powstają **wszystkie trzy**: 375 / 768 / 1440. Brak reguły CSS dla danego breakpointu nie jest powodem do pominięcia - widok 768 to kopia z wymuszoną szerokością 768 px, w układzie, który CSS daje przy tej szerokości (może być identyczny z 1440 albo z 375). Pominięcie breakpointu wymaga wyraźnej decyzji grafika, zadanej jednym pytaniem przed budową. Dla każdego z nich:
 
 1. Skopiuj samodzielny HTML jako `<projekt>_<widok>_<breakpoint>.html`.
 2. Wymuś szerokość: dopisz na końcu `<style>`: `html,body{width:<bp>px;margin:0}` oraz szerokość głównego kontenera, jeśli ma `min-width` lub `max-width` (np. `.hero{width:<bp>px;min-height:0}`).
-3. Przełącz media queries tego breakpointu na `all`: dla 375 reguły `@media (max-width: …)` dotyczące telefonu, dla 768 reguły tabletu, a reguły większych ekranów usuń lub zostaw tylko te, które pasują. Przykład z testu: `@media (max-width: 640px) {` → `@media all {`.
-4. 1440 zwykle nie wymaga zmian poza szerokością.
+3. Przełącz na `all` te media queries, które obowiązują przy tej szerokości (`max-width` ≥ breakpoint), a reguły niepasujące (`min-width` powyżej breakpointu) usuń. Dla 375: reguły telefonu; dla 768: reguły tabletu, a jeśli CSS ich nie ma, te z najbliższym progiem `max-width` ≥ 768 (np. `@media (max-width: 768px) {` → `@media all {`) albo żadne. Przykład z testu: `@media (max-width: 640px) {` → `@media all {`.
+4. 768: wymuś szerokość jak w kroku 2 (`html,body{width:768px}`), nawet gdy nie ma reguł tabletu. 1440 zwykle nie wymaga zmian poza szerokością.
 5. Sprawdź `grep -cE '(src|href)="https?://'` = 0 i rozmiar ≤ 50 MB.
 
 Import zachowuje układ mobilny, jeśli CSS go opisuje (sprawdzone: burger, ułożenie w kolumnę).
@@ -37,6 +37,7 @@ Po drodze `get_metadata` do odczytu drzewa.
 
 - Strony i nazwy wg „Struktura pliku” i „Nazewnictwo” w `figma.md`, struktura 00-10 skalowana do projektu; `Page 1` przemianuj.
 - Warstwy nazwij **osobno w każdym widoku**: drzewa desktop i mobile się różnią (np. burger w nagłówku), więc jedna mapa id nie wystarczy. Przejdź drzewo każdego widoku osobno, nazwij po funkcji (`Header / Nav`, `Hero / Tekst`, `Przycisk / Umów wizytę`), nie po tagu (`Link`, `Container`, `Paragraph`). Ramki najwyższego poziomu: `Desktop / <widok>`, `Tablet / <widok>`, `Mobile / <widok>`.
+- Przytnij wysokość ramki widoku do treści: po imporcie ramka bywa wyższa niż zawartość (np. 720 px przy krótszej treści); ustaw wysokość na dolną krawędź ostatniego dziecka lub `layoutSizingVertical = 'HUG'`, gdy ramka ma Auto Layout.
 - Po nazwaniu sprawdź (`get_metadata` albo `findAll` w `use_figma`), że żadna warstwa nie pasuje do `^(Frame|Group|Rectangle) \d+$`.
 - Zmienne z tokenów, jeśli są ustalone; podpinaj tylko tam, gdzie wartość się zgadza dokładnie. Wzorzec:
 
@@ -61,7 +62,7 @@ Domyślnie wykonuj ten krok. Grafik może go wyłączyć prośbą „bez kompone
 5. **Hover jako prototyp.** Na instancji ustaw reakcję `ON_HOVER` → `CHANGE_TO` wariant `Hover` przez Smart Animate. Czas i krzywą weź z `transition` w CSS: ms na sekundy, krzywa: `ease-in-out` → `EASE_IN_AND_OUT`, `ease-out` → `EASE_OUT`, `ease-in` → `EASE_IN`, `linear` → `LINEAR`, `ease` → `EASE_IN_AND_OUT` (najbliższa; wpisz to w raporcie). Gdy w CSS nie ma `transition`: 150 ms, `EASE_OUT`. Powrót do `Default` po opuszczeniu hovera sprawdź w odczycie reakcji i zrzutach; jeśli nie działa, dodaj reakcję zwrotną i napisz to w raporcie.
 6. **`@keyframes` i proste przejścia** odtwarzaj Smart Animate'em tylko wtedy, gdy da się je zapisać jako dwa stany (np. `from`/`to` opacity). Wieloetapowe i nieskończone zostaw jako specyfikację.
 
-Wzorzec sprawdzony w teście (przycisk, dwa stany; dostosuj nazwy do `State=...` i wartości do CSS, czas `0.2` i `EASE_IN_AND_OUT` dla `200ms ease-in-out`):
+Wzorzec (przycisk, dwa stany; sprawdzone w testach: zestaw komponentów, reakcja hover i odczyt krzywej; układ wariantów wymagał poprawki `AUTO` poniżej; powrót do `Default` po opuszczeniu kursora nie był sprawdzony, więc sprawdź; dostosuj nazwy do `State=...` i wartości do CSS, czas `0.2` i `EASE_IN_AND_OUT` dla `200ms ease-in-out`):
 
 ```js
 const btn = await figma.getNodeByIdAsync('<id przycisku>');
@@ -69,8 +70,9 @@ const parent = btn.parent; const idx = parent.children.indexOf(btn);
 const c1 = figma.createComponentFromNode(btn); c1.name = 'State=Default';
 const c2 = c1.clone(); c2.name = 'State=Hover';
 c2.fills = [{type:'SOLID', color:{r:0x9A/255, g:0x34/255, b:0x12/255}}]; // wartość z :hover
-const set = figma.combineAsVariants([c1, c2], figma.currentPage);
+const set = figma.combineAsVariants([c1, c2], figma.currentPage); // strona, na której leżą oryginały
 set.name = 'Button / Primary';
+set.primaryAxisSizingMode = set.counterAxisSizingMode = 'AUTO'; // bez tego zestaw ma puste pole (447,5 px wysokości)
 set.layoutMode = 'HORIZONTAL'; set.itemSpacing = 24;
 set.paddingLeft = set.paddingRight = set.paddingTop = set.paddingBottom = 24;
 const inst = c1.createInstance(); inst.name = 'Button / Umów wizytę';
@@ -82,7 +84,7 @@ await inst.setReactionsAsync([{
     preserveScrollPosition: false}]}]);
 ```
 
-Uwagi: po `combineAsVariants` odnoś się do wariantów przez `set.children`, nie przez stare id; `set.layoutMode` działa na zestawie, ale po zmianie sprawdź zrzutem, że warianty się nie nakładają. Jeśli CSS zmienia tylko tło (jak w teście), wariant `Hover` różni się tylko tłem - nie dorabiaj zmian.
+Uwagi: `combineAsVariants` zgłasza błąd „Grouped nodes must be in the same page as the parent”, gdy komponenty leżą na innej stronie niż podany rodzic: łącz na stronie, na której leżą oryginały, i dopiero potem przenieś zestaw na `03 — Components` (`page.appendChild(set)`). Po `combineAsVariants` odnoś się do wariantów przez `set.children`, nie przez stare id; `set.layoutMode` działa na zestawie, ale po zmianie sprawdź zrzutem, że warianty się nie nakładają. Jeśli CSS zmienia tylko tło (jak w teście), wariant `Hover` różni się tylko tłem - nie dorabiaj zmian.
 
 ## 6. Odczyt kontrolny przed raportem
 
