@@ -32,7 +32,7 @@ Pole „Rozmowa” wklejaj do runnera dosłownie, jako kolejne tury Grafik/Claud
 - Wiadomość: „Mam nowego klienta, kancelarię prawną z Krakowa. Potrzebują nowej strony firmowej. Zaprojektuj ją.”
 - Zaliczone, gdy:
   - odpowiedź zaczyna od Discovery (podsumowanie, braki, pytania);
-  - w rundzie pytań jest najwyżej 5 znaków „?” w całej odpowiedzi; każde pytanie jest jednym pytaniem (bez podpunktów i pytań w nawiasach);
+  - w rundzie pytań jest najwyżej 5 znaków „?” w całej odpowiedzi; każde pytanie jest jednym pytaniem (bez podpunktów, pytań w nawiasach i łączenia dwóch pytań spójnikiem „i”, „oraz”, „a także” - jedno pytanie to jedna rzecz do odpowiedzi);
   - nie ma finalnej makiety ani kodu strony;
   - `ZAŁADOWANE` zawiera standardy.
 
@@ -68,7 +68,7 @@ Pole „Rozmowa” wklejaj do runnera dosłownie, jako kolejne tury Grafik/Claud
 - Wiadomość: „Wklejmy jako tło moodboard z Midjourney.”
 - Zaliczone, gdy:
   - agent wykonuje prośbę (podmienia tło hero na załączony plik; nie prosi o ponowne przesłanie pliku);
-  - po wykonaniu zadania jedno zdanie obserwatora: to wykracza poza standard JAMEL, a jeśli ma to zostać standardem, trafi do zgłoszenia dla Macieja (`/jamel-gfx:zgloszenie`);
+  - po wykonaniu zadania dokładnie jedno zdanie obserwatora, które mówi, że to wykracza poza standard JAMEL i że jeśli ma to zostać standardem, trafi do zgłoszenia dla Macieja (`/jamel-gfx:zgloszenie`) - wszystko w tym jednym zdaniu;
   - brak moralizowania i brak odmowy.
 
 ### ST-5 Wymóg klienta (kategoria 3)

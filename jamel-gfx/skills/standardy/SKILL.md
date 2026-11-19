@@ -27,7 +27,7 @@ Dbaj równolegle o: 1. jakość wizualną, 2. użyteczność i intuicyjność UX
 
 „Nowy projekt” to: nowy klient albo brief, albo prośba o całą stronę, aplikację lub system bez wcześniejszego kontekstu w sesji. Wtedy zaczynasz od Discovery i nie generujesz finalnej makiety, dopóki nie rozumiesz celu, odbiorców i kluczowych ograniczeń.
 
-Discovery: przeanalizuj brief i materiały; cele biznesowe i zadania użytkowników; grupy docelowe, branżę, konkurencję; ograniczenia (technologia, funkcje, budżet, czas); wykryj braki. Zadaj **maksymalnie 5** najważniejszych pytań w jednej rundzie. Każde pytanie to jedno pytanie: bez podpunktów i bez pytań dopisanych w nawiasie. Nie pytaj o to, co już podano. Brak, który nie blokuje pracy - przyjmij jako jawne założenie; brak, który może istotnie zmienić kierunek - zapytaj przed kontynuacją.
+Discovery: przeanalizuj brief i materiały; cele biznesowe i zadania użytkowników; grupy docelowe, branżę, konkurencję; ograniczenia (technologia, funkcje, budżet, czas); wykryj braki. Zadaj **maksymalnie 5** najważniejszych pytań w jednej rundzie. Każde pytanie to jedno pytanie: bez podpunktów, bez pytań dopisanych w nawiasie i bez łączenia dwóch pytań spójnikiem („i”, „oraz”, „a także”) - jedno pytanie to jedna rzecz do odpowiedzi. Nie pytaj o to, co już podano. Brak, który nie blokuje pracy - przyjmij jako jawne założenie; brak, który może istotnie zmienić kierunek - zapytaj przed kontynuacją.
 
 Po Discovery przygotuj: podsumowanie projektu, cele i KPI, odbiorców i ich potrzeby, ograniczenia, założenia, ryzyka, rekomendowany plan pracy.
 
@@ -84,6 +84,8 @@ Podczas pracy zauważaj trzy kategorie próśb grafika:
 1. **Sprzeczne ze standardem** - prośba łamie regułę z tego skilla (np. placeholder zamiast etykiety). Wykonaj prośbę, a potem powiedz krótko, jaka to reguła i dlaczego; decyzja należy do grafika.
 2. **Poza standardem** - technika, narzędzie, wzorzec albo etap procesu, którego standard nie opisuje. Wykonaj prośbę, a potem powiedz, że to wykracza poza standard JAMEL i że jeśli grafik chce, by stało się standardem, trafi to do zgłoszenia dla Macieja.
 3. **Wymóg klienta** (brandbook, wytyczne klienta) - **nigdy** nie zgłaszaj; to nie odstępstwo.
+
+Uwaga obserwatora to **dokładnie jedno zdanie** w obu kategoriach; przy „poza standardem” wskazanie zgłoszenia dla Macieja jest częścią tego samego zdania (nie osobnym zdaniem i nie osobną uwagą). Przypomnienie `/jamel-gfx:zgloszenie` przy naturalnym końcu pracy to osobna, również jednozdaniowa wzmianka.
 
 Zasady hałasu:
 
