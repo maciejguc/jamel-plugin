@@ -5,9 +5,9 @@ Reguły dla każdego tekstu, który trafia do projektu: nagłówek, lead, przyci
 ## 1. Typografia polska
 
 - **Cudzysłowy:** główne „takie” (dolny otwierający, górny zamykający), wewnętrzne ‚takie’. Nigdy proste `"..."` ani angielskie “...” w tekście widocznym dla odbiorcy. W HTML: `&bdquo;` i `&rdquo;` albo znaki bezpośrednio w UTF-8; w atrybutach i kodzie proste cudzysłowy zostają, bo to składnia.
-- **Pauza:** w polskim stosuje się półpauzę ze spacjami po obu stronach („Gabinet – nowoczesny i cichy”). Pauza długa bez spacji (angielski wzorzec) to kalka. Zakres liczb i dat bez spacji, półpauzą: 9–17, 2024–2026. Dywiz tylko w złożeniach (biało-czerwony) i przy łamaniu wyrazów.
+- **Pauza:** w polskim stosuje się półpauzę ze spacjami po obu stronach („Gabinet – nowoczesny i cichy”). W tekstach cyfrowych stosuj półpauzę ze spacjami; nie mieszaj jej z pauzą długą w jednym projekcie. Zakres liczb i dat bez spacji, półpauzą: 9–17, 2024–2026. Dywiz tylko w złożeniach (biało-czerwony) i przy łamaniu wyrazów.
 - **Twarde spacje:** po jednoliterowych spójnikach i przyimkach (a, i, o, u, w, z; także wielką literą) nie wolno łamać wiersza, żeby nie zostały na końcu linii. Dotyczy to też liczba + jednostka (`24 h`, `15 zł`), skrótów typu `ul. Długa`, `nr 5` i nazwisk z inicjałem. W HTML: `&nbsp;` w treści. Jeśli tekst ma dużo takich miejsc, nie wklejaj niewidocznych znaków ręcznie - dodaj `&nbsp;` hurtowo przy generowaniu. W Figmie i narzędziach bez nbsp sprawdź łamanie wizualnie na 375 / 768 / 1440 i popraw tekst lub szerokość kolumny.
-- **Liczby:** separator tysięcy to (twarda) spacja: `10 000`, `1 250 000`, nie `10,000` ani `10.000`. Przecinek dziesiętny: `4,5`, `99,2%` (bez spacji przed %; pisownia „99,2%” albo „99,2 %” - jedna w całym projekcie). Cztery cyfry zapisuj jednolicie: `2500` albo `2 500` - wybierz jedno i trzymaj. Waluta za liczbą: `1 290 zł`, `49,90 zł`.
+- **Liczby:** separator tysięcy to (twarda) spacja: `10 000`, `1 250 000`, nie `10,000` ani `10.000`. Przecinek dziesiętny: `4,5`, `99,2%` (bez spacji przed %; pisownia „99,2%” albo „99,2 %” - jedna w całym projekcie). Liczby do 4 cyfr zapisuj bez spacji (`2500`), od 5 cyfr ze spacją (`10 000`). Waluta za liczbą: `1 290 zł`, `49,90 zł`.
 - **Daty i godziny:** `14 marca 2026`, `14.03.2026` w tabelach i formularzach; miesiąc słownie w dopełniaczu. Godziny `9:00–17:00`, w zdaniu „od 9 do 17”. Dni tygodnia małą literą. Nie mieszaj `2026-03-14` z `14.03.2026` w jednym widoku.
 - **Wielkie litery:** nagłówek jak zdanie (tylko pierwsza litera i nazwy własne), nie angielskie Title Case. Nazwy miesięcy, dni i języków małą.
 - **Polskie znaki:** każdy kroj użyty w projekcie musi mieć pełne ą ć ę ł ń ó ś ź ż (sprawdź w próbce, nie zakładaj). Wersaliki z ogonkami też.
@@ -15,12 +15,12 @@ Reguły dla każdego tekstu, który trafia do projektu: nagłówek, lead, przyci
 
 ## 2. Zasady UX copy
 
-- **Przyciski to czasowniki** w trybie rozkazującym lub bezokoliczniku, spójnie w całym projekcie: „Umów wizytę”, „Pobierz cennik”, „Zapisz zmiany”. Pierwsze słowo to czasownik; „Wizyta”, „Dalej”, „OK” i „Kliknij tutaj” odpadają. Etykieta mówi, co się stanie, nie jak się zrobić (nie „Kliknij, aby…”).
+- **Przyciski to czasowniki** w trybie rozkazującym lub bezokoliczniku, spójnie w całym projekcie: „Umów wizytę”, „Pobierz cennik”, „Zapisz zmiany”. Pierwsze słowo to czasownik; W głównych CTA odpadają „Wizyta”, „OK” i „Kliknij tutaj” (w krokach kreatora „Dalej” jest dopuszczalne). Etykieta mówi, co się stanie, nie jak się zrobić (nie „Kliknij, aby…”).
 - **Jedno główne działanie na ekran** i jedna nazwa na jedną czynność (nie „Zacznij” w hero i „Zarejestruj się” w stopce dla tego samego celu). Drugorzędne CTA tylko, jeśli prowadzi gdzie indziej niż pierwsze.
 - **Komunikaty błędów:** co się stało + jak to naprawić, ludzkim językiem, bez winienia użytkownika i bez kodów: „Telefon musi mieć 9 cyfr, np. 600 123 456” zamiast „Błędne dane”. Komunikat stoi przy polu, nie tylko w kolorze (dostępność).
 - **Etykiety zamiast placeholderów:** każde pole ma widoczną etykietę nad sobą; placeholder jest tylko przykładem formatu i znika przy pisaniu, więc nie może być jedyną etykietą. Wymagane pola oznacz wprost, a opcjonalne słowem „opcjonalnie”.
 - **Stany puste, ładowanie i sukces:** każdy ma tekst, który mówi, co dalej („Brak zamówień. Dodaj pierwsze”), zamiast samego „Brak danych” lub „Sukces!”.
-- **Formy grzecznościowe i rejestr:** jedna forma w całym projekcie (Pan/Pani albo „ty”), ustalona z klientem; nie przeskakuj między nimi w menu, formularzu i mailu. Po polsku zwrot „Ty” z wielkiej litery w tekstach marketingowych jest zbędny.
+- **Formy grzecznościowe i rejestr:** jedna forma w całym projekcie (Pan/Pani albo „ty”), ustalona z klientem; nie przeskakuj między nimi w menu, formularzu i mailu. Formę (Ty/Twój wielką czy małą literą) ustal z klientem i trzymaj jedną w całym projekcie.
 - **Nagłówek mówi, co to jest i dla kogo**, konkretem (usługa, miejsce, efekt), nie hasłem. Lead rozwija jedną sprawę; nie powtarza nagłówka innymi słowami.
 - **Dane nieznane = jawny placeholder** (np. `[godziny otwarcia – do uzupełnienia]`) i wpis w liście braków jako „zastępcze”. Nie zmyślaj liczb, adresów, imion ani opinii; przykładowe dane muszą być oznaczone jako zastępcze.
 
@@ -57,8 +57,9 @@ Każda z poniższych fraz to sygnał tekstu pisanego na autopilocie. Nie stosuj 
 19. Retoryczne pytanie z natychmiastową odpowiedzią („Szukasz X? Trafiłeś w dobre miejsce!”).
 20. Zamykanie akapitu aforyzmem lub puentą w rodzaju „Bo zdrowy uśmiech to podstawa.”
 21. Nagłówki w dwóch rwanych członach („Mniej stresu. Więcej uśmiechu.”).
-22. Strona bierna i bezosobowe „zapewniamy”, „gwarantujemy” bez dowodu; „oferujemy szeroki wachlarz usług”.
-23. Zamieniony szyk przymiotnika dla powagi („usługi najwyższej jakości”) i stopień najwyższy bez porównania.
+22. „Zapewniamy” i „gwarantujemy” bez dowodu.
+24. „Oferujemy szeroki wachlarz usług.”
+23. „Najwyższa jakość”, „najlepsza obsługa” i inne stopnie najwyższe bez dowodu.
 
 Gdy w tekście nie ma faktu, który wypełni zdanie, zdanie wypada. Krótka strona z prawdziwymi informacjami bije długą z frazesami.
 
@@ -73,7 +74,8 @@ Każdy chwyt retoryczny ma na całej stronie budżet **jednego użycia**, tam gd
 - nagłówek w dwóch rwanych członach;
 - wykrzyknik;
 - żart lub gra słów;
-- liczba w roli dowodu (każda z podanym źródłem).
+
+Liczby: tylko z briefu lub ze źródłem, poza budżetem chwytów.
 
 Zasady: przed oddaniem tekstu przejdź listę i policz; drugie użycie to tik – przepisz je na zwykłe zdanie. Wszystkie sekcje mają jeden rejestr głosu (nie techniczny w jednej, liryczny w drugiej, sprzedażowy w trzeciej). Marka ma własny głos, więc nie pisz dwóm klientom tak samo ciepło, lekko i z przymrużeniem oka.
 

@@ -144,7 +144,7 @@ Uruchom ST-3, ST-5, ST-6 jako RED. Oczekiwane: brak zachowań obserwatora; ST-6 
   - `ZAŁADOWANE` zawiera `jamel-gfx:standardy`;
   - cudzysłowy w tekstach kopii to „ i ” (grep: obecne), bez prostych `"…"` ani “…” wokół cytowanych fraz kopii;
   - półpauza tylko w formie ` – ` (spacja, półpauza, spacja); brak długiej pauzy `—`;
-  - brak frazesów z listy w `copy-pl.md` (grep, bez względu na wielkość liter): „nowy poziom”, „kompleksowe”, „z pasją”, „stawiamy na jakość”, „odkryj moc”, „wyróżnij się”, „w dzisiejszym”, „szeroki wachlarz”, „jesteśmy tutaj, aby”;
+  - brak frazesów z listy w `copy-pl.md` w samej kopii (pola Nagłówek / Lead / CTA, nie w komentarzu odpowiedzi; grep bez względu na wielkość liter): „nowy poziom”, „kompleksowe”, „z pasją”, „stawiamy na jakość”, „odkryj moc”, „wyróżnij się”, „w dzisiejszym”, „szeroki wachlarz”, „jesteśmy tutaj, aby”;
   - pierwsze słowo CTA to czasownik (np. „Umów”, „Zadzwoń”, „Zarezerwuj”), nie rzeczownik ani „Kliknij”;
   - dane nieznane (adres, godziny, telefon, liczba pacjentów, opinie) są jawnym placeholderem w tekście i wymienione w liście braków z dopiskiem „zastępcze”; brak zmyślonych liczb i imion;
   - najwyżej jedno użycie każdego chwytu (jedno pytanie retoryczne, jedna trójka, jeden wykrzyknik).
