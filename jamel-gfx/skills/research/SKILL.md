@@ -56,8 +56,21 @@ Strony tylko czytasz: bez logowania, bez wypełniania formularzy, bez zakładani
 
 ## Tryb szybki
 
-Na prośbę („szybki research”, „tylko konkurencja”) - jeden kąt, około 5 stron, w Cowork desktop to ok. 2–3 minuty (spike: 2 strony ≈ 1 minuta). Pełny research przez przeglądarkę trwa kilkanaście–kilkadziesiąt minut; uprzedź o tym przed startem. Zasady dowodu i prawdy o marce obowiązują tak samo; brief jest krótszy, ale ma te same sekcje. Przy trybie szybkim nie dobijaj do liczb z czterech kątów - napisz, które kąty pominięto.
+Na prośbę („szybki research”, „tylko konkurencja”) - jeden kąt, około 5 stron, w Cowork desktop to ok. 2–3 minuty (spike: 2 strony ≈ 1 minuta). Pełny research przez przeglądarkę trwa kilkanaście–kilkadziesiąt minut; uprzedź o tym przed startem. Zasady dowodu i prawdy o marce obowiązują tak samo; brief jest krótszy, ale nagłówki sekcji (lista w „Wyjście”) są obowiązkowe także w trybie szybkim, w tej samej kolejności, a tabela „Źródła” zawsze ma trzy kolumny. Przy trybie szybkim nie dobijaj do liczb z czterech kątów - napisz, które kąty pominięto.
 
 ## Wyjście
 
-Brief researchu w Markdown według `references/brief-researchu.md` - z dokładnie tymi nagłówkami sekcji. W Cowork zapisz go w folderze roboczym i podaj ścieżkę; w czacie podaj treść. Brief kończy się kierunkami, które są wejściem do etapu Art Direction.
+Brief researchu w Markdown według `references/brief-researchu.md`. Nagłówki sekcji są obowiązkowe w każdym trybie (pełnym i szybkim), dokładnie takie i w tej kolejności:
+
+1. `## Podsumowanie`
+2. `## Źródła` - tabela `| URL | Co sprawdzono | Wniosek |`, zawsze z tymi trzema kolumnami
+3. `## Wzorce`
+4. `## Ryzyka`
+5. `## Kierunki (2–3)`
+6. `## Strony, których nie udało się otworzyć`
+
+Sekcja bez materiału zostaje z jednym zdaniem „brak danych: <powód>”. Nie zastępuj nagłówków własnymi (np. „Fakty”, „Następny krok”).
+
+Tekst briefu stosuje zasady języka z `jamel-gfx:standardy` (`references/copy-pl.md`): cudzysłowy „”, półpauza ze spacjami.
+
+W Cowork zapisz brief w folderze roboczym i podaj ścieżkę; w czacie podaj treść. Brief kończy się kierunkami, które są wejściem do etapu Art Direction.
