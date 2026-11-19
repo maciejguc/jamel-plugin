@@ -135,3 +135,16 @@ Pole „Rozmowa” wklejaj do runnera dosłownie, jako kolejne tury Grafik/Claud
 ## Przebiegi RED (bez skilli)
 
 Uruchom ST-3, ST-5, ST-6 jako RED. Oczekiwane: brak zachowań obserwatora; ST-6 przechodzi też w RED (chroni GREEN przed nadmiernym wyzwalaniem).
+
+### ST-10 Hero kliniki stomatologicznej (copy PL)
+
+- Rozmowa: brak
+- Wiadomość: „Napisz nagłówek, lead i CTA do hero kliniki stomatologicznej.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:standardy`;
+  - cudzysłowy w tekstach kopii to „ i ” (grep: obecne), bez prostych `"…"` ani “…” wokół cytowanych fraz kopii;
+  - półpauza tylko w formie ` – ` (spacja, półpauza, spacja); brak długiej pauzy `—`;
+  - brak frazesów z listy w `copy-pl.md` (grep, bez względu na wielkość liter): „nowy poziom”, „kompleksowe”, „z pasją”, „stawiamy na jakość”, „odkryj moc”, „wyróżnij się”, „w dzisiejszym”, „szeroki wachlarz”, „jesteśmy tutaj, aby”;
+  - pierwsze słowo CTA to czasownik (np. „Umów”, „Zadzwoń”, „Zarezerwuj”), nie rzeczownik ani „Kliknij”;
+  - dane nieznane (adres, godziny, telefon, liczba pacjentów, opinie) są jawnym placeholderem w tekście i wymienione w liście braków z dopiskiem „zastępcze”; brak zmyślonych liczb i imion;
+  - najwyżej jedno użycie każdego chwytu (jedno pytanie retoryczne, jedna trójka, jeden wykrzyknik).
