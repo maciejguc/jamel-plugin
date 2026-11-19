@@ -61,13 +61,13 @@ Paleta ma role: brand, neutral, surface, text, border, action, feedback. Sprawdz
 
 ## 8. Minimum jakości
 
-Sprawdź gotowy render (nie zamiary) i popraw braki bez wygłaszania listy użytkownikowi:
+Sprawdź gotowy render (nie zamiary) i popraw braki bez wygłaszania checklisty minimum jakości (lista braków z SKILL.md nadal obowiązuje):
 
 - Czytelność: realne pary kolorów spełniają 4.5:1 (tekst podstawowy, placeholder) i 3:1 (duży tekst); na kolorowym tle tekst drugorzędny wywodzi się z koloru tła lub tekstu, a nie z neutralnej szarości.
 - Rytm odstępów: elementy blisko siebie tworzą grupę, grupy są wyraźnie oddzielone, a nagłówek ma nad sobą więcej luzu niż pod sobą. Zmierz wartości, nie oceniaj na oko.
 - Tekst: sprawdź prawdziwą treść na 375 / 768 / 1440 - nic się nie przelewa, nagłówki łamią się równo, brak sierot.
 - Cienie: mają kierunek i miękkie krawędzie; jedna skala zaokrągleń w całym projekcie.
-- Interakcje: każdy element klikalny ma stany hover, focus z klawiatury, disabled, loading, error i empty tam, gdzie mają sens. Domyślne przejście to 150 ms ease-out (domyślnie, jak w eksporcie do Figmy).
+- Interakcje: każdy element klikalny ma stany hover, focus z klawiatury, disabled, loading, error i empty tam, gdzie mają sens. Domyślnie 150 ms ease-out (ten sam czas eksport do Figmy przyjmuje przy braku transition).
 - Ruch: jeden świadomy moment zamiast efektów rozsianych po stronie.
 - Detale „poza rysunkiem”: zaznaczenie tekstu, kursor, paski przewijania i obwódka focusu pasują do palety, a nie do ustawień przeglądarki.
 - Język: etykiety przycisków mówią, co się stanie; komunikat błędu mówi, co poszło nie tak i co zrobić dalej.
@@ -75,7 +75,7 @@ Sprawdź gotowy render (nie zamiary) i popraw braki bez wygłaszania listy użyt
 
 ## 9. Typowe cechy wyglądu AI
 
-Jedno miejsce na każdą regułę. To domyślne odruchy, nie zakazy: świadoma decyzja z briefu może je uzasadnić. Przy znalezieniu nazwij cechę i miejsce, po czym przepisz element zamiast go łagodzić.
+Jedno miejsce na każdą regułę. To domyślne odruchy, nie zakazy: świadoma decyzja z briefu może je uzasadnić. Przy znalezieniu nazwij cechę i miejsce, po czym przepisz element zamiast go łagodzić. Cechy wymagane przez brandbook klienta nie są wadą ani cechą AI.
 
 **Typografia**
 
@@ -123,7 +123,7 @@ Jedno miejsce na każdą regułę. To domyślne odruchy, nie zakazy: świadoma d
 **Tekst**
 
 - Slogany o aforystycznym rytmie i puste buzzwordy („rewolucjonizujemy”, „kompleksowe rozwiązania”).
-- Nadmiar długich myślników i konstrukcji „nie X, lecz Y”.
+- Nadmiar długich myślników i konstrukcji „nie X, lecz Y” (po polsku półpauza ze spacjami jest poprawna - `references/copy-pl.md`).
 - Ten sam tekst powtórzony w jednym kontenerze; nagłówki, które nic nie mówią o produkcie.
 - Zmyślone liczby, opinie i logotypy klientów; imiona i marki-zapychacze (Jan Kowalski, Acme, „Nexus”, lorem ipsum); okrągłe lub fałszywie precyzyjne wskaźniki bez źródła („99,99% dostępności”, „10x szybciej”, „47,3%”). Wstaw jawny placeholder.
 - Udawana rzadkość i presja: „Zostały 3 sztuki”, „27 osób ogląda”, liczniki bez systemu za nimi.

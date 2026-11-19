@@ -15,12 +15,12 @@ Reguły dla każdego tekstu, który trafia do projektu: nagłówek, lead, przyci
 
 ## 2. Zasady UX copy
 
-- **Przyciski to czasowniki** w trybie rozkazującym lub bezokoliczniku, spójnie w całym projekcie: „Umów wizytę”, „Pobierz cennik”, „Zapisz zmiany”. Pierwsze słowo to czasownik; W głównych CTA odpadają „Wizyta”, „OK” i „Kliknij tutaj” (w krokach kreatora „Dalej” jest dopuszczalne). Etykieta mówi, co się stanie, nie jak się zrobić (nie „Kliknij, aby…”).
+- **Przyciski to czasowniki** w trybie rozkazującym lub bezokoliczniku, spójnie w całym projekcie: „Umów wizytę”, „Pobierz cennik”, „Zapisz zmiany”. Pierwsze słowo to czasownik; w głównych CTA nie używaj „Wizyta”, „OK” ani „Kliknij tutaj” (w krokach kreatora „Dalej” jest dopuszczalne). Etykieta mówi, co się stanie, nie jak się zrobić (nie „Kliknij, aby…”).
 - **Jedno główne działanie na ekran** i jedna nazwa na jedną czynność (nie „Zacznij” w hero i „Zarejestruj się” w stopce dla tego samego celu). Drugorzędne CTA tylko, jeśli prowadzi gdzie indziej niż pierwsze.
 - **Komunikaty błędów:** co się stało + jak to naprawić, ludzkim językiem, bez winienia użytkownika i bez kodów: „Telefon musi mieć 9 cyfr, np. 600 123 456” zamiast „Błędne dane”. Komunikat stoi przy polu, nie tylko w kolorze (dostępność).
 - **Etykiety zamiast placeholderów:** każde pole ma widoczną etykietę nad sobą; placeholder jest tylko przykładem formatu i znika przy pisaniu, więc nie może być jedyną etykietą. Wymagane pola oznacz wprost, a opcjonalne słowem „opcjonalnie”.
 - **Stany puste, ładowanie i sukces:** każdy ma tekst, który mówi, co dalej („Brak zamówień. Dodaj pierwsze”), zamiast samego „Brak danych” lub „Sukces!”.
-- **Formy grzecznościowe i rejestr:** jedna forma w całym projekcie (Pan/Pani albo „ty”), ustalona z klientem; nie przeskakuj między nimi w menu, formularzu i mailu. Formę (Ty/Twój wielką czy małą literą) ustal z klientem i trzymaj jedną w całym projekcie.
+- **Formy grzecznościowe i rejestr:** jedna forma w całym projekcie (Pan/Pani albo „ty”), ustalona z klientem; nie przeskakuj między nimi w menu, formularzu i mailu. Dotyczy to też zapisu Ty/Twój wielką lub małą literą.
 - **Nagłówek mówi, co to jest i dla kogo**, konkretem (usługa, miejsce, efekt), nie hasłem. Lead rozwija jedną sprawę; nie powtarza nagłówka innymi słowami.
 - **Dane nieznane = jawny placeholder** (np. `[godziny otwarcia – do uzupełnienia]`) i wpis w liście braków jako „zastępcze”. Nie zmyślaj liczb, adresów, imion ani opinii; przykładowe dane muszą być oznaczone jako zastępcze.
 

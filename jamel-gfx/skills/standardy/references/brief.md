@@ -2,7 +2,7 @@
 
 Brief dla AI Senior Web & Product Designera. Uzupełnij znane informacje - nie musisz wypełniać wszystkiego. AI ma wykryć braki i zadać maksymalnie 5 kluczowych pytań.
 
-Używaj tego szablonu przy rozpoczynaniu każdego nowego projektu. Możesz go uzupełnić, a następnie wkleić do nowej rozmowy w Claude Project.
+Używaj tego szablonu przy rozpoczynaniu każdego nowego projektu. Możesz go uzupełnić, a następnie wkleić do nowej rozmowy w Claude Project (w Cowork: nowe zadanie).
 
 ## 1. Podstawy
 

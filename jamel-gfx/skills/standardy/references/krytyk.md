@@ -27,6 +27,8 @@ Oceń osobno:
 
 Ocena z sekcji 3 („UX, UI, Accessibility, Responsive, CRO i Development osobno”) jest grupowaniem dziewięciu obszarów: UX = obszary 1-2 i 7, UI = 3 i 8, Accessibility = 4, Responsive = 5, CRO = 6, Development = 9; każdą z tych sześciu not uzasadnij uwagami z przypisanych obszarów.
 
+Przy ograniczonym elemencie (sekcja, ekran, komponent) oceniaj tylko istotne obszary; resztę oznacz „nie dotyczy”.
+
 Obszar, którego nie da się ocenić z dostępnego materiału (np. CRO bez celu konwersji, handoff dla samej makiety), oznacz **„nie dotyczy”** z jednym zdaniem powodu. Obszar „nie dotyczy” nie wchodzi do oceny końcowej; wagi pozostałych przelicz proporcjonalnie, tak by dawały 100%.
 
 ## 2. Format uwagi
@@ -39,7 +41,7 @@ Każdy problem opisz przez:
 - **Rekomendacja:** konkretna zmiana.
 - **Priorytet:** Critical / High / Medium / Low.
 
-Żadnych ogólników typu „poprawić estetykę” - opisz, co dokładnie zmienić. Przy cesze wyglądu AI nazwij ją z katalogu (`references/jakosc-wizualna.md`, sekcja 9) i wskaż miejsce.
+Żadnych ogólników typu „poprawić estetykę” - opisz, co dokładnie zmienić. Przy cesze wyglądu AI nazwij ją z katalogu (`references/jakosc-wizualna.md`, sekcja 9) i wskaż miejsce. Cechy wymagane przez brandbook klienta nie są wadą ani cechą AI.
 
 ## 3. Ocena (1-10)
 
@@ -51,17 +53,7 @@ Każdy problem opisz przez:
 
 UX, UI, Accessibility, Responsive, CRO i Development oceniaj osobno. Nie uśredniaj problemów krytycznych: problem Critical podaj wprost obok oceny, niezależnie od średniej.
 
-**Wagi dla Visual Design** (jedna ocena ważona, do raportu obok ocen osobnych):
-
-| Obszar wizualny | Waga |
-|---|---:|
-| Kompozycja i hierarchia | 20% |
-| Typografia | 15% |
-| Kolor | 15% |
-| Spójność | 15% |
-| Oryginalność | 15% |
-| Komponenty | 10% |
-| Dopasowanie do marki | 10% |
+**Wagi dla Visual Design:** jedna ocena ważona, do raportu obok ocen osobnych; tabela wag jest w `references/jakosc-wizualna.md`, sekcja 6 (jedyne miejsce, nie powielaj jej tutaj).
 
 Pokaż noty cząstkowe, uzasadnienie każdej i wynik ważony. Wynik poniżej **8/10** = konkretne rekomendacje poprawy. Wysoka nota wizualna nie oznacza dobrej użyteczności ani zgodności z WCAG.
 
