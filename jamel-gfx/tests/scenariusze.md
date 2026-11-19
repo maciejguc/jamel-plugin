@@ -238,3 +238,59 @@ Runner jak wyżej; `<ścieżki SKILL.md>` obejmują `jamel-gfx/skills/eksport/SK
   - reakcja na hover: Smart Animate, 200 ms, ease-in-out (odczyt `use_figma`: `SMART_ANIMATE`, `0.2`, `EASE_IN_AND_OUT`);
   - widoki 375 / 768 / 1440 mają osobne ramki o odpowiednich szerokościach;
   - raport ma nagłówki „Gotowe w pliku”, „Przygotowane jako specyfikacja”, „Do ręcznego wdrożenia”; w „Przygotowane jako specyfikacja” jest animacja `puls` (`@keyframes`) albo zapis, że odtworzono ją jako dwa stany, oraz zdjęcie z 404 w „Do ręcznego wdrożenia”.
+
+## Scenariusze zgloszenie
+
+Runner jak wyżej; `<ścieżki SKILL.md>` obejmują `jamel-gfx/skills/zgloszenie/SKILL.md` i `jamel-gfx/skills/standardy/SKILL.md`. Scenariusze uruchamia kontroler (subagent nie uruchomi subagenta). Wspólne uwagi dla kontrolera:
+
+- Podaj runnerowi `<ścieżka wyjściowa>`: runner ma Bash i zapisuje tam plik zgłoszenia (nazwa wg konwencji `zgloszenie-jamel-gfx-RRRR-MM-DD-<krotki-temat>.md`); dopisz to do promptu. Pliki sprawdzasz po przebiegu `grep`em.
+- Środowisko powiedz runnerowi w prompcie, zamiast „w Claude Cowork”: ZG-1 „w czacie Claude (web), bez folderu roboczego”; ZG-2 „w Claude Cowork, z folderem roboczym”; ZG-3 jak ZG-2.
+- Wspólna rozmowa ZG-1 i ZG-2 (praca dla klienta, dwa odstępstwa):
+  - Grafik: „Zrób landing dla piekarni Kowalski, mamy ich brandbook.”
+  - Claude: „Gotowe: hero z hasłem, oferta w trzech kafelkach, formularz zamówienia i stopka, zgodnie ze standardem JAMEL.”
+  - Grafik: „W formularzu zamów placeholder zamiast etykiet, tak wygląda minimalistyczniej.”
+  - Claude: „Zrobione. Uwaga: standard JAMEL wymaga widocznych etykiet nad polami, bo placeholder znika po wpisaniu tekstu - decyzja należy do Ciebie.”
+  - Grafik: „Dodaj jeszcze animację przewijania parallax w hero.”
+  - Claude: „Dodane. Parallax wykracza poza standard JAMEL; jeśli chcesz, by stał się standardem, trafi to do zgłoszenia dla Macieja.”
+  - Grafik: „Dzięki, na dziś koniec. Brandbook klienta każe użyć czarnego #000 w nagłówkach, więc tak zostaje.”
+  - Claude: „Świetnie. Jeśli chcesz, użyj /jamel-gfx:zgloszenie, żeby przekazać Maciejowi uwagi z tej sesji.”
+
+### ZG-1 Zgłoszenie w czacie
+
+- Rozmowa: wspólna rozmowa ZG-1/ZG-2 (wyżej)
+- Wiadomość: „/jamel-gfx:zgloszenie” (jeśli runner zapyta o podpis, odpowiedz: „Ania”)
+- Zaliczone, gdy (na pliku zgłoszenia i odpowiedzi):
+  - `ZAŁADOWANE` zawiera `jamel-gfx:zgloszenie`;
+  - `grep -c '^## ' <plik>` daje 8, a nagłówki to dokładnie: Kontekst, Co pomogło, Co przeszkadzało, Odstępstwa, Pytania bez odpowiedzi, Inne uwagi, Kluczowe fragmenty rozmowy, Link do rozmowy;
+  - `grep -ci 'kowalski' <plik>` daje `0`; plik nie zawiera też „Piekarnia”;
+  - `grep -c 'Wersja standardów: 0.1.0' <plik>` daje 1;
+  - tabela „Odstępstwa” ma dwa wiersze: `sprzeczne ze standardem` (placeholder zamiast etykiet) i `poza standardem` (parallax), każdy z słowami grafika, proponowanym brzmieniem i plikiem z sekcją; wymóg klienta (#000) nie jest wpisany jako odstępstwo;
+  - „Kluczowe fragmenty rozmowy” zawiera dosłowny cytat (np. `placeholder zamiast etykiet`) przy każdym odstępstwie;
+  - odpowiedź po zapisaniu pliku prosi o udostępnienie rozmowy (grep: `Udostępnij` oraz `Każdy w organizacji`) i wklejenie linku;
+  - kończy jednym zdaniem „wyślij ten plik Maciejowi”; nic nie zostało wysłane.
+
+### ZG-2 Zgłoszenie w Cowork
+
+- Rozmowa: wspólna rozmowa ZG-1/ZG-2 (wyżej)
+- Wiadomość: „Przygotuj zgłoszenie dla Macieja. Podpisz: Ania.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:zgloszenie`;
+  - plik ma 8 nagłówków `## ` jak w ZG-1, `grep -ci 'kowalski' <plik>` daje `0`, `grep -c 'Wersja standardów: 0.1.0' <plik>` daje 1;
+  - odpowiedź **nie** zawiera próśb o udostępnienie rozmowy (grep: brak `Udostępnij` i `Każdy w organizacji`); sekcja „Link do rozmowy” mówi, że w Cowork jest niedostępny;
+  - „Kluczowe fragmenty rozmowy” ma dosłowne cytaty przy każdym z dwóch odstępstw;
+  - nie pyta o podpis (podany w wiadomości); kończy zdaniem „wyślij ten plik Maciejowi”.
+
+### ZG-3 Rozmowa po kompakcji
+
+- Rozmowa:
+  - Grafik: „[Podsumowanie kompakcji] Wcześniejsza część rozmowy została skrócona. Pozostał ślad: grafik robił stronę usługową dla klienta z branży budowlanej, wersja standardów 0.1.0; grafik poprosił o placeholder zamiast etykiet w formularzu kontaktowym i dostał uwagę o regule widocznych etykiet. Dalsze szczegóły i dosłowne wypowiedzi zostały utracone.”
+  - Grafik: „Dodaj sekcję opinii klientów pod ofertą.”
+  - Claude: „Dodana: trzy opinie w kartach, pod sekcją oferty.”
+- Uwaga dla kontrolera: środowisko jak ZG-2 (Cowork); pierwsza tura to marker kompakcji, wklej ją dosłownie jako pierwszą turę.
+- Wiadomość: „Przygotuj zgłoszenie dla Macieja. Podpisz: Ania.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:zgloszenie`;
+  - plik w „Kontekst” oraz odpowiedź mówią wprost, że zgłoszenie jest częściowe (grep: `częściow` w pliku i w odpowiedzi);
+  - plik ma 8 nagłówków `## `, nie zmyśla cytatów spoza widocznej części rozmowy ani odstępstw, których nie widać (wiersz z placeholderem wolno wpisać wyłącznie z zaznaczeniem, że pochodzi z podsumowania, a nie z dosłownego cytatu);
+  - `grep -c 'Wersja standardów: 0.1.0' <plik>` daje 1.
+
