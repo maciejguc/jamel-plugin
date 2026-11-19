@@ -104,6 +104,17 @@ Pole „Rozmowa” wklejaj do runnera dosłownie, jako kolejne tury Grafik/Claud
   - podaje, co zmieniono i co pozostało bez zmian;
   - żaden element nie występuje jednocześnie na liście „zmieniono” i „bez zmian”.
 
+### ST-8 Struktura pliku Figmy
+
+- Rozmowa: brak
+- Wiadomość: „Przygotuj strukturę pliku Figmy dla landing page.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:standardy`;
+  - proponuje strony w układzie 00-10 (Cover, Foundations, Variables & Tokens, Components, Patterns, Wireframes, Desktop, Tablet, Mobile, Prototypes, Documentation) dostosowane do skali landing page (świadomie pominięte lub scalone strony, np. Patterns, Tablet, Documentation, z uzasadnieniem);
+  - nazwy warstw i komponentów opisują funkcję (np. `Button / Primary / Medium`);
+  - brak nazw typu `Frame 123`, `Rectangle 45`, `Group 8` poza zdaniem, że należy ich unikać;
+  - nie twierdzi, że plik w Figmie został utworzony lub zmieniony (brak połączenia = specyfikacja i instrukcja).
+
 ## Przebiegi RED (bez skilli)
 
 Uruchom ST-3, ST-5, ST-6 jako RED. Oczekiwane: brak zachowań obserwatora; ST-6 przechodzi też w RED (chroni GREEN przed nadmiernym wyzwalaniem).
