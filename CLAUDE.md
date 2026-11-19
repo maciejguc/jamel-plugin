@@ -1,7 +1,7 @@
 # jamel-plugin — project conventions
 
-This repo is a **Claude Code plugin marketplace** (`name: "jamel"`) hosting two first-party plugins:
-`jamel-devx` (team dev experience) and `jamel-pm` (PM/Account toolkit). The repo is **public**.
+This repo is a **Claude Code plugin marketplace** (`name: "jamel"`) hosting three first-party plugins:
+`jamel-devx` (team dev experience), `jamel-pm` (PM/Account toolkit) and `jamel-gfx` (graphic designers' toolkit for Cowork). The repo is **public**.
 
 ## Git workflow — PR-only merges to main
 
@@ -20,7 +20,9 @@ This repo is a **Claude Code plugin marketplace** (`name: "jamel"`) hosting two 
 | **Self-serve** (`/plugin marketplace add maciejguc/jamel-plugin`) | git pull of `main`; any merged change propagates (commit-SHA versioning — no version field needed) | Background auto-update off by default for third-party marketplaces; `/plugin marketplace update jamel` always works |
 | **Org-managed** (claude.ai Organization settings → Plugins) | Sync only on merged PR with a version bump; up to 30 min; failed sync may temporarily remove plugins | Requires **private/internal repo** + Claude GitHub App + Team/Enterprise plan. Not usable while this repo is public |
 
-- First-party plugins currently use **commit-SHA versioning** (no `version` field) — correct for the
+- `jamel-gfx` uses an explicit `version` (exception to commit-SHA versioning) — bump `plugin.json` and the
+  `Wersja standardów` line together in every PR touching `jamel-gfx/`; `sh jamel-gfx/tests/check.sh` must print OK.
+- Other first-party plugins currently use **commit-SHA versioning** (no `version` field) — correct for the
   self-serve channel. If the org-managed channel is ever adopted (repo would have to go private),
   add explicit `version` fields and bump them in every release PR.
 
