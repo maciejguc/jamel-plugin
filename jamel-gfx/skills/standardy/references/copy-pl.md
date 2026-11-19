@@ -10,7 +10,7 @@ Reguły dla każdego tekstu, który trafia do projektu: nagłówek, lead, przyci
 - **Liczby:** separator tysięcy to (twarda) spacja: `10 000`, `1 250 000`, nie `10,000` ani `10.000`. Przecinek dziesiętny: `4,5`, `99,2%` (bez spacji przed %; pisownia „99,2%” albo „99,2 %” - jedna w całym projekcie). Liczby do 4 cyfr zapisuj bez spacji (`2500`), od 5 cyfr ze spacją (`10 000`). Waluta za liczbą: `1 290 zł`, `49,90 zł`.
 - **Daty i godziny:** `14 marca 2026`, `14.03.2026` w tabelach i formularzach; miesiąc słownie w dopełniaczu. Godziny `9:00–17:00`, w zdaniu „od 9 do 17”. Dni tygodnia małą literą. Nie mieszaj `2026-03-14` z `14.03.2026` w jednym widoku.
 - **Wielkie litery:** nagłówek jak zdanie (tylko pierwsza litera i nazwy własne), nie angielskie Title Case. Nazwy miesięcy, dni i języków małą.
-- **Polskie znaki:** każdy kroj użyty w projekcie musi mieć pełne ą ć ę ł ń ó ś ź ż (sprawdź w próbce, nie zakładaj). Wersaliki z ogonkami też.
+- **Polskie znaki:** każdy krój użyty w projekcie musi mieć pełne ą ć ę ł ń ó ś ź ż (sprawdź w próbce, nie zakładaj). Wersaliki z ogonkami też.
 - **Długość polskiego tekstu:** polskie etykiety bywają o 20–30% dłuższe niż angielskie; przyciski i menu projektuj na dłuższy wariant, bez obcinania i bez zmniejszania fontu.
 
 ## 2. Zasady UX copy

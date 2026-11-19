@@ -61,21 +61,21 @@ Paleta ma role: brand, neutral, surface, text, border, action, feedback. Sprawdz
 
 ## 8. Minimum jakości
 
-Sprawdź gotowy render (nie zamiary) i popraw braki bez wygłaszania checklisty minimum jakości (lista braków z SKILL.md nadal obowiązuje):
+Przejrzyj gotowy render, nie plan. Braki popraw po cichu, bez recytowania poniższej listy (lista braków z SKILL.md obowiązuje jak wcześniej):
 
-- Czytelność: realne pary kolorów spełniają 4.5:1 (tekst podstawowy, placeholder) i 3:1 (duży tekst); na kolorowym tle tekst drugorzędny wywodzi się z koloru tła lub tekstu, a nie z neutralnej szarości.
-- Rytm odstępów: elementy blisko siebie tworzą grupę, grupy są wyraźnie oddzielone, a nagłówek ma nad sobą więcej luzu niż pod sobą. Zmierz wartości, nie oceniaj na oko.
-- Tekst: sprawdź prawdziwą treść na 375 / 768 / 1440 - nic się nie przelewa, nagłówki łamią się równo, brak sierot.
-- Cienie: mają kierunek i miękkie krawędzie; jedna skala zaokrągleń w całym projekcie.
-- Interakcje: każdy element klikalny ma stany hover, focus z klawiatury, disabled, loading, error i empty tam, gdzie mają sens. Domyślnie 150 ms ease-out (ten sam czas eksport do Figmy przyjmuje przy braku transition).
-- Ruch: jeden świadomy moment zamiast efektów rozsianych po stronie.
-- Detale „poza rysunkiem”: zaznaczenie tekstu, kursor, paski przewijania i obwódka focusu pasują do palety, a nie do ustawień przeglądarki.
-- Język: etykiety przycisków mówią, co się stanie; komunikat błędu mówi, co poszło nie tak i co zrobić dalej.
-- Kompletność: każdy wymóg z briefu jest widoczny w kilka sekund.
+- Kontrast: policz go dla faktycznych par kolorów - 4.5:1 dla tekstu i placeholderów, 3:1 dla dużego tekstu. Na kolorowej powierzchni tekst pomocniczy bierz z odcienia tła lub tekstu głównego, nie z szarości.
+- Odstępy: rzeczy powiązane stoją blisko, grupy oddziela wyraźny luz, a nad nagłówkiem jest go więcej niż pod nim. Odczytaj wartości z projektu zamiast zgadywać.
+- Typografia: wstaw docelową treść i obejrzyj ją przy 375 / 768 / 1440 - bez przelewania, z równym łamaniem nagłówków i bez sierot.
+- Głębia: cień ma kierunek i miękki brzeg; zaokrąglenia pochodzą z jednej skali.
+- Stany: elementy klikalne mają hover, focus z klawiatury, disabled, loading, error i empty - tam, gdzie mają sens. Domyślnie 150 ms ease-out (ten sam czas eksport do Figmy przyjmuje przy braku transition).
+- Ruch: wybierz jeden zaplanowany moment, nie sypanie animacji po całej stronie.
+- Elementy domyślne przeglądarki: kolor zaznaczenia tekstu, kursor, paski przewijania i obwódka focusu dopasuj do palety, żeby nie zostały fabryczne.
+- Treść: przycisk nazywa swoją akcję; błąd mówi, co się stało i jak to naprawić.
+- Pokrycie briefu: każdy wymóg da się znaleźć w projekcie w kilka sekund.
 
 ## 9. Typowe cechy wyglądu AI
 
-Jedno miejsce na każdą regułę. To domyślne odruchy, nie zakazy: świadoma decyzja z briefu może je uzasadnić. Przy znalezieniu nazwij cechę i miejsce, po czym przepisz element zamiast go łagodzić. Cechy wymagane przez brandbook klienta nie są wadą ani cechą AI.
+Każda reguła występuje tylko raz. To odruchy, nie zakazy - brief może je świadomie uzasadnić. Gdy któryś wykryjesz, nazwij go i wskaż miejsce, a element zbuduj od nowa zamiast go tylko osłabiać. Cechy wymagane przez brandbook klienta nie są wadą ani cechą AI.
 
 **Typografia**
 
@@ -84,7 +84,7 @@ Jedno miejsce na każdą regułę. To domyślne odruchy, nie zakazy: świadoma d
 - Gigantyczny nagłówek hero, ściśnięte litery; kursywa szeryfowa jako automatyczna elegancja.
 - Tekst wyjustowany, wersaliki w tekście ciągłym, rozstrzelenie liter w akapitach.
 - Pominięty poziom nagłówka, sierota w ostatnim wierszu, nagłówek bez balansu.
-- Monospace jako kostium „techniczności” zamiast oznaczenia kodu lub danych.
+- Krój o stałej szerokości znaków użyty dla „klimatu technicznego”, a nie do kodu czy danych.
 
 **Kolor**
 
@@ -112,7 +112,7 @@ Jedno miejsce na każdą regułę. To domyślne odruchy, nie zakazy: świadoma d
 - Modal tam, gdzie zadanie nie wymaga przerwania.
 - Karty w kartach; karta tam, gdzie wystarczyłby odstęp lub cienka linia.
 - Kolorowy pasek wzdłuż jednej krawędzi zaokrąglonego pudełka.
-- Twarde cienie z przesunięciem poza światem faktycznie neobrutalistycznym; cienka ramka z szerokim rozmyciem; szkło i rozmycie jako ozdoba.
+- Ostry, nierozmyty cień z przesunięciem w projekcie, który nie jest neobrutalistyczny; cienka ramka z szerokim rozmyciem; szkło i rozmycie dla samej ozdoby.
 - Emoji lub znaki Unicode zamiast systemu ikon (jedna biblioteka, jedna grubość kreski); pigułki i tagi nałożone na zdjęcia.
 - Wykresy i zaokrąglone prostokąty udające treść; ilustracje z kółek i prostokątów; geometryczna maska udająca kontur zdjęcia; obraz zakopany pod półprzezroczystą nakładką.
 - Makieta produktu narysowana z prostokątów (dashboard, terminal, lista zadań), gdy powinien być prawdziwy zrzut ekranu lub nagranie.

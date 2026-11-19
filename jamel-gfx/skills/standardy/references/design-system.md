@@ -172,7 +172,8 @@ Gdy tokeny mają trafić do kodu lub narzędzi (Figma Variables, Style Dictionar
 - tokeny grupuje się w zagnieżdżone obiekty - ścieżka grup tworzy nazwę, np. `color.brand.primary`;
 - `$type` można ustawić raz na grupie, wtedy dziedziczą go wszystkie tokeny w środku;
 - token semantyczny odwołuje się do prymitywu przez alias w klamrach, np. `{color.brand.primary}`;
-- nazwy opisują funkcję, nie wygląd (zgodnie z sekcją 1 i 2).
+- nazwy opisują funkcję, nie wygląd (zgodnie z sekcją 1 i 2);
+- wartości zapisuj jako stringi (`"#C2410C"`, `"16px"`) - to forma zgodna ze Style Dictionary i wcześniejszym szkicem DTCG; aktualna specyfikacja DTCG 2025.10 zapisuje kolor jako obiekt, więc przy imporcie do narzędzia, które tego wymaga, trzeba wartości przekonwertować.
 
 Przykład:
 
@@ -190,6 +191,10 @@ Przykład:
   "spacing": {
     "$type": "dimension",
     "4": { "$value": "16px" }
+  },
+  "font": {
+    "$type": "fontFamily",
+    "heading": { "$value": "Fraunces" }
   }
 }
 ```
