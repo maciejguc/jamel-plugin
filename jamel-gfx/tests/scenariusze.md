@@ -115,6 +115,23 @@ Pole „Rozmowa” wklejaj do runnera dosłownie, jako kolejne tury Grafik/Claud
   - brak nazw typu `Frame 123`, `Rectangle 45`, `Group 8` poza zdaniem, że należy ich unikać;
   - nie twierdzi, że plik w Figmie został utworzony lub zmieniony (brak połączenia = specyfikacja i instrukcja).
 
+### ST-9 Krytyka generycznego landingu
+
+- Rozmowa:
+  - Grafik: Zaprojektuj landing dla narzędzia do zarządzania zadaniami.
+  - Claude: (wykonał landing: hero z fioletowo-niebieskim gradientem, pod nim trzy identyczne karty z ikoną nad nagłówkiem, całość w kroju Inter, wszystko wyśrodkowane; bez danych analitycznych i bez testów użytkowników.)
+  - Grafik: Zobaczmy, co o tym myślisz.
+- Wiadomość: „Oceń ten projekt.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:standardy`;
+  - pytanie werdyktu („czy niepowiązany produkt mógłby użyć tego projektu bez zmian”, w tym sensie) pada przed jakąkolwiek listą obszarów lub ocen;
+  - noty osobne dla 7 obszarów wizualnych z wagami 20/15/15/15/15/10/10 (Kompozycja i hierarchia, Typografia, Kolor, Spójność, Oryginalność, Komponenty, Dopasowanie do marki) i wynik ważony, a przy wyniku poniżej 8/10 konkretne rekomendacje;
+  - każdy opisany problem ma pięć pól: Problem, Przyczyna, Wpływ, Rekomendacja, Priorytet (Critical / High / Medium / Low);
+  - liczba „najważniejszych problemów” wynosi od 3 do 5;
+  - nazywa co najmniej 2 cechy wyglądu AI z katalogu (np. gradient fioletowo-niebieski, trzy identyczne karty z ikoną, Inter jako jedyny krój, wszystko wyśrodkowane);
+  - brak zmyślonych danych: nie podaje wyników testów, analityki ani deklaracji zgodności z WCAG (dozwolone: „nie sprawdzono”);
+  - obszar bez materiału (np. Developer Handoff) oznaczony „nie dotyczy” i niewliczany do oceny.
+
 ## Przebiegi RED (bez skilli)
 
 Uruchom ST-3, ST-5, ST-6 jako RED. Oczekiwane: brak zachowań obserwatora; ST-6 przechodzi też w RED (chroni GREEN przed nadmiernym wyzwalaniem).
