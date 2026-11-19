@@ -5,7 +5,7 @@ description: Eksport i przekazanie projektu graficznego JAMEL - wysyłka widoku 
 
 # Eksport i przekazanie projektu
 
-Zanim cokolwiek zrobisz, załaduj `jamel-gfx:standardy` i przeczytaj w `../standardy/references/figma.md` nagłówki „Struktura pliku”, „Nazewnictwo”, „Specyfikacja ekranu”, „Developer Handoff” i „Uczciwość narzędzi”. Nie powtarzaj ich treści w odpowiedziach - stosuj je. Jeśli pliku nie da się odczytać, powiedz to wprost i nie zmyślaj jego treści.
+Zanim cokolwiek zrobisz, załaduj `jamel-gfx:standardy` i przeczytaj w `../standardy/references/figma.md` nagłówki „Struktura pliku”, „Nazewnictwo”, „Specyfikacja ekranu”, „Developer Handoff” i „Uczciwość narzędzi”. Nie powtarzaj ich treści w odpowiedziach - stosuj je. Jeśli pliku nie da się odczytać, powiedz to wprost i nie zmyślaj jego treści. Wszystkie ścieżki w tym skillu są względne wobec jego folderu (`references/…` to jego pliki, `../standardy/…` to sąsiedni skill).
 
 ## Wybór ścieżki
 
@@ -29,7 +29,7 @@ Jedyna lista wymagań (connector Figmy i jego narzędzia, miejsce Full, możliwo
 
 ## Ścieżka B - pliki
 
-Claude Design eksportuje natywnie PNG, SVG i PDF; grafik robi to sam z menu eksportu artefaktu (nie opisuj przycisków, których nie widzisz) - powiedz tylko, które widoki i formaty zaznaczyć. Nie wytworzysz PNG@2x bez narzędzia do renderowania. Jeśli menu nie oferuje któregoś formatu, powiedz to wprost i zaproponuj zamiennik: PNG przez zrzut ekranu w przeglądarce albo samodzielny HTML (ścieżka E); SVG i PDF zostaw jako „Do ręcznego wdrożenia”. Nazwy plików:
+Claude Design eksportuje natywnie PNG i PDF (SVG, jeśli menu eksportu go oferuje); grafik robi to sam z menu eksportu artefaktu (nie opisuj przycisków, których nie widzisz) - powiedz tylko, które widoki i formaty zaznaczyć. Nie wytworzysz PNG@2x bez narzędzia do renderowania. Jeśli menu nie oferuje któregoś formatu, powiedz to wprost i zaproponuj zamiennik: PNG przez zrzut ekranu w przeglądarce albo samodzielny HTML (ścieżka E); SVG i PDF zostaw jako „Do ręcznego wdrożenia”. Nazwy plików:
 
 - PNG: `<projekt>_<widok>_<breakpoint>@2x.png`, np. `lipowa_home_375@2x.png`;
 - HTML: `<projekt>_<widok>_v<NN>.html`, np. `lipowa_home_v01.html`;

@@ -23,7 +23,7 @@ Ustal plik docelowy: nowy czy URL istniejącego (z URL-a wyciągnij `fileKey`; `
 1. Skopiuj samodzielny HTML jako `<projekt>_<widok>_<breakpoint>.html`. Kopia dla Figmy **nie ma** `<script>` (import ich nie potrzebuje); plik dla ścieżki E zachowuje skrypty - nigdy jeden wspólny plik dla A i E.
 2. Wymuś szerokość: dopisz na końcu `<style>`: `html,body{width:<bp>px;margin:0}` oraz szerokość głównego kontenera, jeśli ma `min-width` lub `max-width` (np. `.hero{width:<bp>px;min-height:0}`). Dotyczy to także 768 i 1440, nawet gdy CSS nie ma osobnych reguł dla tej szerokości (wtedy układ może być identyczny z sąsiednim breakpointem).
 3. Każdą regułę `@media` oceń przy szerokości breakpointu: warunek prawdziwy → zamień go na `all`; fałszywy → usuń cały blok. Dotyczy `min-width`, `max-width` i zakresów. Przykłady: `@media (max-width: 640px) {` → przy 375 `@media all {`, przy 768 i 1440 usunięty; `@media (min-width: 900px) {` → przy 1440 `all`, przy 375 i 768 usunięty; `@media (min-width: 600px) and (max-width: 1024px) {` → przy 768 `all`, przy 375 i 1440 usunięty.
-4. Sprawdź oba wzorce: `grep -cE '(src|href)="https?://'` = 0 oraz `grep -nE "url\(['\"]?https?://|@import"` bez wyników. Limit to 50 MB na jedną kopię dla Figmy; w razie przekroczenia najpierw zmniejsz obrazy.
+4. Sprawdź: `grep -nE 'https?://' plik.html` - każde trafienie to link w treści (`<a href>`), wszystkie wypisz w raporcie (zasób w `src`, `srcset`, `poster`, `<link>` lub `<source>` to błąd); oraz `grep -nE "url\(['\"]?https?://|@import"` bez wyników. Limit to 50 MB na jedną kopię dla Figmy; w razie przekroczenia najpierw zmniejsz obrazy.
 
 Import zachowuje układ mobilny, jeśli CSS go opisuje (sprawdzone: burger, ułożenie w kolumnę).
 

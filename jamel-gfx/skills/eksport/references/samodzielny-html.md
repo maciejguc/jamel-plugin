@@ -18,7 +18,7 @@ Kod artefaktu Claude Design z sesji albo jego natywny eksport HTML. Jeśli masz 
 ## Kontrola przed oddaniem
 
 1. **Brak odwołań zewnętrznych.** Przeszukaj plik:
-   `grep -cE '(src|href)="https?://' plik.html` musi dać `0`; uruchom oba sprawdzenia (odwołania http(s) oraz `url(` i `@import`): `grep -nE "url\(['\"]?https?://|@import" plik.html` bez wyników. Linki do innych stron w treści (`<a href="https://...">`, np. profil klienta w mediach) są treścią, nie zasobem - jeśli zostają, wypisz je w raporcie; jeśli grafik chce ścisłe zero, zamień na tekst.
+   Wypisz każde trafienie: `grep -nE 'https?://' plik.html`. Każde musi być linkiem w treści (`<a href>`, np. profil klienta w mediach) - to treść, nie zasób; wszystkie wypisz w raporcie, a jeśli grafik chce ścisłe zero, zamień na tekst. Trafienie w `src`, `srcset`, `poster`, `<link>` lub `<source>` (także w apostrofach) to zasób zewnętrzny do wbudowania lub usunięcia. Drugie sprawdzenie: `grep -nE "url\(['\"]?https?://|@import" plik.html` bez wyników.
 2. **Waga.** `ls -l` / `du -k`; podaj w raporcie w KB lub MB. Cel: poniżej 20 MB (żeby dało się wysłać mailem). Powyżej celu zaproponuj mocniejszą kompresję zdjęć (niższa jakość, mniejsza szerokość) i zapytaj, zanim to zrobisz. Dla wejścia do Figmy limit twardy to 50 MB.
 3. **Podgląd** na 375 / 768 / 1440 px, jeśli sesja ma przeglądarkę; bez niej napisz, że wyglądu nie sprawdzono.
 
