@@ -185,3 +185,56 @@ Runner jak wyżej; `<ścieżki SKILL.md>` obejmują `jamel-gfx/skills/research/S
   - każdy URL z briefu występuje na liście `POBRANE URL:` (sprawdź grep-em);
   - strony, których nie udało się pobrać, są wymienione w ostatniej sekcji, a nie pominięte;
   - brak wniosków o wyglądzie (kolor, układ) przy stronach nieobejrzanych w przeglądarce; kolory marki tylko z pobranego CSS.
+
+## Scenariusze eksport
+
+Runner jak wyżej; `<ścieżki SKILL.md>` obejmują `jamel-gfx/skills/eksport/SKILL.md` i `jamel-gfx/skills/standardy/SKILL.md`. Fixture: `jamel-gfx/tests/fixtures/widok.html` (font Fraunces z Google Fonts, jedno działające zdjęcie, jedno z adresem zwracającym 404, media query 768 px, przycisk z `:hover` i `transition: background 200ms ease-in-out`, animacja `@keyframes` bez przewijania). Scenariusze uruchamia kontroler (subagent nie uruchomi subagenta).
+
+### EK-1 Figma bez connectora
+
+- Rozmowa: brak
+- Uwaga dla kontrolera: dopisz do promptu runnera, że symulowana sesja nie ma żadnych narzędzi Figmy (connector niepołączony); runner niczego nie wywołuje.
+- Wiadomość: „Wyślij ten widok do Figmy.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:eksport`;
+  - mówi wprost, że connector Figmy nie jest dostępny albo połączony, i że zapis poza Drafts wymaga miejsca Full;
+  - proponuje ścieżki B–E (pliki, tokeny, specyfikacja dla developera, samodzielny HTML);
+  - nie twierdzi, że plik w Figmie powstał ani nie podaje linku do pliku Figmy.
+
+### EK-2 Samodzielny HTML
+
+- Rozmowa: brak
+- Uwaga dla kontrolera: runner ma Bash i musi zapisać plik wynikowy pod ścieżką, którą mu podasz (dopisz ją do promptu: `<ścieżka wyjściowa>`, nazwa wg konwencji `<projekt>_<widok>_v<NN>.html`); sieć jest dostępna. Po przebiegu sprawdź plik sam.
+- Wiadomość: „Zrób samodzielny HTML z `jamel-gfx/tests/fixtures/widok.html`.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:eksport`;
+  - plik wynikowy istnieje, a `grep -cE '(src|href)="https?://' <plik>` daje `0`;
+  - odpowiedź wymienia adres obrazu z 404 (`photo-0000000000000-000000000000`) jako brakujący, a plik i tak powstał; brak zdania „wszystkie zasoby wbudowane” bez zastrzeżenia (grep: odpowiedź zawiera `photo-0000000000000-000000000000`);
+  - podaje wagę pliku (liczba z jednostką KB lub MB) i porównanie z celem < 20 MB;
+  - font: `grep -c '@font-face' <plik>` > 0 albo odpowiedź zawiera `Fraunces` razem ze słowem „zamiennik” (grep-able);
+  - `grep -c 'charset' <plik>` > 0, a `grep -cE '@media[^{]*768' <plik>` > 0 (plik responsywny, nie osobny na breakpoint).
+
+### EK-3 Tokeny
+
+- Rozmowa:
+  - Grafik: „Mamy już zatwierdzony design system strony.”
+  - Claude: „Mamy sześć kolorów (primary #C2410C, text #2B2420, background #FBF7F2, surface #FFFFFF, success #15803D, error #B91C1C), cztery odstępy (4, 8, 16, 32 px) i dwa fonty (Fraunces do nagłówków, Inter do tekstu).”
+- Uwaga dla kontrolera: runner ma Bash; podaj ścieżkę wyjściową dla `tokens.json`.
+- Wiadomość: „Przygotuj tokeny z tego design systemu.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:eksport`;
+  - `jq -e '.color.brand.primary["$value"]' tokens.json` kończy się kodem 0;
+  - w pliku jest 6 kolorów, 4 odstępy i 2 fonty (`jq '[.. | objects | select(has("$value"))] | length'` daje 12).
+
+### EK-4 Ścieżka A w Figmie
+
+- Rozmowa: brak
+- Uwaga dla kontrolera: runner to Claude Code z connectorem Figmy (nie symulacja czatu): ma wykonać ścieżkę A na fixture. Zespół „JAMEL team”, nazwa pliku `jamel-gfx EK-4 test (do usunięcia)`. Runner odczytuje stan przez `use_figma` i zapisuje wyniki odczytu w odpowiedzi (drzewo nazw, warianty, reakcja). Po teście usuń plik albo zostaw nazwę z „(do usunięcia)”.
+- Wiadomość: „Wyślij widok `jamel-gfx/tests/fixtures/widok.html` do Figmy.”
+- Zaliczone, gdy:
+  - powstał plik Figmy, a odpowiedź podaje jego link;
+  - `get_metadata` nie pokazuje żadnej warstwy najwyższego poziomu o nazwie pasującej do `^(Frame|Group|Rectangle) \d+$`;
+  - przycisk jest instancją component set z właściwością `State` = `Default` / `Hover` (odczyt `use_figma`);
+  - reakcja na hover: Smart Animate, 200 ms, ease-in-out (odczyt `use_figma`: `SMART_ANIMATE`, `0.2`, `EASE_IN_AND_OUT`);
+  - widoki 375 / 768 / 1440 mają osobne ramki o odpowiednich szerokościach;
+  - raport ma nagłówki „Gotowe w pliku”, „Przygotowane jako specyfikacja”, „Do ręcznego wdrożenia”; w „Przygotowane jako specyfikacja” jest animacja `puls` (`@keyframes`) albo zapis, że odtworzono ją jako dwa stany, oraz zdjęcie z 404 w „Do ręcznego wdrożenia”.
