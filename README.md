@@ -4,9 +4,10 @@ Repozytorium jest **marketplace'em** Claude Code (`name: "jamel"`) hostującym p
 Repo jest **publiczne** — instalacja nie wymaga konta GitHub ani żadnych uprawnień.
 
 ```text
-.claude-plugin/marketplace.json   # manifest marketplace'u (2 pluginy + allowCrossMarketplaceDependenciesOn)
+.claude-plugin/marketplace.json   # manifest marketplace'u (3 pluginy + allowCrossMarketplaceDependenciesOn)
 jamel-pm/                         # plugin: toolkit PM/Account (wyceny → .xlsx; planowane spec-i i analiza stron)
 jamel-devx/                       # plugin: plug-and-play dev experience dla zespołu
+jamel-gfx/                        # plugin: standardy i narzędzia dla grafików (Claude Cowork / Claude Design)
 ```
 
 ## Pluginy
@@ -15,6 +16,7 @@ jamel-devx/                       # plugin: plug-and-play dev experience dla zes
 |---|---|---|
 | **jamel-pm** | Toolkit PM/Account: wyceny wg metodyki JAMEL (widełkowe min/max i fixed-price), render `.xlsx`. Planowane: specyfikacje techniczne, specyfikacje graficzne, analiza stron www. | `/wycena` |
 | **jamel-devx** | Wspólne ustawienia + statusline, kompresja tokenów (RTK), dyscyplina minimalnego kodu (ponytail), org-owy ClickUp MCP, kuratorowane auto-updatujące pluginy. | `/jamel-tour`, `/jamel-setup` |
+| **jamel-gfx** | Dla grafików w Claude Cowork i Claude Design: standardy pracy JAMEL na żądanie, research projektowy, eksport do Figmy i HTML, zgłoszenia uwag do opiekuna standardów. Instalacja i wpis do instrukcji: [`jamel-gfx/README.md`](jamel-gfx/README.md). | `/jamel-gfx:zgloszenie` (reszta ładuje się sama) |
 
 ## Szybki start
 
@@ -41,6 +43,7 @@ Szczegóły: [`jamel-devx/README.md`](jamel-devx/README.md) i [`jamel-pm/README.
   `main` = nowa wersja**. Odśwież ręcznie: `/plugin marketplace update jamel`, albo włącz auto-update
   marketplace'u: `/plugin` → zakładka *Marketplaces* → *Enable auto-update* (dla marketplace'ów spoza
   Anthropic domyślnie wyłączone).
+- **Wyjątek: `jamel-gfx`** ma jawne `version`, podbijane w każdym PR-ze, który go dotyka; Cowork podchwytuje zmergowane wersje automatycznie.
 - **Zmiany trafiają do `main` wyłącznie przez pull requesty** (konwencja repo — patrz `CLAUDE.md`);
   bezpośrednie pushe na `main` są zabronione.
 - **Narzędzia zewnętrzne** są dołączane jako `dependencies` rozwiązywane z ich **oryginalnych**
