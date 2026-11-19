@@ -1,6 +1,6 @@
 # Samodzielny HTML
 
-Jedna procedura dla ścieżki A (wejście do Figmy) i ścieżki E (plik dla ludzi). Wynik: jeden plik `.html`, który działa offline i nie odwołuje się do niczego na zewnątrz. Do kodowania plików potrzebne jest środowisko wykonawcze sesji (Cowork je ma; w czacie sprawdź, czy masz Bash lub odpowiednik - bez niego powiedz, że nie możesz tego zrobić, i zaproponuj inną ścieżkę).
+Jedna procedura dla ścieżki A (wejście do Figmy) i ścieżki E (plik dla ludzi). Wynik: jeden plik `.html`, który działa offline i nie odwołuje się do niczego na zewnątrz. Do kodowania plików potrzebne jest środowisko wykonawcze sesji (Cowork je ma; w czacie sprawdź, czy masz Bash lub odpowiednik - bez niego powiedz, że nie możesz tego zrobić, i zaproponuj inną ścieżkę). Pobieranie obrazów i fontów wymaga dostępu do sieci; jeśli sesja nie ma ruchu wychodzącego, powiedz to przed rozpoczęciem pracy - obietnica „offline” nie zostanie dotrzymana (zasoby zewnętrzne trafią na listę braków).
 
 ## Źródło
 
@@ -13,12 +13,12 @@ Kod artefaktu Claude Design z sesji albo jego natywny eksport HTML. Jeśli masz 
 3. **Obrazy jako `data:` URI.** Każdy obraz z zewnętrznego adresu pobierz (`curl -fsSL`, z limitem czasu) i wbuduj. Przed wbudowaniem przeskaluj do rozsądnego rozmiaru: szerokość nie większa niż 2x największej szerokości wyświetlania (typowo 1600-2400 px na pełną szerokość), JPEG jakość około 80 dla zdjęć, PNG tylko dla grafiki z przezroczystością. Base64 dodaje około jednej trzeciej wagi, więc licz po kodowaniu. Narzędzia: `sips` (macOS), `magick`, albo Pillow w venv; jeśli żadnego nie ma, nie instaluj niczego bez zgody grafika - wbuduj oryginał i zaznacz wagę w raporcie.
 4. **Fonty.** Dla każdej rodziny użytej w dokumencie: jeśli licencja pozwala na osadzenie (Google Fonts / SIL OFL, inne licencje otwarte), pobierz pliki `woff2` i wstaw jako `@font-face` z `data:` URI, tylko używane grubości i style. Jeśli licencja nie pozwala albo jej nie znasz (fonty komercyjne, Adobe Fonts, pliki klienta), nie osadzaj: powiedz to wprost, zostaw bezpieczny zamiennik systemowy w `font-family` i wpisz rodzinę do „Do ręcznego wdrożenia”. Zawsze podaj w raporcie, które fonty osadzone, a które zastąpione.
 5. **Dokument.** `<meta charset="utf-8">` w `<head>` (polskie znaki), `<meta name="viewport" content="width=device-width, initial-scale=1">`. Usuń `preconnect`, `dns-prefetch` i inne linki do zewnętrznych hostów.
-6. **Skrypty.** Zewnętrzne (`<script src>`, CDN) wstaw inline albo usuń z informacją, co przestało działać. Dla wejścia do Figmy skryptów w ogóle nie ma (patrz `figma-eksport.md`).
+6. **Skrypty.** Zewnętrzne (`<script src>`, CDN) wstaw inline albo usuń z informacją, co przestało działać. Kopia dla Figmy nie ma skryptów w ogóle (patrz `figma-eksport.md`); ścieżka E je zachowuje - to dwa osobne pliki.
 
 ## Kontrola przed oddaniem
 
 1. **Brak odwołań zewnętrznych.** Przeszukaj plik:
-   `grep -cE '(src|href)="https?://' plik.html` musi dać `0`; dodatkowo `grep -nE "url\(['\"]?https?://|@import" plik.html` bez wyników. Linki do innych stron w treści (`<a href="https://...">`, np. profil klienta w mediach) są treścią, nie zasobem - jeśli zostają, wypisz je w raporcie; jeśli grafik chce ścisłe zero, zamień na tekst.
+   `grep -cE '(src|href)="https?://' plik.html` musi dać `0`; uruchom oba sprawdzenia (odwołania http(s) oraz `url(` i `@import`): `grep -nE "url\(['\"]?https?://|@import" plik.html` bez wyników. Linki do innych stron w treści (`<a href="https://...">`, np. profil klienta w mediach) są treścią, nie zasobem - jeśli zostają, wypisz je w raporcie; jeśli grafik chce ścisłe zero, zamień na tekst.
 2. **Waga.** `ls -l` / `du -k`; podaj w raporcie w KB lub MB. Cel: poniżej 20 MB (żeby dało się wysłać mailem). Powyżej celu zaproponuj mocniejszą kompresję zdjęć (niższa jakość, mniejsza szerokość) i zapytaj, zanim to zrobisz. Dla wejścia do Figmy limit twardy to 50 MB.
 3. **Podgląd** na 375 / 768 / 1440 px, jeśli sesja ma przeglądarkę; bez niej napisz, że wyglądu nie sprawdzono.
 

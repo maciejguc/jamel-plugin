@@ -1,6 +1,6 @@
 # Specyfikacja dla developera (ścieżka D)
 
-Markdown do przekazania developerowi. Treść i kolejność pól bierz z `jamel-gfx:standardy` → `references/figma.md`, nagłówki „Specyfikacja ekranu” i „Developer Handoff”; nie przepisuj ich tutaj, tylko wypełnij. Plik: `<projekt>_<widok>_spec_v<NN>.md` w folderze roboczym.
+Markdown do przekazania developerowi. Treść i kolejność pól bierz z `jamel-gfx:standardy` → `../standardy/references/figma.md`, nagłówki „Specyfikacja ekranu” i „Developer Handoff”; nie przepisuj ich tutaj, tylko wypełnij. Plik: `<projekt>_<widok>_spec_v<NN>.md` w folderze roboczym.
 
 ## Szkielet dokumentu
 
@@ -49,4 +49,4 @@ Czego nie wiadomo i kto ma zdecydować.
 - Wartości z projektu, nie z pamięci: kolory, odstępy, rozmiary czytaj z kodu artefaktu, pliku Figmy (`get_variable_defs`, `get_metadata`) albo tokenów. Czego nie masz, wpisz jako pytanie otwarte, nie jako domysł.
 - Każdy komponent z interakcją ma wiersz w tabeli stanów; stan, którego projekt nie pokazuje, oznacz „brak w projekcie”.
 - Animacje: czas, krzywa, właściwości, wyzwalacz. Te, których Figma nie odtwarza, a które są w projekcie, opisz tutaj w całości.
-- Dokument kończy się raportem z trzema nagłówkami z `SKILL.md`; sam plik specyfikacji jest „Przygotowane jako specyfikacja”, nigdy „Gotowe w pliku Figmy”.
+- Dokument kończy się raportem z trzema nagłówkami z `SKILL.md`. Sam plik specyfikacji (ze ścieżką) trafia do „Gotowe w pliku”; jego zawartość dzieli się na klasy: to, co odczytano z projektu, to „Przygotowane jako specyfikacja”, a rzeczy niezmierzone i pytania otwarte to „Do ręcznego wdrożenia”. Nigdy nie opisuj specyfikacji jako gotowych zmian w pliku Figmy.
