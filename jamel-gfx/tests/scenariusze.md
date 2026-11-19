@@ -24,13 +24,15 @@ ID scenariuszy: `ST-*` (standardy), kolejne zadania dopisują `RS-*`, `EK-*`, `Z
 
 ## Scenariusze standardy
 
+Pole „Rozmowa” wklejaj do runnera dosłownie, jako kolejne tury Grafik/Claude.
+
 ### ST-1 Brief nowego klienta (cała strona)
 
 - Rozmowa: brak
 - Wiadomość: „Mam nowego klienta, kancelarię prawną z Krakowa. Potrzebują nowej strony firmowej. Zaprojektuj ją.”
 - Zaliczone, gdy:
   - odpowiedź zaczyna od Discovery (podsumowanie, braki, pytania);
-  - zadaje co najwyżej 5 pytań, w jednej rundzie;
+  - w rundzie pytań jest najwyżej 5 znaków „?” w całej odpowiedzi; każde pytanie jest jednym pytaniem (bez podpunktów i pytań w nawiasach);
   - nie ma finalnej makiety ani kodu strony;
   - `ZAŁADOWANE` zawiera standardy.
 
@@ -46,31 +48,38 @@ ID scenariuszy: `ST-*` (standardy), kolejne zadania dopisują `RS-*`, `EK-*`, `Z
 
 ### ST-3 Etykiety pól usunięte (kategoria 1) i ten sam temat drugi raz
 
-- Rozmowa: grafik poprosił o hero dla kawiarni Ziarno, Claude je wykonał (formularz zapisu z etykietami pól nad inputami).
+- Rozmowa:
+  - Grafik: Zaprojektuj hero dla kawiarni Ziarno.
+  - Claude: (wykonał hero: nagłówek 56 px Fraunces, lead Inter 18 px, CTA w akcencie #C2410C, zdjęcie wnętrza po prawej; paleta: tło #F6F0E6, tekst #2B2420; na stronie jest też sekcja ofert z 3 kartami i stopka. Formularz zapisu na newsletter w hero ma etykiety pól nad inputami „Imię” i „E-mail”; formularz kontaktowy w stopce ma etykiety nad polami.)
 - Wiadomość 1: „Usuń etykiety pól formularza, zostaw same placeholdery.”
 - Wiadomość 2 (w tej samej rozmowie, po odpowiedzi na 1): „Zrób to samo w drugim formularzu, w stopce.”
 - Zaliczone, gdy:
   - odpowiedź na 1 wykonuje zmianę;
-  - po wykonaniu jest dokładnie jedno zdanie wskazujące regułę etykiet (etykieta nie zastępowana placeholderem) - nie przed zadaniem, bez moralizowania, bez odmowy;
+  - po wykonaniu jest dokładnie jedno zdanie obserwatora, w którym pada „standard JAMEL” (lub „standardu JAMEL”) i reguła etykiet (etykieta nie jest zastępowana placeholderem) - nie przed zadaniem, bez moralizowania, bez odmowy;
   - odpowiedź na 2 wykonuje zmianę i nie powtarza uwagi o etykietach;
-  - przy naturalnym końcu pracy pada jedno zdanie o `/jamel-gfx:zgloszenie`.
+  - zdanie o `/jamel-gfx:zgloszenie` pada najpóźniej w ostatniej odpowiedzi (naturalny koniec pracy) i tylko raz.
 
 ### ST-4 Moodboard z Midjourney (kategoria 2)
 
-- Rozmowa: hero dla kawiarni Ziarno jest gotowe.
+- Rozmowa:
+  - Grafik: Zaprojektuj hero dla kawiarni Ziarno.
+  - Claude: (wykonał hero: nagłówek 56 px Fraunces, lead Inter 18 px, CTA w akcencie #C2410C, zdjęcie wnętrza po prawej; paleta: tło #F6F0E6, tekst #2B2420; na stronie jest też sekcja ofert z 3 kartami i stopka.)
+  - Grafik: (dołącza plik `moodboard-midjourney.png` - załącznik symulowany; to pełnoszerokościowa, ciepła grafika kawiarnianego wnętrza wygenerowana w Midjourney)
 - Wiadomość: „Wklejmy jako tło moodboard z Midjourney.”
 - Zaliczone, gdy:
-  - agent pomaga i wykonuje prośbę;
-  - po zadaniu jedno zdanie: to wykracza poza standard JAMEL, a jeśli ma to zostać standardem, trafi do zgłoszenia dla Macieja;
+  - agent wykonuje prośbę (podmienia tło hero na załączony plik; nie prosi o ponowne przesłanie pliku);
+  - po wykonaniu zadania jedno zdanie obserwatora: to wykracza poza standard JAMEL, a jeśli ma to zostać standardem, trafi do zgłoszenia dla Macieja (`/jamel-gfx:zgloszenie`);
   - brak moralizowania i brak odmowy.
 
 ### ST-5 Wymóg klienta (kategoria 3)
 
-- Rozmowa: hero dla kawiarni Ziarno jest gotowe.
+- Rozmowa:
+  - Grafik: Zaprojektuj hero dla kawiarni Ziarno.
+  - Claude: (wykonał hero: nagłówek 56 px Fraunces, lead Inter 18 px, CTA w akcencie #C2410C, zdjęcie wnętrza po prawej; paleta: tło #F6F0E6, tekst #2B2420; na stronie jest też sekcja ofert z 3 kartami i stopka.)
 - Wiadomość: „Brandbook klienta wymaga czystej czerni #000 dla tekstu. Zmień kolor tekstu w hero.”
 - Zaliczone, gdy:
   - tekst zmieniony na #000;
-  - brak jakiejkolwiek uwagi obserwatora (o czerni, kontraście zalecanym czy odstępstwie);
+  - brak uwagi, że #000 lub reguła klienta jest odstępstwem od standardu JAMEL albo z nim sprzeczna (rzeczowa nota o kontraście lub o niedeklarowaniu zgodności WCAG jest dozwolona);
   - brak wzmianki o `/jamel-gfx:zgloszenie`.
 
 ### ST-6 Mail (rozmowa niegraficzna)
@@ -79,17 +88,21 @@ ID scenariuszy: `ST-*` (standardy), kolejne zadania dopisują `RS-*`, `EK-*`, `Z
 - Wiadomość: „Napisz maila do klienta z przypomnieniem o płatności.”
 - Zaliczone, gdy:
   - `ZAŁADOWANE: brak`;
-  - zero wzmianek o jamel-gfx, standardach JAMEL, obserwatorze i zgłoszeniu;
+  - odpowiedź nie zawiera (grep, bez względu na wielkość liter): „jamel-gfx”, „standard JAMEL”, „standardów JAMEL”, „zgłoszeni” (podpis „JAMEL” jest dozwolony);
   - mail napisany normalnie.
 
 ### ST-7 „Mocniej”
 
-- Rozmowa: hero dla kawiarni Ziarno jest gotowe; na stronie są też sekcja ofert i stopka.
+- Rozmowa:
+  - Grafik: Zaprojektuj hero dla kawiarni Ziarno.
+  - Claude: (wykonał hero: nagłówek 56 px Fraunces, lead Inter 18 px, CTA w akcencie #C2410C, zdjęcie wnętrza po prawej; paleta: tło #F6F0E6, tekst #2B2420; na stronie jest też sekcja ofert z 3 kartami i stopka.)
+  - Grafik: Hero jest za grzeczne.
 - Wiadomość: „Mocniej.”
 - Zaliczone, gdy:
-  - zmienia tylko hero (albo jednym pytaniem upewnia się, co jest zakresem - wtedy ocena po odpowiedzi);
+  - zmienia tylko hero (albo jednym pytaniem upewnia się co do zakresu - wtedy ocena po odpowiedzi);
   - nie dodaje nowych kolorów, fontów ani efektów spoza istniejącego systemu;
-  - podaje, co zmieniono i co pozostało bez zmian.
+  - podaje, co zmieniono i co pozostało bez zmian;
+  - żaden element nie występuje jednocześnie na liście „zmieniono” i „bez zmian”.
 
 ## Przebiegi RED (bez skilli)
 
