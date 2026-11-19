@@ -91,7 +91,7 @@ Jedno miejsce na każdą regułę. To domyślne odruchy, nie zakazy: świadoma d
 - Fioletowo-niebieski gradient jako „technologia”; tekst z gradientem.
 - Kremowo-beżowa paleta wybrana, bo „premium”.
 - Neon, poświata (glow) i radialne „reflektory” bez funkcji.
-- Szary tekst na kolorowym tle; czysta czerń i biel jako domyślne.
+- Czysta czerń i biel jako domyślne (szary tekst na kolorze: patrz sekcja 8).
 - Jasny lub ciemny motyw dobrany do branży, a nie do sytuacji, w której ktoś korzysta z produktu.
 
 **Układ**
@@ -103,15 +103,20 @@ Jedno miejsce na każdą regułę. To domyślne odruchy, nie zakazy: świadoma d
 - Obowiązkowy szkielet: pas logotypów, sekcja metryk, CTA na dole.
 - Etykieta (eyebrow) nad każdym nagłówkiem, numeracja sekcji 01/02/03 bez informacji w kolejności, pigułka nad nagłówkiem hero.
 - Wskazówki „scroll”, paski napisów dekoracyjnych w hero, paski z godziną, pogodą lub lokalizacją bez związku z marką, znaczniki wersji na stronie marketingowej.
-- Marquee bez uzasadnienia treścią; modal tam, gdzie zadanie nie wymaga przerwania.
+- Marquee bez uzasadnienia treścią.
+- Wymyślone „informacje”: odznaka „Od 2018” lub „EST.”, kody sekcji i produktów bez katalogu (`SEC-01`, `REF-204`), ciąg miasto-godzina-temperatura, numer wersji lub „ostatnia synchronizacja” na stronie, która nie jest changelogiem.
+- Etapy opisane tylko numerem („Krok 01”, „Faza II”) zamiast tym, co użytkownik robi.
 
 **Komponenty**
 
+- Modal tam, gdzie zadanie nie wymaga przerwania.
 - Karty w kartach; karta tam, gdzie wystarczyłby odstęp lub cienka linia.
 - Kolorowy pasek wzdłuż jednej krawędzi zaokrąglonego pudełka.
 - Twarde cienie z przesunięciem poza światem faktycznie neobrutalistycznym; cienka ramka z szerokim rozmyciem; szkło i rozmycie jako ozdoba.
 - Emoji lub znaki Unicode zamiast systemu ikon (jedna biblioteka, jedna grubość kreski); pigułki i tagi nałożone na zdjęcia.
 - Wykresy i zaokrąglone prostokąty udające treść; ilustracje z kółek i prostokątów; geometryczna maska udająca kontur zdjęcia; obraz zakopany pod półprzezroczystą nakładką.
+- Makieta produktu narysowana z prostokątów (dashboard, terminal, lista zadań), gdy powinien być prawdziwy zrzut ekranu lub nagranie.
+- Paski „wyników” na pełnym torze i cienkie linie na każdym wierszu listy bez potrzeby śledzenia kolumn.
 - Pulsująca kropka „live” bez żywych danych; animacje sprężyste; `transition: all`, ease-in w interfejsie, wejście od skali 0; własny kursor.
 - Różne skale zaokrągleń na jednej stronie (przyciski-pigułki przy kwadratowych kartach).
 
@@ -120,7 +125,13 @@ Jedno miejsce na każdą regułę. To domyślne odruchy, nie zakazy: świadoma d
 - Slogany o aforystycznym rytmie i puste buzzwordy („rewolucjonizujemy”, „kompleksowe rozwiązania”).
 - Nadmiar długich myślników i konstrukcji „nie X, lecz Y”.
 - Ten sam tekst powtórzony w jednym kontenerze; nagłówki, które nic nie mówią o produkcie.
-- Zmyślone liczby, opinie i logotypy klientów (wstaw jawny placeholder).
+- Zmyślone liczby, opinie i logotypy klientów; imiona i marki-zapychacze (Jan Kowalski, Acme, „Nexus”, lorem ipsum); okrągłe lub fałszywie precyzyjne wskaźniki bez źródła („99,99% dostępności”, „10x szybciej”, „47,3%”). Wstaw jawny placeholder.
+- Udawana rzadkość i presja: „Zostały 3 sztuki”, „27 osób ogląda”, liczniki bez systemu za nimi.
+- Podpisy zdjęć z nieistniejącymi autorami lub archiwami („Kadr XII, archiwum domowe”).
+- Puste otwarcia („Stworzone dla nowoczesnych zespołów”) i czasowniki-wytrychy (Elevate, Seamless, Unleash, „odkryj”, „zrewolucjonizuj”).
+- Jedno wezwanie do działania pod kilkoma nazwami („Zacznij”, „Wypróbuj za darmo”, „Zarejestruj się”) i odruchowe drugie CTA („Dowiedz się więcej”, „Umów demo”) bez celu.
+- Przymilne „dowody społeczne” („Zaufali nam po cichu”) i poetyckie etykiety funkcjonalnych sekcji („Z pracowni”, „Notatki z terenu”).
+- Zmiana rejestru między sekcjami (techniczny, liryczny, sprzedażowy).
 
 ## 10. Minimum projektowe
 
