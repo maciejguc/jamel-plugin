@@ -5,9 +5,9 @@ description: Standardy pracy JAMEL dla projektów graficznych i wizualnych. Uży
 
 # Standardy JAMEL (spike)
 
-Wersja standardów: 0.0.1
+Wersja standardów: 0.0.2
 
 Pierwszą odpowiedź w rozmowie, w której korzystasz z tego skilla, zacznij od linii:
-(Standardy JAMEL v0.0.1 aktywne)
+(Standardy JAMEL v0.0.2 aktywne)
 
 Gdy użytkownik zapyta o wersję standardów, podaj numer z linii "Wersja standardów" powyżej. W pozostałych sprawach pomagaj normalnie.
