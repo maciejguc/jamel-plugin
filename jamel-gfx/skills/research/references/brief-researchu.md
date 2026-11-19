@@ -1,6 +1,6 @@
 # Szablon briefu researchu
 
-Użyj dokładnie tych nagłówków. Sekcja, na którą nie ma materiału, zostaje z jednym zdaniem „brak danych: powód”, a nie z zapchaczem.
+Użyj dokładnie tych nagłówków (kanoniczna lista jest w `SKILL.md`, sekcja „Wyjście”; przy rozbieżności wygrywa `SKILL.md`). Znacznik w kolumnie „Co sprawdzono” (obejrzana w przeglądarce / tylko tekst / zrzut od grafika) jest obowiązkowy. Sekcja, na którą nie ma materiału, zostaje z jednym zdaniem „brak danych: powód”, a nie z zapchaczem.
 
 ## Podsumowanie
 

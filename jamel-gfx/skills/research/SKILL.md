@@ -1,6 +1,6 @@
 ---
 name: research
-description: Research do projektu graficznego JAMEL - inspiracje, konkurencja pod kątem wyglądu i UX, moodboard, wzorce konwersji, kierunki artystyczne (etap 1 procesu). Używaj, gdy grafik prosi o research wizualny do strony, landingu, interfejsu lub redesignu, także w wersji szybkiej. Nie używaj i nie proponuj przy researchu informacyjnym - informacje o firmie, godziny otwarcia, ceny, fakty, porównania ofert, pytania ogólne - ani przy tekstach i organizacji pracy; to zwykła rozmowa bez skilla.
+description: Research wizualny do projektu graficznego JAMEL (etap 1): inspiracje, wygląd i UX konkurencji, moodboard, wzorce konwersji, kierunki artystyczne, także w wersji szybkiej. Używaj, gdy grafik mówi np. "zrób research do strony", "szukam inspiracji do landingu", "jak wyglądają strony konkurencji", "moodboard", "szybki research"; chodzi o wygląd, układ, typografię i UX - nie o ofertę ani ceny. Nie używaj i nie proponuj przy researchu informacyjnym (dane o firmie, godziny otwarcia, ceny, fakty, porównanie ofert), pytaniach ogólnych, tekstach i organizacji pracy; to zwykła rozmowa bez skilla.
 ---
 
 # Research do projektu graficznego
@@ -9,7 +9,7 @@ Research ma dać grafikowi podstawę do Art Direction: co robi konkurencja, co u
 
 ## Wejście
 
-Brief (szablon: `../standardy/references/brief.md`) albo minimum: branża + URL obecnej strony klienta + znani konkurenci. Czego brakuje i nie blokuje pracy, przyjmij jako jawne założenie; czego brakuje i zmieniłoby kierunek (branża, rynek, odbiorcy), dopytaj - najwyżej 5 pytań, każde o jedną rzecz.
+Brief (szablon: `../standardy/references/brief.md`) albo minimum: branża + URL obecnej strony klienta + znani konkurenci. Czego brakuje i nie blokuje pracy, przyjmij jako jawne założenie; czego brakuje i zmieniłoby kierunek (branża, rynek, odbiorcy), dopytaj - najwyżej 5 pytań, każde o jedną rzecz, wszystkie w jednej wiadomości, i poczekaj na odpowiedź; pozostałe braki przyjmij jako założenia i wpisz do Podsumowania.
 
 ## Cztery kąty
 
@@ -23,7 +23,7 @@ Liczby to cel, nie wymóg. Jeśli się nie da, powiedz ile udało się obejrzeć
 ## Reguła dowodu
 
 - Wniosek tylko ze strony faktycznie otwartej w tej sesji i zawsze z URL. Strona, której nie otworzyłeś, nie jest wnioskiem.
-- Wniosek o wyglądzie (kolor, układ, typografia, ruch) tylko ze strony obejrzanej w przeglądarce. Sam tekst strony wystarcza do treści i struktury, nie do wyglądu.
+- Wniosek o wyglądzie (kolor, układ, typografia, ruch) tylko ze strony obejrzanej w przeglądarce. Sam tekst strony wystarcza do treści i struktury, nie do wyglądu. Wartości CSS z pobrania to fakty o kodzie, nie wnioski o wyglądzie; w tabeli „Źródła” oznacz taki wiersz „pobranie CSS”.
 - Wynik wyszukiwania to kandydat do otwarcia, nie wniosek.
 - Oddzielaj fakty (co widać na stronie), założenia, hipotezy i rekomendacje.
 - Nie wymyślaj danych: wyników badań, ruchu, konwersji, „co działa najlepiej”. Nie masz tego ze stron - nie pisz.
@@ -31,7 +31,7 @@ Liczby to cel, nie wymóg. Jeśli się nie da, powiedz ile udało się obejrzeć
 
 ## Prawda o marce
 
-Jeśli klient ma stronę, kolory i kroje bierz z jej rzeczywistego CSS (pobranie strony: zmienne, `font-family`, wartości kolorów), nie z pamięci modelu ani z wrażenia ze zrzutu. Zapisz, skąd wartość pochodzi. Gdy pobranie się nie uda, napisz to i oznacz wartości jako „z oka, niezweryfikowane”.
+Jeśli klient ma stronę, kolory i kroje bierz z jej rzeczywistego CSS (zmienne, `font-family`, wartości kolorów), nie z pamięci modelu ani z wrażenia ze zrzutu. Narzędzia pobierania zwykle zwracają tekst lub markdown, nie surowy CSS - użyj wtedy obliczonych stylów w przeglądarce albo poproś grafika o wklejony CSS lub eksport z Figmy. Zapisz, skąd wartość pochodzi. Gdy pozyskanie się nie uda, napisz to; wartości „z oka” wpisz jako hipotezy lub założenia („niezweryfikowane”), nie jako fakty.
 
 ## Test zgadywalności
 
@@ -42,25 +42,25 @@ Każdy kierunek sprawdź pytaniem: czy ktoś znający tylko branżę klienta mó
 Skill nie ma własnych narzędzi - używa tego, co ma sesja:
 
 - **Wyszukiwarka** - kandydaci do otwarcia; sam wynik nie jest wnioskiem.
-- **Przeglądarka** - wbudowana w Cowork desktop (panel boczny) albo Claude in Chrome: otwarcie strony, przewinięcie, zrzut ekranu. Tylko to uprawnia do wniosków o wyglądzie. W spike'u w Cowork desktop przeglądarka otworzyła Awwwards i Dribbble i pokazała zrzuty w rozmowie.
+- **Przeglądarka** - wbudowana w Cowork desktop (panel boczny) albo Claude in Chrome: otwarcie strony, przewinięcie, zrzut ekranu. Tylko to uprawnia do wniosków o wyglądzie.
 - **Pobranie strony** - tekst i CSS: treść, struktura, prawda o marce.
-- **Zrzuty i moodboard wklejone przez grafika** - pełnoprawny materiał; wnioski o wyglądzie wolno z nich wyciągać, podając, że to materiał od grafika (nie URL).
+- **Zrzuty i moodboard wklejone przez grafika** - pełnoprawny materiał; wnioski o wyglądzie wolno z nich wyciągać, podając, że to materiał od grafika; w kolumnie URL wpisz „materiał od grafika: <nazwa pliku>”.
 
-Nie używaj MCP Awwwards ani innych lokalnych MCP do researchu.
+Nie opieraj wniosków na łącznikach/MCP, które nie otwierają strony w przeglądarce (np. lokalny MCP Awwwards): nie spełniają reguły dowodu. Łączniki (np. Figma, Unsplash) mogą co najwyżej podsuwać kandydatów do otwarcia - sam wynik nie jest wnioskiem.
 
-**Gdzie najlepiej:** Cowork desktop - jest przeglądarka i można zapisać brief w folderze roboczym. W zwykłym czacie bez przeglądarki powiedz wprost, że oceniasz tylko tekst stron, nie wygląd; zaproponuj włączenie Claude in Chrome w rozmowie albo wklejenie zrzutów. W takim przypadku pokaż plan czterech kątów i listę kandydatów, ale nie zapisuj wniosków wizualnych.
+**Gdzie najlepiej:** Cowork desktop - jest przeglądarka i można zapisać brief w folderze roboczym. W zwykłym czacie bez przeglądarki powiedz wprost, że oceniasz tylko tekst stron, nie wygląd; zaproponuj włączenie Claude in Chrome w rozmowie albo wklejenie zrzutów. Brief bez przeglądarki ma te same sześć nagłówków: Podsumowanie zawiera zdanie „brak oglądu”; Źródła to kandydaci z Wnioskiem „nie otwarto”; pozostałe sekcje dostają „brak danych: brak przeglądarki”. Pokaż plan czterech kątów i listę kandydatów, ale nie zapisuj wniosków wizualnych.
 
 ## Tylko czytanie
 
-Strony tylko czytasz: bez logowania, bez wypełniania formularzy, bez zakładania kont, bez klikania akcji zmieniających cokolwiek po stronie serwisu. Strona za logowaniem lub z blokadą trafia do listy „Strony, których nie udało się otworzyć”.
+Strony tylko czytasz (zamknięcie banera cookies lub okna popup jest dozwolone): bez logowania, bez wypełniania formularzy, bez zakładania kont, bez klikania akcji zmieniających cokolwiek po stronie serwisu. Strona za logowaniem lub z blokadą trafia do listy „Strony, których nie udało się otworzyć”.
 
 ## Tryb szybki
 
-Na prośbę („szybki research”, „tylko konkurencja”) - jeden kąt, około 5 stron, w Cowork desktop to ok. 2–3 minuty (spike: 2 strony ≈ 1 minuta). Pełny research przez przeglądarkę trwa kilkanaście–kilkadziesiąt minut; uprzedź o tym przed startem. Zasady dowodu i prawdy o marce obowiązują tak samo; brief jest krótszy, ale nagłówki sekcji (lista w „Wyjście”) są obowiązkowe także w trybie szybkim, w tej samej kolejności, a tabela „Źródła” zawsze ma trzy kolumny. Przy trybie szybkim nie dobijaj do liczb z czterech kątów - napisz, które kąty pominięto.
+Na prośbę („szybki research”, „tylko konkurencja”) - jeden kąt, około 5 stron, w Cowork desktop to ok. 2–3 minuty. Bez wskazania kąta domyślny to kąt 1 (konkurencja bezpośrednia); „tylko konkurencja” = kąt 1. Pełny research przez przeglądarkę trwa kilkanaście–kilkadziesiąt minut; uprzedź o tym przed startem i poproś o potwierdzenie. Zasady dowodu i prawdy o marce obowiązują tak samo; brief jest krótszy, ale nagłówki sekcji (lista w „Wyjście”) są obowiązkowe także w trybie szybkim, w tej samej kolejności, a tabela „Źródła” zawsze ma trzy kolumny. Przy trybie szybkim nie dobijaj do liczb z czterech kątów - napisz, które kąty pominięto.
 
 ## Wyjście
 
-Brief researchu w Markdown według `references/brief-researchu.md`. Nagłówki sekcji są obowiązkowe w każdym trybie (pełnym i szybkim), dokładnie takie i w tej kolejności:
+Przed napisaniem briefu przeczytaj `references/brief-researchu.md`. Brief researchu w Markdown według tego szablonu. Nagłówki sekcji są obowiązkowe w każdym trybie (pełnym i szybkim), dokładnie takie i w tej kolejności:
 
 1. `## Podsumowanie`
 2. `## Źródła` - tabela `| URL | Co sprawdzono | Wniosek |`, zawsze z tymi trzema kolumnami
@@ -69,8 +69,8 @@ Brief researchu w Markdown według `references/brief-researchu.md`. Nagłówki s
 5. `## Kierunki (2–3)`
 6. `## Strony, których nie udało się otworzyć`
 
-Sekcja bez materiału zostaje z jednym zdaniem „brak danych: <powód>”. Nie zastępuj nagłówków własnymi (np. „Fakty”, „Następny krok”).
+Sekcja bez materiału zostaje z jednym zdaniem „brak danych: <powód>” - dotyczy to także Kierunków, gdy reguła dowodu nie pozwala na wnioski; pominięte kąty opisz w Podsumowaniu. W kolumnie „Co sprawdzono” obowiązkowy jest jeden z trzech znaczników: „obejrzana w przeglądarce”, „tylko tekst”, „zrzut od grafika”. Nie zastępuj nagłówków własnymi (np. „Fakty”, „Następny krok”).
 
 Tekst briefu stosuje zasady języka z `jamel-gfx:standardy` (`references/copy-pl.md`): cudzysłowy „”, półpauza ze spacjami.
 
-W Cowork zapisz brief w folderze roboczym i podaj ścieżkę; w czacie podaj treść. Brief kończy się kierunkami, które są wejściem do etapu Art Direction.
+W Cowork zapisz brief w folderze roboczym jako `research-<branza>-<RRRR-MM-DD>.md` (bez nazwy klienta) i podaj ścieżkę; bez folderu roboczego albo w czacie podaj treść w rozmowie. Brief kończy się kierunkami, które są wejściem do etapu Art Direction.
