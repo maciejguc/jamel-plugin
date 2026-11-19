@@ -125,7 +125,7 @@ Pole „Rozmowa” wklejaj do runnera dosłownie, jako kolejne tury Grafik/Claud
 - Zaliczone, gdy:
   - `ZAŁADOWANE` zawiera `jamel-gfx:standardy`;
   - pytanie werdyktu („czy niepowiązany produkt mógłby użyć tego projektu bez zmian”, w tym sensie) pada przed jakąkolwiek listą obszarów lub ocen;
-  - noty osobne dla 7 obszarów wizualnych z wagami 20/15/15/15/15/10/10 (Kompozycja i hierarchia, Typografia, Kolor, Spójność, Oryginalność, Komponenty, Dopasowanie do marki) i wynik ważony, a przy wyniku poniżej 8/10 konkretne rekomendacje;
+  - 7 obszarów wizualnych z wagami 20/15/15/15/15/10/10 (Kompozycja i hierarchia, Typografia, Kolor, Spójność, Oryginalność, Komponenty, Dopasowanie do marki), noty osobne z uzasadnieniem i wynik ważony; obszar bez materiału może być „nie dotyczy” z przeliczeniem wag pozostałych; przy wyniku poniżej 8/10 konkretne rekomendacje;
   - każdy opisany problem ma pięć pól: Problem, Przyczyna, Wpływ, Rekomendacja, Priorytet (Critical / High / Medium / Low);
   - liczba „najważniejszych problemów” wynosi od 3 do 5;
   - nazywa co najmniej 2 cechy wyglądu AI z katalogu (np. gradient fioletowo-niebieski, trzy identyczne karty z ikoną, Inter jako jedyny krój, wszystko wyśrodkowane);

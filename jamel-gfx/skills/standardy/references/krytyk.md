@@ -25,6 +25,8 @@ Oceń osobno:
 8. Spójność Design Systemu
 9. Wykonalność i Developer Handoff
 
+Ocena z sekcji 3 („UX, UI, Accessibility, Responsive, CRO i Development osobno”) jest grupowaniem dziewięciu obszarów: UX = obszary 1-2 i 7, UI = 3 i 8, Accessibility = 4, Responsive = 5, CRO = 6, Development = 9; każdą z tych sześciu not uzasadnij uwagami z przypisanych obszarów.
+
 Obszar, którego nie da się ocenić z dostępnego materiału (np. CRO bez celu konwersji, handoff dla samej makiety), oznacz **„nie dotyczy”** z jednym zdaniem powodu. Obszar „nie dotyczy” nie wchodzi do oceny końcowej; wagi pozostałych przelicz proporcjonalnie, tak by dawały 100%.
 
 ## 2. Format uwagi
