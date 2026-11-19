@@ -267,7 +267,7 @@ Runner jak wyżej; `<ścieżki SKILL.md>` obejmują `jamel-gfx/skills/zgloszenie
   - tabela „Odstępstwa” ma dwa wiersze: `sprzeczne ze standardem` (placeholder zamiast etykiet) i `poza standardem` (parallax), każdy z słowami grafika, proponowanym brzmieniem i plikiem z sekcją; wymóg klienta (#000) nie jest wpisany jako odstępstwo;
   - „Kluczowe fragmenty rozmowy” zawiera dosłowny cytat (np. `placeholder zamiast etykiet`) przy każdym odstępstwie;
   - odpowiedź po zapisaniu pliku prosi o udostępnienie rozmowy (grep: `Udostępnij` oraz `Każdy w organizacji`) i wklejenie linku;
-  - kończy jednym zdaniem „wyślij ten plik Maciejowi”; nic nie zostało wysłane.
+  - kończy krótką wiadomością zawierającą „wyślij ten plik Maciejowi”; nic nie zostało wysłane.
 
 ### ZG-2 Zgłoszenie w Cowork
 
@@ -278,7 +278,7 @@ Runner jak wyżej; `<ścieżki SKILL.md>` obejmują `jamel-gfx/skills/zgloszenie
   - plik ma 8 nagłówków `## ` jak w ZG-1, `grep -ciE 'kowalski|piekarni' <plik>` i to samo na odpowiedzi daje `0` (także w nazwie pliku; klient tylko jako „branża spożywcza”), `grep -c 'Wersja standardów: 0.1.0' <plik>` daje 1;
   - odpowiedź **nie** zawiera próśb o udostępnienie rozmowy (grep: brak `Udostępnij` i `Każdy w organizacji`); sekcja „Link do rozmowy” mówi, że w Cowork jest niedostępny;
   - „Kluczowe fragmenty rozmowy” ma dosłowne cytaty przy każdym z dwóch odstępstw;
-  - nie pyta o podpis (podany w wiadomości); kończy zdaniem „wyślij ten plik Maciejowi”.
+  - nie pyta o podpis (podany w wiadomości); kończy krótką wiadomością zawierającą „wyślij ten plik Maciejowi”.
 
 ### ZG-3 Rozmowa po kompakcji
 
