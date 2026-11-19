@@ -1,6 +1,6 @@
 # jamel-gfx
 
-Plugin dla grafików JAMEL w Claude Cowork i w czacie Claude (Claude Design). Wersja: 0.1.0.
+Plugin dla grafików JAMEL w Claude Cowork i w czacie Claude (Claude Design).
 
 ## Co to jest
 
@@ -46,13 +46,13 @@ To instrukcja działająca w trakcie rozmowy, a nie proces w tle. Claude widzi t
 
 ## Zgłoszenia
 
-1. Na koniec pracy (albo gdy Claude zaproponuje) wpisz `/jamel-gfx:zgloszenie`.
+1. Na koniec pracy (albo gdy Claude zaproponuje) wpisz `/jamel-gfx:zgloszenie` (w Cowork); w czacie napisz: „przygotuj zgłoszenie dla Macieja”.
 2. Claude przygotuje plik: w Cowork zapisze go w folderze roboczym, w czacie da go do pobrania. Plik nie zawiera nazwy klienta.
 3. Przejrzyj plik i wyślij go Maciejowi sam (Slack lub e-mail). Nic nie jest wysyłane automatycznie.
 
 ## Rozwiązywanie problemów
 
-- **Zdjęcia się nie ładują lub eksport zgłasza brak obrazów:** host zdjęć jest zablokowany w Cowork. Dodaj go do dozwolonych domen (np. `images.unsplash.com`) albo poproś Macieja. Claude wypisze każdy brakujący obraz z adresem.
+- **Zdjęcia lub fonty się nie ładują albo eksport zgłasza brak obrazów:** host zdjęć lub fontów jest zablokowany w Cowork. Dodaj go do dozwolonych domen (np. `images.unsplash.com`, `fonts.googleapis.com`, `fonts.gstatic.com`) albo poproś Macieja. Claude wypisze każdy brakujący obraz z adresem.
 - **Eksport do Figmy mówi, że nie może zapisać:** sprawdź konektor Figma i typ miejsca (Full).
 
 ## Dla opiekuna

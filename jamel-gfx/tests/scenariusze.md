@@ -132,6 +132,15 @@ Pole „Rozmowa” wklejaj do runnera dosłownie, jako kolejne tury Grafik/Claud
   - brak zmyślonych danych: nie podaje wyników testów, analityki ani deklaracji zgodności z WCAG (dozwolone: „nie sprawdzono”);
   - obszar bez materiału (np. Developer Handoff) oznaczony „nie dotyczy” i niewliczany do oceny.
 
+### ST-11 Przekazanie do eksportu
+
+- Rozmowa: jak w ST-3 (poprzednie tury) wraz z odpowiedzią na wiadomość 1 (etykiety usunięte).
+- Uwaga dla kontrolera: dopisz do `<ścieżki SKILL.md>` plik `jamel-gfx/skills/eksport/SKILL.md`.
+- Wiadomość: „Wyślij to do Figmy.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:eksport`;
+  - odpowiedź idzie według eksportu (ścieżka A: sprawdzenie warunków i connectora Figmy przed pracą), a nie według ogólnego scenariusza wysyłki do Figmy.
+
 ## Przebiegi RED (bez skilli)
 
 Uruchom ST-3, ST-5, ST-6 jako RED. Oczekiwane: brak zachowań obserwatora; ST-6 przechodzi też w RED (chroni GREEN przed nadmiernym wyzwalaniem).
@@ -208,7 +217,7 @@ Runner jak wyżej; `<ścieżki SKILL.md>` obejmują `jamel-gfx/skills/eksport/SK
 - Wiadomość: „Zrób samodzielny HTML z `jamel-gfx/tests/fixtures/widok.html`.”
 - Zaliczone, gdy:
   - `ZAŁADOWANE` zawiera `jamel-gfx:eksport`;
-  - plik wynikowy istnieje, a `grep -cE '(src|href)="https?://' <plik>` daje `0`;
+  - plik wynikowy istnieje, a `grep -nE 'https?://' <plik>` wypisuje wyłącznie linki `<a href>` w treści (żadnego `src`, `srcset`, `poster`, `<link>`, `<source>`), a `grep -nE "url\(['\"]?https?://|@import" <plik>` nic nie zwraca; odpowiedź wypisuje wszystkie takie linki;
   - odpowiedź wymienia adres obrazu z 404 (`photo-0000000000000-000000000000`) jako brakujący, a plik i tak powstał; brak zdania „wszystkie zasoby wbudowane” bez zastrzeżenia (grep: odpowiedź zawiera `photo-0000000000000-000000000000`);
   - podaje wagę pliku (liczba z jednostką KB lub MB) i porównanie z celem < 20 MB;
   - font: `grep -c '@font-face' <plik>` > 0 albo odpowiedź zawiera `Fraunces` razem ze słowem „zamiennik” (grep-able);
