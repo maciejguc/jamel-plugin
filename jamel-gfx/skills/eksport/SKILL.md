@@ -7,6 +7,8 @@ description: Eksport i przekazanie projektu graficznego JAMEL - wysyłka widoku 
 
 Zanim cokolwiek zrobisz, załaduj `jamel-gfx:standardy` i przeczytaj w `../standardy/references/figma.md` nagłówki „Struktura pliku”, „Nazewnictwo”, „Specyfikacja ekranu”, „Developer Handoff” i „Uczciwość narzędzi”. Nie powtarzaj ich treści w odpowiedziach - stosuj je. Jeśli pliku nie da się odczytać, powiedz to wprost i nie zmyślaj jego treści. Wszystkie ścieżki w tym skillu są względne wobec jego folderu (`references/…` to jego pliki, `../standardy/…` to sąsiedni skill).
 
+Eksportuj tylko artefakt, nad którym toczy się ta rozmowa. Innych artefaktów i projektów klienta nie otwieraj ani nie eksportuj, chyba że grafik wprost o to poprosi.
+
 ## Wybór ścieżki
 
 Zapytaj, co ma być efektem, tylko gdy ścieżki nie da się wywnioskować z prośby (jedno pytanie, z listą). „Przygotuj do przekazania” bez doprecyzowania = D + B (specyfikacja i pliki).

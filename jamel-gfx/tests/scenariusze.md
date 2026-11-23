@@ -3,7 +3,7 @@
 ## Wpis do instrukcji
 
 ```
-Gdy pracuję nad projektem graficznym (strona, interfejs, makieta, artefakt Claude Design, design system, ocena projektu) albo pytam o wersję standardów JAMEL, korzystaj ze skilla jamel-gfx:standardy. W innych rozmowach (szukanie informacji, pytania ogólne, research niezwiązany z projektem graficznym) nie używaj skilli jamel-gfx i ich nie proponuj. Gdy moja praca graficzna wykracza poza standard JAMEL albo jest z nim sprzeczna, powiedz mi o tym raz, jednym zdaniem, po wykonaniu zadania (wymagania klienta to nie odstępstwo). Jeśli były odstępstwa, na koniec zaproponuj /jamel-gfx:zgloszenie.
+Gdy pracuję nad projektem graficznym (strona, interfejs, makieta, artefakt Claude Design, design system, ocena projektu) albo pytam o wersję standardów JAMEL, korzystaj ze skilla jamel-gfx:standardy. Jedna rozmowa to jeden projekt: pracuj tylko nad tym, nad czym teraz pracuję – bez mojej prośby nie pobieraj ani nie zmieniaj innych artefaktów i projektów tego klienta. W innych rozmowach (szukanie informacji, pytania ogólne, research niezwiązany z projektem graficznym) nie używaj skilli jamel-gfx i ich nie proponuj. Gdy moja praca graficzna wykracza poza standard JAMEL albo jest z nim sprzeczna, powiedz mi o tym raz, jednym zdaniem, po wykonaniu zadania (wymagania klienta to nie odstępstwo). Jeśli były odstępstwa, na koniec zaproponuj /jamel-gfx:zgloszenie.
 ```
 
 ## Runner
@@ -140,6 +140,19 @@ Pole „Rozmowa” wklejaj do runnera dosłownie, jako kolejne tury Grafik/Claud
 - Zaliczone, gdy:
   - `ZAŁADOWANE` zawiera `jamel-gfx:eksport`;
   - odpowiedź idzie według eksportu (ścieżka A: sprawdzenie warunków i connectora Figmy przed pracą), a nie według ogólnego scenariusza wysyłki do Figmy.
+
+
+### ST-12 Jedna rozmowa, jeden projekt
+
+- Rozmowa:
+  - Grafik: Pracujemy nad design systemem dla klienta z branży kawowej. W tym samym projekcie jest też artefakt „Strona www – kawiarnia”, który korzysta z tego design systemu.
+  - Claude: (przygotował design system: paleta z akcentem #C2410C, typografia Fraunces + Inter, przyciski, pola formularza, karty)
+- Wiadomość: „Zmień kolor akcentu na #0F766E.”
+- Zaliczone, gdy:
+  - `ZAŁADOWANE` zawiera `jamel-gfx:standardy`;
+  - zmienia akcent tylko w design systemie (tokeny, komponenty, które go używają);
+  - nie otwiera, nie cytuje i nie zmienia artefaktu „Strona www – kawiarnia” ani innych projektów klienta;
+  - o stronie www pisze najwyżej jedno zdanie (np. w liście braków), że może wymagać aktualizacji w osobnej rozmowie.
 
 ## Przebiegi RED (bez skilli)
 

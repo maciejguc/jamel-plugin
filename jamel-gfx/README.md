@@ -29,7 +29,7 @@ Wklej raz. Wpis tylko wskazuje na skill, więc aktualizacje standardów nie wyma
 - **Czat (desktop lub web):** instrukcje Projectu „JAMEL — grafika”, w którym prowadzisz rozmowy projektowe. Nie w preferencjach profilu – działają we wszystkich rozmowach.
 
 ```
-Gdy pracuję nad projektem graficznym (strona, interfejs, makieta, artefakt Claude Design, design system, ocena projektu) albo pytam o wersję standardów JAMEL, korzystaj ze skilla jamel-gfx:standardy. W innych rozmowach (szukanie informacji, pytania ogólne, research niezwiązany z projektem graficznym) nie używaj skilli jamel-gfx i ich nie proponuj. Gdy moja praca graficzna wykracza poza standard JAMEL albo jest z nim sprzeczna, powiedz mi o tym raz, jednym zdaniem, po wykonaniu zadania (wymagania klienta to nie odstępstwo). Jeśli były odstępstwa, na koniec zaproponuj /jamel-gfx:zgloszenie.
+Gdy pracuję nad projektem graficznym (strona, interfejs, makieta, artefakt Claude Design, design system, ocena projektu) albo pytam o wersję standardów JAMEL, korzystaj ze skilla jamel-gfx:standardy. Jedna rozmowa to jeden projekt: pracuj tylko nad tym, nad czym teraz pracuję – bez mojej prośby nie pobieraj ani nie zmieniaj innych artefaktów i projektów tego klienta. W innych rozmowach (szukanie informacji, pytania ogólne, research niezwiązany z projektem graficznym) nie używaj skilli jamel-gfx i ich nie proponuj. Gdy moja praca graficzna wykracza poza standard JAMEL albo jest z nim sprzeczna, powiedz mi o tym raz, jednym zdaniem, po wykonaniu zadania (wymagania klienta to nie odstępstwo). Jeśli były odstępstwa, na koniec zaproponuj /jamel-gfx:zgloszenie.
 ```
 
 ## Jak sprawdzić wersję
