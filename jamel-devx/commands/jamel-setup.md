@@ -21,7 +21,8 @@ idempotent, cross-platform, and ask for confirmation before writing or installin
   target **that** directory. **Never hard-code `~/.claude`** — otherwise sandbox testing silently writes
   to the real profile. Below, `$CFG` means the resolved directory.
 - **Never** read, print, or modify any secrets/tokens (`.credentials.json`, OAuth caches).
-- **Only** touch the settings keys listed in step 1. **Do NOT copy or add any MCP server config or
+- **Only** touch the settings keys listed in step 1 (plus removing the legacy keys in step 3 and
+  `extraKnownMarketplaces.jamel` in step 7). **Do NOT copy or add any MCP server config or
   `permissions` into `$CFG/settings.json`** — in particular leave the user's personal `pencil` MCP and
   `mcp__pencil` permission untouched. The plugin ships its own MCP (ClickUp) separately.
 - Read `$CFG/settings.json` first. Compute a merged result. **Show a concise diff and ask for
@@ -50,7 +51,6 @@ Add/ensure exactly these keys (do not remove unrelated user keys, do not add MCP
 ```json
 {
   "env": {
-    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
     "DISABLE_COST_WARNINGS": "1",
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
   },
@@ -84,26 +84,17 @@ asks, explain it and let them add it to their own settings themselves.
 - The script needs `jq`: `brew install jq` if missing (confirm first). On Windows this runs in WSL, so
   the same `brew install jq` applies and the bash statusline works as on macOS/Linux.
 
-### 3. Limit telemetry (member name + team API key — consent step, required)
-JAMEL registers when a developer hits **95%** of the Claude Code **session (5h)** or **weekly (7d)**
-limit — the statusline fires a webhook to the team's Make scenario so the agency can decide about
-plan upgrades per person (in the dev's interest).
-- **Transparency first — tell the user explicitly (in Polish)** what leaves the machine and when:
-  at ≥95% of a limit window, ONE request goes to the JAMEL Make webhook containing ONLY the name
-  given below, the limit type (`session`/`weekly`) and the limit reset date. No session content,
-  no paths, no e-mails, no machine info. Once per limit window (debounced by the statusline).
-- Ask the user for their **first name + first letter of surname** (e.g. "Maciej G"). This step is
-  part of the standard setup; without a value the telemetry stays fully off (the statusline sends
-  nothing when the variable is missing) — removing the key later is the opt-out.
-- Ask for the **team webhook API key** — a shared secret the dev receives out-of-band from the PM
-  (Maciek); it is NOT in this repo. The webhook rejects requests without it, and the statusline
-  sends nothing unless both values are set.
-- Merge into `$CFG/settings.json` → `env.JAMEL_LIMITS_MEMBER` and `env.JAMEL_LIMITS_APIKEY` (same
-  mechanism as step 1: show the diff, confirm before writing). Treat the key as a secret: fine to
-  write into settings, but mask it everywhere you display it — in the confirmation diff and in
-  summaries alike (e.g. `abc…xyz`).
-- Idempotent: if `env.JAMEL_LIMITS_MEMBER` / `env.JAMEL_LIMITS_APIKEY` are already set, show the
-  member value and a masked key, and ask whether to keep or change them.
+### 3. Legacy keys — clean up (migration)
+Older JAMEL setups wrote keys that are now gone. Step 2 already replaced the statusline copy with one
+that sends nothing. Clean up what remains (same diff + confirm as step 1):
+- Limit telemetry (removed): if `$CFG/settings.json` has any of `env.JAMEL_LIMITS_MEMBER`,
+  `env.JAMEL_LIMITS_APIKEY` or `env.JAMEL_LIMITS_THRESHOLD`, offer to delete them (mask the API key
+  everywhere you display it, e.g. `abc…xyz`). If `$CFG/.jamel-limits/` exists, offer to delete it
+  (debounce markers only, no data).
+- `env.DISABLE_NON_ESSENTIAL_MODEL_CALLS`: offer to delete it — Claude Code never read this variable,
+  so it did nothing. Do not replace it with `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` (that one
+  also turns off plugin auto-update).
+- If none of these exist, skip this step without comment.
 
 ### 4. RTK (compress Bash command output, 60–90% fewer tokens)
 RTK is `rtk-ai/rtk`. Install the binary via brew, then run its own integration installer (it writes the
@@ -149,6 +140,13 @@ Everything above assumes `brew`. If it is missing:
   on brew-via-WSL for a single, consistent toolchain.
 
 ### 7. Marketplaces + curated plugins
+- **Auto-update for the `jamel` marketplace** (off by default for non-Anthropic marketplaces). In
+  `$CFG/settings.json`, set `"autoUpdate": true` on `extraKnownMarketplaces.jamel` — `claude plugin
+  marketplace add` normally created that entry already; keep its `source` unchanged. If the entry is
+  missing, add it with `"source": { "source": "github", "repo": "maciejguc/jamel-plugin" }`. Same diff +
+  confirm as step 1. Effect: at every startup Claude Code refreshes the marketplace **and** updates the
+  installed `jamel-*` plugins, so the manual two-step update (step 0) is no longer needed; tell the user
+  updates land on the next restart. Equivalent UI toggle: `/plugin` → Marketplaces → jamel.
 - The 4 curated plugins (superpowers, frontend-design, code-review, context7) are hard dependencies of
   `jamel-devx`, auto-installed/enabled from `claude-plugins-official`. Confirm with `claude plugin list`;
   if `claude-plugins-official` is missing, add it: `claude plugin marketplace add anthropics/claude-plugins-official`.

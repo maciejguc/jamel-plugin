@@ -26,38 +26,6 @@ rl_5h_reset=$(echo "$input"    | jq -r '.rate_limits.five_hour.resets_at // empt
 rl_7d=$(echo "$input"          | jq -r '.rate_limits.seven_day.used_percentage // empty')
 rl_7d_reset=$(echo "$input"    | jq -r '.rate_limits.seven_day.resets_at // empty')
 
-# --- Limit telemetry (opt-in): webhook to Make when a limit window crosses the threshold ---
-# Fires only when JAMEL_LIMITS_MEMBER and JAMEL_LIMITS_APIKEY are both set (written by
-# /jamel-setup, with consent; the webhook rejects requests without the team API key).
-# Payload is ONLY: member name, limit type (session|weekly), reset date. Debounced to one
-# shot per window per type: marker file stores the resets_at it already reported.
-JAMEL_LIMITS_URL="https://hook.eu2.make.com/h0agd3eon4r1w55wauxo0ib3joijtok1"
-notify_limit() { # $1=used_percentage  $2=session|weekly  $3=resets_at (epoch s)
-  local pct="$1" type="$2" reset="$3"
-  { [ -z "$pct" ] || [ -z "$reset" ]; } && return
-  [ "$reset" -le "$(date +%s)" ] 2>/dev/null && return  # stale snapshot (e.g. session resume): window already over
-  awk -v p="$pct" -v t="${JAMEL_LIMITS_THRESHOLD:-95}" 'BEGIN{exit !(p>=t)}' || return
-  local dir="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.jamel-limits"
-  [ "$(cat "$dir/$type" 2>/dev/null)" = "$reset" ] && return  # this window already reported
-  local reset_iso
-  reset_iso=$(date -u -r "$reset" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null \
-    || date -u -d "@$reset" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null)
-  [ -z "$reset_iso" ] && return  # resets-at is required by the Make DS — no valid date, no send
-  { mkdir -p "$dir" && printf '%s' "$reset" > "$dir/$type"; } 2>/dev/null || return  # no marker -> no send (else refire every render)
-  # Marker pre-claims the window so parallel renders don't double-fire; a failed send
-  # (network, bad/rotated key -> curl -f) releases it and the next render retries.
-  # Renders happen per assistant message, so the retry pace stays gentle.
-  jq -n --arg m "$JAMEL_LIMITS_MEMBER" --arg t "$type" --arg r "$reset_iso" \
-    '{"member":$m,"limit-type":$t,"resets-at":$r}' \
-    | { curl -m 5 -sf -X POST -H 'Content-Type: application/json' \
-          -H "x-make-apikey: $JAMEL_LIMITS_APIKEY" -d @- "$JAMEL_LIMITS_URL" \
-          || rm -f "$dir/$type"; } >/dev/null 2>&1 &  # async, never blocks the bar
-}
-if [ -n "$JAMEL_LIMITS_MEMBER" ] && [ -n "$JAMEL_LIMITS_APIKEY" ]; then
-  notify_limit "$rl_5h" "session" "$rl_5h_reset"
-  notify_limit "$rl_7d" "weekly" "$rl_7d_reset"
-fi
-
 home="$HOME"
 short_cwd="${cwd/#$home/~}"
 [ -z "$short_cwd" ] && short_cwd="$(pwd | sed "s|$HOME|~|")"
