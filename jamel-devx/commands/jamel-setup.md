@@ -21,8 +21,9 @@ idempotent, cross-platform, and ask for confirmation before writing or installin
   target **that** directory. **Never hard-code `~/.claude`** — otherwise sandbox testing silently writes
   to the real profile. Below, `$CFG` means the resolved directory.
 - **Never** read, print, or modify any secrets/tokens (`.credentials.json`, OAuth caches).
-- **Only** touch the settings keys listed in step 1 (plus removing the legacy keys in step 3 and
-  `extraKnownMarketplaces.jamel` in step 7). **Do NOT copy or add any MCP server config or
+- **Only** touch the settings keys listed in step 1 (plus `statusLine` in step 2, removing the legacy
+  keys in step 3, de-duplicating the RTK `PreToolUse` hook in step 4 and `extraKnownMarketplaces.jamel`
+  in step 7). **Do NOT copy or add any MCP server config or
   `permissions` into `$CFG/settings.json`** — in particular leave the user's personal `pencil` MCP and
   `mcp__pencil` permission untouched. The plugin ships its own MCP (ClickUp) separately.
 - Read `$CFG/settings.json` first. Compute a merged result. **Show a concise diff and ask for
@@ -89,7 +90,9 @@ Older JAMEL setups wrote keys that are now gone. Step 2 already replaced the sta
 that sends nothing. Clean up what remains (same diff + confirm as step 1):
 - Limit telemetry (removed): if `$CFG/settings.json` has any of `env.JAMEL_LIMITS_MEMBER`,
   `env.JAMEL_LIMITS_APIKEY` or `env.JAMEL_LIMITS_THRESHOLD`, offer to delete them (mask the API key
-  everywhere you display it, e.g. `abc…xyz`). If `$CFG/.jamel-limits/` exists, offer to delete it
+  everywhere you display it, e.g. `abc…xyz`). Delete them with `jq` (e.g.
+  `jq 'del(.env.JAMEL_LIMITS_MEMBER, .env.JAMEL_LIMITS_APIKEY, .env.JAMEL_LIMITS_THRESHOLD)'` into a temp
+  file, then move it over `settings.json`), not with Edit/Write — their diff would show the raw key. If `$CFG/.jamel-limits/` exists, offer to delete it
   (debounce markers only, no data).
 - `env.DISABLE_NON_ESSENTIAL_MODEL_CALLS`: offer to delete it — Claude Code never read this variable,
   so it did nothing. Do not replace it with `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` (that one
@@ -145,8 +148,9 @@ Everything above assumes `brew`. If it is missing:
   marketplace add` normally created that entry already; keep its `source` unchanged. If the entry is
   missing, add it with `"source": { "source": "github", "repo": "maciejguc/jamel-plugin" }`. Same diff +
   confirm as step 1. Effect: at every startup Claude Code refreshes the marketplace **and** updates the
-  installed `jamel-*` plugins, so the manual two-step update (step 0) is no longer needed; tell the user
-  updates land on the next restart. Equivalent UI toggle: `/plugin` → Marketplaces → jamel.
+  installed `jamel-*` plugins, so users no longer have to run the two update commands by hand; tell the
+  user updates land on the next restart. Step 0 stays: it is this command's own check, because a merge
+  after startup still leaves the installed copy stale until the next restart. Equivalent UI toggle: `/plugin` → Marketplaces → jamel.
 - The 4 curated plugins (superpowers, frontend-design, code-review, context7) are hard dependencies of
   `jamel-devx`, auto-installed/enabled from `claude-plugins-official`. Confirm with `claude plugin list`;
   if `claude-plugins-official` is missing, add it: `claude plugin marketplace add anthropics/claude-plugins-official`.
