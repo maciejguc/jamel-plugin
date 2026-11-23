@@ -8,9 +8,10 @@ This repo is a **Claude Code plugin marketplace** (`name: "jamel"`) hosting two 
 - **Every change goes through a feature branch (or worktree) and a pull request into `main`.**
   Never commit or push directly to `main`.
 - Rationale: (1) team convention — review gate before merge; (2) forward-compatibility with the
-  **claude.ai organization-managed plugin channel**, whose automatic sync triggers **only when a PR
-  containing a plugin version bump is merged to the default branch** — direct pushes never trigger
-  sync (support.claude.com article 13837433).
+  **claude.ai organization-managed plugin channel**. Anthropic's sources disagree on what triggers its
+  sync: support.claude.com article 13837433 says **only a merged PR with a plugin version bump**;
+  claude.com/docs/plugins/org-sync says **any push to the default branch** when "Sync automatically"
+  is on. PR-only merges with a version bump are safe under both.
 - Squash-merge preferred; PR title in English, imperative mood.
 
 ## Plugin update channels (know the difference)
@@ -18,7 +19,7 @@ This repo is a **Claude Code plugin marketplace** (`name: "jamel"`) hosting two 
 | Channel | How updates propagate | Constraints |
 |---|---|---|
 | **Self-serve** (`/plugin marketplace add maciejguc/jamel-plugin`) | git pull of `main`; any merged change propagates (commit-SHA versioning — no version field needed) | Background auto-update off by default for third-party marketplaces; `/plugin marketplace update jamel` always works |
-| **Org-managed** (claude.ai Organization settings → Plugins) | Sync only on merged PR with a version bump; up to 30 min; failed sync may temporarily remove plugins | Requires **private/internal repo** + Claude GitHub App + Team/Enterprise plan. Not usable while this repo is public |
+| **Org-managed** (claude.ai Organization settings → Plugins) | Sync on merged PR with a version bump (support 13837433) or on any default-branch push with "Sync automatically" (docs/plugins/org-sync) — sources conflict; up to 30 min; failed sync may temporarily remove plugins | Requires **private/internal repo** + Claude GitHub App + Team/Enterprise plan. Not usable while this repo is public |
 
 - First-party plugins currently use **commit-SHA versioning** (no `version` field) — correct for the
   self-serve channel. If the org-managed channel is ever adopted (repo would have to go private),

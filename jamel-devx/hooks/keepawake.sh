@@ -14,7 +14,12 @@ case "$(uname -s)" in
     set -- systemd-inhibit --what=idle:sleep --who=claude-code --why=working sleep 600 ;;
   *) exit 0 ;;
 esac
-kill "$(cat "$PIDFILE" 2>/dev/null)" 2>/dev/null
+# Kill the previous inhibitor only if the PID still belongs to one: after it
+# expires the OS may reuse the PID for an unrelated user process.
+pid=$(cat "$PIDFILE" 2>/dev/null)
+case "$(ps -p "${pid:-0}" -o comm= 2>/dev/null)" in
+  *caffeinate|*systemd-inhibit) kill "$pid" 2>/dev/null ;;
+esac
 nohup "$@" >/dev/null 2>&1 &
 echo $! > "$PIDFILE"
 exit 0

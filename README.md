@@ -28,7 +28,15 @@ jamel-devx/                       # plugin: plug-and-play dev experience dla zes
 
 Działa w Claude Code **CLI i aplikacji desktopowej** (współdzielą `~/.claude`). W sesjach **webowych**
 (claude.ai/code) pluginy ładuje się przez `.claude/settings.json` projektu
-(`extraKnownMarketplaces` + `enabledPlugins`).
+(`extraKnownMarketplaces` + `enabledPlugins`). Nie trzeba go pisać ręcznie — w katalogu repo projektu
+(z dodanym marketplace'em `jamel`):
+
+```bash
+claude plugin install jamel-devx@jamel --scope project   # analogicznie jamel-pm@jamel
+```
+
+Komenda sama zapisze oba klucze do `.claude/settings.json` projektu — zacommituj ten plik. Sesje webowe
+załadują pluginy z repo, a w CLI Claude Code zaproponuje ich instalację po zaufaniu folderowi.
 
 > **Migracja z `jamel-wycena`:** plugin został przemianowany na `jamel-pm`. Jeśli masz zainstalowaną
 > starą wersję: `/plugin uninstall jamel-wycena@jamel`, potem `/plugin install jamel-pm@jamel`.

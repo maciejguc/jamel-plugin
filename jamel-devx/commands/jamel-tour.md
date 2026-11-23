@@ -36,9 +36,11 @@ statusline, kompresja tokenów, MCP ClickUp i zestaw kuratorowanych, samo-aktual
   zamieni go na ponytail.
 - Statusline: czy `$CFG/settings.json` ma `statusLine` wskazujący `$CFG/jamel-statusline.sh` (czytaj
   `$CFG/settings.json`, NIE `~/.claude/settings.json`).
-- Telemetria limitów: czy `$CFG/settings.json` ma `env.JAMEL_LIMITS_MEMBER` **i**
-  `env.JAMEL_LIMITS_APIKEY` (klucza NIE wypisuj — tylko czy jest). Oba = aktywna (podaj jako kto
-  raportuje); brak któregoś = wyłączona (statusline nic nie wysyła) → skonfiguruje `/jamel-setup`.
+- Auto-update marketplace'u `jamel`: czy `$CFG/settings.json` ma
+  `extraKnownMarketplaces.jamel.autoUpdate: true`. Jeśli nie — `/jamel-setup` je włączy (bez tego
+  aktualizacja pluginów `jamel-*` to dwa ręczne kroki).
+- Pozostałości po usuniętej telemetrii limitów: jeśli `$CFG/settings.json` ma klucze
+  `env.JAMEL_LIMITS_*` (wartości NIE wypisuj) — wspomnij, że `/jamel-setup` zaproponuje ich usunięcie.
 - ClickUp MCP (z organizacji): `claude mcp list` → czy org-owy serwer ClickUp jest Connected. Plugin
   **nie** dostarcza własnego ClickUp — pochodzi z org (claude.ai), aktywny po zalogowaniu kontem org.
   Jeśli brak → sprawa provisioningu org, nie tego pluginu.
@@ -73,12 +75,6 @@ przez `/help` zanim ją podasz** (nie zmyślaj).
 - **ClickUp (org MCP)** — 🟢 auto, gdy Claude operuje na zadaniach/listach ClickUp. Dostarczany przez
   organizację (nie plugin); wymaga zalogowania kontem org.
 - **statusline** — 🟢 auto. Pasek: cwd/git/model, kontekst %, tokeny, koszt, rate limity.
-- **telemetria limitów** — 🟢 auto (jeśli skonfigurowana w `/jamel-setup`). Gdy limit sesyjny (5h)
-  lub tygodniowy (7d) osiągnie **95%**, statusline wysyła RAZ na okno webhook do Make zespołu JAMEL.
-  Wysyłane są WYŁĄCZNIE: imię podane w setupie (`JAMEL_LIMITS_MEMBER`), typ limitu (`session`/`weekly`)
-  i data resetu — żadnych treści sesji, ścieżek ani e-maili. Request jest autoryzowany zespołowym
-  API key (`JAMEL_LIMITS_APIKEY`). Cel: decyzje o upgrade planu per osoba.
-  Wyłączenie: usuń `env.JAMEL_LIMITS_MEMBER` (lub `env.JAMEL_LIMITS_APIKEY`) z `$CFG/settings.json`.
 - **jamel-devx** — 🔵 ręczny. `/jamel-setup` (konfiguracja), `/jamel-tour` (to oprowadzenie).
 - **jamel-pm** — 🔵 ręczny. `/wycena` → wycena projektu → `.xlsx`.
 

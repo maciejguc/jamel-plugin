@@ -68,27 +68,7 @@ i zwróć pełny wynik, potem zapytaj czy wykonać /jamel-setup i czekaj na moje
 ```
 
 Jedyne ręczne akcje developera: wpisanie `/reload-plugins` w kroku 2 oraz odpowiadanie na pytania
-setupu (zgody na zapisy, imię do telemetrii limitów).
-
-## Telemetria limitów (transparentność)
-
-Po konfiguracji w `/jamel-setup` statusline raportuje na webhook zespołu JAMEL (scenariusz Make
-„Claude Limit Reached") moment osiągnięcia **95%** limitu Claude Code — sesyjnego (5h) lub
-tygodniowego (7d). Cel: dane do decyzji o upgrade planu per osoba (w interesie deva).
-
-- **Co jest wysyłane** (nic poza tym): imię podane w setupie (np. „Maciej G"), typ limitu
-  (`session`/`weekly`), data resetu okna. Żadnych treści sesji, ścieżek, e-maili ani danych o maszynie.
-- **Kiedy**: raz na okno limitu na typ (debounce przez marker w `$CFG/.jamel-limits/`).
-- **Opt-in/opt-out**: działa tylko, gdy `env.JAMEL_LIMITS_MEMBER` **i** `env.JAMEL_LIMITS_APIKEY`
-  są ustawione w `$CFG/settings.json` (zapisuje je `/jamel-setup` za zgodą). Usunięcie któregoś
-  klucza = telemetria wyłączona.
-- **Autoryzacja**: webhook wymaga zespołowego API key (header `x-make-apikey`) — dev dostaje go
-  out-of-band od PM-a; klucza nie ma w tym (publicznym) repo, a webhook odrzuca requesty bez niego.
-- **Po aktualizacji pluginu** istniejący użytkownicy muszą ponownie odpalić `/jamel-setup`
-  (statusline jest kopiowany do `$CFG`, a imię trzeba podać raz).
-- **Test bez osiągania limitu**: tymczasowo ustaw `env.JAMEL_LIMITS_THRESHOLD` na niską wartość
-  (np. `"1"`) — statusline strzeli przy realnym niskim zużyciu; po teście usuń klucz i pliki
-  `$CFG/.jamel-limits/*`.
+setupu (zgody na zapisy).
 
 ## Keep-awake (maszyna nie zasypia, gdy Claude pracuje)
 
@@ -116,11 +96,14 @@ to limit systemu, nie hooka.
 - **Zewnętrzne pluginy**: śledzą najnowszą wersję ze swojego marketplace'u → background auto-update.
   Ręcznie: `claude plugin update <plugin>`.
 - **jamel-devx / jamel-pm**: bez pola `version` (commit-SHA versioning) → każdy merge do `main` =
-  nowa wersja. **Uwaga — aktualizacja to DWA kroki**: `/plugin marketplace update jamel` tylko
-  odświeża cache marketplace'u; zainstalowany plugin pozostaje **przypięty do commita z momentu
-  instalacji**, dopóki nie wykonasz `claude plugin update jamel-devx@jamel` (i analogicznie
-  `jamel-pm@jamel`). Po aktualizacji zrestartuj Claude Code. `/jamel-setup` sprawdza to sam na
-  starcie (krok 0).
+  nowa wersja. `/jamel-setup` włącza **auto-update marketplace'u `jamel`**
+  (`extraKnownMarketplaces.jamel.autoUpdate: true` w `~/.claude/settings.json`): przy każdym starcie
+  Claude Code odświeża marketplace i aktualizuje zainstalowane pluginy `jamel-*` — nowa wersja działa
+  po restarcie.
+- **Bez auto-update aktualizacja to DWA kroki**: `/plugin marketplace update jamel` tylko odświeża
+  cache marketplace'u; zainstalowany plugin zostaje **przypięty do commita z momentu instalacji**,
+  dopóki nie wykonasz `claude plugin update jamel-devx@jamel` (i analogicznie `jamel-pm@jamel`).
+  Potem zrestartuj Claude Code. `/jamel-setup` sprawdza to sam na starcie (krok 0).
 
 ## Uwagi
 
@@ -128,3 +111,5 @@ to limit systemu, nie hooka.
   `/jamel-setup` zaproponuje jego usunięcie (po `rtk init -g` zostaje jeden, vendorowy).
 - **ClickUp**: dostarczany org-wide przez connector claude.ai (nie przez plugin). Jeśli dev go nie ma,
   to kwestia provisioningu po stronie organizacji, nie tego pluginu.
+- **Telemetria limitów — usunięta.** Starsze setupy zapisywały `env.JAMEL_LIMITS_*` w
+  `~/.claude/settings.json`; `/jamel-setup` zaproponuje ich usunięcie (i katalogu `~/.claude/.jamel-limits/`).
