@@ -32,6 +32,7 @@ for s in "$@"; do
   [ "$n" = "$d" ] || fail "$s name '$n' != dir '$d'"
   [ "${#n}" -le 64 ] || fail "$s name over 64 chars"
   [ -n "$desc" ] || fail "$s has no description"
+  case "$desc" in *': '*|*' #'*) fail "$s description breaks YAML (': ' or ' #')";; esac
   [ "${#desc}" -le 1024 ] || fail "$s description over 1024 chars"
 done
 
